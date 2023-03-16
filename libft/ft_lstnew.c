@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/16 15:01:51 by grenaud-         ###   ########.fr       */
+/*   Created: 2021/11/17 12:50:35 by grenaud-          #+#    #+#             */
+/*   Updated: 2021/11/23 17:28:00 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+t_list	*ft_lstnew(void *content)
 {
-	double	number;
-	double test = 0.000000001;
+	t_list	*result;
 
-	number = ascii_to_double(av[1]);
-	printf("ac = %d en str: %s et en double: %lf test: %lf", ac, av[1], number, test);
-	return (0);
+	result = (t_list *)malloc(sizeof(t_list));
+	if (!result)
+		return (NULL);
+	result->content = content;
+	result->next = NULL;
+	return (result);
 }

@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/16 15:01:51 by grenaud-         ###   ########.fr       */
+/*   Created: 2021/11/18 10:08:47 by grenaud-          #+#    #+#             */
+/*   Updated: 2021/11/18 10:20:24 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	double	number;
-	double test = 0.000000001;
+	t_list	*tmp_lst;
 
-	number = ascii_to_double(av[1]);
-	printf("ac = %d en str: %s et en double: %lf test: %lf", ac, av[1], number, test);
-	return (0);
+	if (!lst || !f)
+		return ;
+	tmp_lst = lst;
+	while (tmp_lst)
+	{
+		f(tmp_lst->content);
+		tmp_lst = tmp_lst->next;
+	}
 }

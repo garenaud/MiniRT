@@ -1,20 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aToDouble.c                                        :+:      :+:    :+:   */
+/*   ft_atod.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:19:09 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/14 17:08:19 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/16 15:39:55 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
+#include "../miniRT.h"
 
 int	sign_atod(char c)
 {
@@ -66,6 +62,7 @@ double	ascii_to_double(char *str)
 	int		fraclen;
 
 	sign = 1;
+	fraclen = 0;
 	if (*str == '-' || *str == '+')
 	{
 		sign = sign_atod(*str);
@@ -85,13 +82,3 @@ double	ascii_to_double(char *str)
 		result += frac / pow(10.0, fraclen);
 	return (result *= sign);
 }
-
-/* int	main(int ac, char **av)
-{
-	double	number;
-	double test = 0.000000001;
-
-	number = ascii_to_double(av[1]);
-	printf("en str: %s et en double: %lf test: %lf", av[1], number, test);
-	return (0);
-} */

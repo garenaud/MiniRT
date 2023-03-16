@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/16 15:01:51 by grenaud-         ###   ########.fr       */
+/*   Created: 2021/10/27 10:24:52 by grenaud-          #+#    #+#             */
+/*   Updated: 2021/11/23 17:28:05 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	double	number;
-	double test = 0.000000001;
+	unsigned int	i;
 
-	number = ascii_to_double(av[1]);
-	printf("ac = %d en str: %s et en double: %lf test: %lf", ac, av[1], number, test);
-	return (0);
+	i = 0;
+	if (size > 0)
+	{
+		while (--size && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	while (src[i])
+		i++;
+	return (i);
 }

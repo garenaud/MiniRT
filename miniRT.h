@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/16 11:51:28 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/16 12:23:32 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 # include <unistd.h>
 # include <math.h>
 # include <stdlib.h>
+
+# include "libft/libft.h"
+# include "mlx/mlx.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
@@ -68,6 +71,7 @@ int			gnl_read(char **buff_s, char **line, int fd, int bli);
 void		ft_strdel(char **str);
 char		*ft_strdupcat(char **s1, char *s2);
 int			ft_strichr(const char *s, int c);
+size_t		ft_strlen(char const *s);
 
 /* ************************************************************************** */
 

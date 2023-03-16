@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/16 15:01:51 by grenaud-         ###   ########.fr       */
+/*   Created: 2021/10/27 17:09:56 by grenaud-          #+#    #+#             */
+/*   Updated: 2021/11/23 14:27:19 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+int	ft_strncmp(const char *s1, const char *s2, unsigned int n)
 {
-	double	number;
-	double test = 0.000000001;
-
-	number = ascii_to_double(av[1]);
-	printf("ac = %d en str: %s et en double: %lf test: %lf", ac, av[1], number, test);
-	return (0);
+	if (n == 0)
+		return (0);
+	while ((unsigned char)*s1 == (unsigned char)*s2 && *s1 != '\0' && n - 1 > 0)
+	{
+		s1++;
+		s2++;
+		n--;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }

@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 15:08:12 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/15 16:18:49 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/16 12:23:14 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ int	gnl_read(char **buff_s, char **line, int fd, int bli)
 		(*line)[bli + 1] = '\0';
 	}
 	return (1);
+}
+
+size_t	ft_strlen(char const *s)
+{
+	unsigned int	size;
+
+	size = 0;
+	while (s[size] != '\0')
+		size++;
+	return (size);
 }
 
 char	*get_next_line(int fd)

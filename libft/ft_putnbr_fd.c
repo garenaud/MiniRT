@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/16 15:01:51 by grenaud-         ###   ########.fr       */
+/*   Created: 2021/11/11 10:37:19 by grenaud-          #+#    #+#             */
+/*   Updated: 2021/11/11 10:52:59 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+void	ft_putnbr_fd(int n, int fd)
 {
-	double	number;
-	double test = 0.000000001;
+	long long int	t;
 
-	number = ascii_to_double(av[1]);
-	printf("ac = %d en str: %s et en double: %lf test: %lf", ac, av[1], number, test);
-	return (0);
+	t = n;
+	if (t < 0)
+	{
+		t = t * -1;
+		ft_putchar_fd('-', fd);
+	}
+	if (t > 9)
+	{
+		ft_putnbr_fd((t / 10), fd);
+		ft_putchar_fd((t % 10 + '0'), fd);
+	}
+	else
+		ft_putchar_fd((t + '0'), fd);
 }

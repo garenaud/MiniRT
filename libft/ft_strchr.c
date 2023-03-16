@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/16 15:01:51 by grenaud-         ###   ########.fr       */
+/*   Created: 2021/10/27 15:36:22 by grenaud-          #+#    #+#             */
+/*   Updated: 2021/11/23 17:58:44 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+char	*ft_strchr(const char *str, int c)
 {
-	double	number;
-	double test = 0.000000001;
+	char	find;
+	int		i;
 
-	number = ascii_to_double(av[1]);
-	printf("ac = %d en str: %s et en double: %lf test: %lf", ac, av[1], number, test);
+	find = (unsigned char)c;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == find)
+			return ((char *)str + i);
+		i++;
+	}
+	if (str[i] == find)
+		return ((char *)str + i);
 	return (0);
 }

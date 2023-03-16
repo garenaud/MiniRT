@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/16 15:01:51 by grenaud-         ###   ########.fr       */
+/*   Created: 2021/11/01 14:46:19 by grenaud-          #+#    #+#             */
+/*   Updated: 2021/11/02 16:20:27 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	double	number;
-	double test = 0.000000001;
+	size_t	i;
+	size_t	dsize;
 
-	number = ascii_to_double(av[1]);
-	printf("ac = %d en str: %s et en double: %lf test: %lf", ac, av[1], number, test);
-	return (0);
+	dsize = 0;
+	while (dst[dsize] != '\0' && dsize < dstsize)
+		dsize++;
+	i = dsize;
+	while (src[dsize - i] && dsize + 1 < dstsize)
+	{
+		dst[dsize] = src[dsize - i];
+		dsize++;
+	}
+	if (i < dstsize)
+		dst[dsize] = '\0';
+	return (i + ft_strlen(src));
 }
