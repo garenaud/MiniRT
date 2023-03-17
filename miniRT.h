@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/16 12:23:32 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/17 11:41:56 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@
 /* ************************************************************************** */
 /* STRUCTS																	  */
 /* ************************************************************************** */
+typedef struct s_list
+{
+	char			*data;
+	struct s_list	*next;
+}	t_list;
+
 typedef struct s_color
 {
 	int		r;
@@ -53,6 +59,11 @@ typedef struct s_vecteur
 	double	arr[3];
 	double	norm;
 }			t_vecteur;
+
+typedef struct s_readfd
+{
+	char	**fdcontent;
+}			t_readfd;
 
 /* ************************************************************************** */
 /* FUNCTION PROTOTYPES														  */
@@ -74,5 +85,19 @@ int			ft_strichr(const char *s, int c);
 size_t		ft_strlen(char const *s);
 
 /* ************************************************************************** */
+//list_utils1.c
+void		push(t_list **top, char *item);
+char		*pop(t_list **top);
+void		delete(t_list **top);
+t_list		*reverse(t_list **top);
+int			getpos_c(t_list *top, char *item);
+//list_utils2.c
+size_t		size_stack(t_list *top);
+int			transfer_c(t_list **start, t_list **end);
+int			remove_pos_c(t_list **top, size_t pos);
+char		*getitem(t_list *top, size_t pos);
+//list_utils3.c
+void		printll(t_list *lst);
+void		print_ic(t_list_i *lst_i, t_list *lst);
 
 #endif
