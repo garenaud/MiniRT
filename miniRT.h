@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/17 11:41:56 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/17 12:05:12 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 
 # define CANVAS_X	1024
 # define CANVAS_Y	1024
+# define VIEWPORT_HEIGHT	256
+# define VIEWPORT_WIDTH		256
+# define MCC		255
+
 
 # include <stdio.h>
 # include <string.h>
@@ -53,6 +57,16 @@ typedef struct s_color
 	int		b;
 	double	tr;
 }			t_color;
+
+typedef struct	s_rgb
+{
+	int		rgb[3];
+}			t_rgb;
+
+typedef struct	s_vector
+{
+	double	vec[3];
+}			t_vector;
 
 typedef struct s_vecteur
 {
@@ -99,5 +113,12 @@ char		*getitem(t_list *top, size_t pos);
 //list_utils3.c
 void		printll(t_list *lst);
 void		print_ic(t_list_i *lst_i, t_list *lst);
+//Array_2d.c
+t_rgb		**create_2d_rgb(int cols, int rows);
+t_vector	**create_2d_vector(int cols, int rows);
+void		free_2d_rgb(t_rgb **rgb, int cols);
+void		free_2d_vector(t_vector **vec, int cols);
 
+
+/* ************************************************************************** */
 #endif
