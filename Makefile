@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/15 15:14:03 by grenaud-          #+#    #+#              #
-#    Updated: 2023/03/16 16:41:14 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/03/17 11:20:28 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,10 @@ NAME			= miniRT
 SRCS_LIST		= \
 					miniRT.c \
 					parsing/ft_atod.c \
-					parsing/get_next_line.c 
+					parsing/get_next_line.c \
+					parsing/list_utils1.c \
+					parsing/list_utils2.c \
+					parsing/list_utils3.c
 
 OBJS			= ${SRCS_LIST:.c=.o}
 
