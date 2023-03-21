@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/18 10:08:47 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/20 16:03:49 by grenaud-         ###   ########.fr       */
+/*   Created: 2023/03/20 15:42:55 by grenaud-          #+#    #+#             */
+/*   Updated: 2023/03/20 15:45:28 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../miniRT.h"
 
-void	ft_lstiter(t_listl *lst, void (*f)(void *))
+void	ft_window_size(t_game *game, char **argv)
 {
-	t_listl	*tmp_lst;
+	int	fd;
 
-	if (!lst || !f)
-		return ;
-	tmp_lst = lst;
-	while (tmp_lst)
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
 	{
-		f(tmp_lst->content);
-		tmp_lst = tmp_lst->next;
+		ft_printf(RED"Error\nNo files found\n"ENDC);
+		exit (0);
 	}
+	if (ft_strnstr(argv[1], ".rt", ft_strlen(argv[1])) == NULL)
+	{
+		ft_printf(RED"Error\nyou need a .rt extension\n"ENDC);
+		exit (0);
+	}
+	game->size_x = (ft_line_length(fd) * 48);
+	game->size_y = (ft_count_lines(fd) * 48);
 }

@@ -5,108 +5,119 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 15:08:12 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/16 12:23:14 by grenaud-         ###   ########.fr       */
+/*   Created: 2022/01/12 14:17:14 by grenaud-          #+#    #+#             */
+/*   Updated: 2023/03/20 19:18:00 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../miniRT.h"
 
-int	gnl_read(char **buff_s, char **line, int fd, int bli)
+char	*ft_get_start(char *raw_line)
 {
-	char		buff[BUFFER_SIZE + 1];
-	int			ret;
+	int		i;
+	int		j;
+	char	*str;
 
-	ft_strdupcat(line, *buff_s);
-	while (ft_strichr(*line, '\n') == -1)
+	i = 0;
+	while (raw_line[i] && raw_line[i] != '\n')
+		i++;
+	if (!raw_line[i])
 	{
-		ret = read(fd, buff, BUFFER_SIZE);
-		if (ret <= 0)
-		{
-			ft_strdel(buff_s);
-			return (*line && (*line[0] != '\0'));
-		}
-		buff[ret] = '\0';
-		ft_strdupcat(line, buff);
+		free (raw_line);
+		return (NULL);
 	}
-	bli = ft_strichr(*line, '\n');
-	if (bli >= 0)
-	{
-		ft_strdel(buff_s);
-		ft_strdupcat(buff_s, &(*line)[bli + 1]);
-		(*line)[bli + 1] = '\0';
-	}
-	return (1);
+	str = (char *)malloc(sizeof(char) * (ft_strlen(raw_line) - i + 1));
+	if (!str)
+		return (NULL);
+	i++;
+	j = 0;
+	while (raw_line[i])
+		str[j++] = raw_line[i++];
+	str[j] = '\0';
+	free (raw_line);
+	return (str);
 }
 
-size_t	ft_strlen(char const *s)
+char	*ft_get_line(char *raw_line)
 {
-	unsigned int	size;
+	int		i;
+	char	*str;
 
-	size = 0;
-	while (s[size] != '\0')
-		size++;
-	return (size);
+	i = 0;
+	if (!raw_line[i])
+		return (NULL);
+	while (raw_line[i] && raw_line[i] != '\n')
+		i++;
+	str = (char *)malloc(sizeof(char) * (i + 2));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (raw_line[i] && raw_line[i] != '\n')
+	{
+		str[i] = raw_line[i];
+		i++;
+	}
+	if (raw_line[i] == '\n')
+	{
+		str[i] = raw_line[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+char	*ft_get_raw_line(int fd, char *raw_line)
+{
+	char	*buff;
+	int		bytes;
+
+	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buff)
+		return (NULL);
+	bytes = 1;
+	while (!ft_strchr2(raw_line, '\n') && bytes != 0)
+	{
+		bytes = read(fd, buff, BUFFER_SIZE);
+		if (bytes == -1)
+		{
+			free (buff);
+			return (NULL);
+		}
+		buff[bytes] = '\0';
+		raw_line = ft_strjoin2(raw_line, buff);
+	}
+	free (buff);
+	return (raw_line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*data[FOPEN_MAX];
 	char		*line;
+	static char	*raw_line;
 
-	line = NULL;
-	if (fd < FOPEN_MAX && fd >= 0 && !gnl_read(&(data[fd]), &line, fd, 0))
-		ft_strdel(&line);
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	raw_line = ft_get_raw_line(fd, raw_line);
+	if (!raw_line)
+		return (NULL);
+	line = ft_get_line(raw_line);
+	raw_line = ft_get_start(raw_line);
 	return (line);
 }
 
-void	ft_strdel(char **str)
+/* int		main(int argc, char **argv)
 {
-	if (str == NULL || *str == NULL)
-		return ;
-	else
+	int		fd;
+	int		i;
+	char	*ret;
+
+	i = 0;
+	(void)argc;
+	fd = open((argv[1]), O_RDONLY);
+	while (i < 4)
 	{
-		free (*str);
-		*str = NULL;
-	}
-}
-
-char	*ft_strdupcat(char **s1, char *s2)
-{
-	char	*strnew;
-	size_t	i;
-	size_t	j;
-
-	j = 0;
-	i = 0;
-	if (!(*s1) && !s2)
-		return (NULL);
-	strnew = malloc(sizeof(char) * (ft_strlen(*s1) + ft_strlen(s2)) + 1);
-	if (!strnew)
-		return (NULL);
-	while (*s1 && (*s1)[i])
-		strnew[j++] = (*s1)[i++];
-	i = 0;
-	while (s2 && s2[i])
-		strnew[j++] = s2[i++];
-	strnew[j] = '\0';
-	ft_strdel(s1);
-	(*s1) = strnew;
-	return (strnew);
-}
-
-int	ft_strichr(const char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (-1);
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (i);
+		ret = get_next_line(fd);
+		printf("|%s|\n", ret);
 		i++;
 	}
-	return (-1);
-}
+} */

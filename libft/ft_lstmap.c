@@ -6,16 +6,16 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 10:35:49 by grenaud-          #+#    #+#             */
-/*   Updated: 2021/11/23 17:41:39 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:02:29 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_listl	*ft_lstmap(t_listl *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*tmp;
-	t_list	*ret;
+	t_listl	*tmp;
+	t_listl	*ret;
 
 	if (!lst)
 		return (0);

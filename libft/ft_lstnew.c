@@ -6,17 +6,17 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 12:50:35 by grenaud-          #+#    #+#             */
-/*   Updated: 2021/11/23 17:28:00 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:04:37 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+t_listl	*ft_lstnew(void *content)
 {
-	t_list	*result;
+	t_listl	*result;
 
-	result = (t_list *)malloc(sizeof(t_list));
+	result = (t_listl *)malloc(sizeof(t_listl));
 	if (!result)
 		return (NULL);
 	result->content = content;
