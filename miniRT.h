@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/21 14:21:12 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/23 19:11:00 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ typedef struct s_camera
 
 typedef struct s_light
 {
-	double	xyz[3];
-	double	lum;
-	t_rgb	rgb;
+	t_vector	pos;
+	double		lum;
+	t_rgb		color;
 }		t_light;
 
 typedef struct s_readfd
@@ -165,10 +165,14 @@ void		duplicate(t_dico **orig, t_dico **copy);
 char		*getword1(t_list **raw, char *search);
 char		*delimitateur(t_list **raw);
 //parsing_fd.c
-void		readfd(t_scene *p, char **argv);
-void		parsing(t_scene *p, char *line);
+void		init_ambiant(t_scene *p, char *line);
+void		init_cam(t_scene *p, char *line);
+void		init_light(t_scene *p, char *line);
+void		parsing(t_scene *p, char **argv);
 char		*get_numb(char *line);
 //void		init_ambiant(t_scene *p, char *line);
+
+void		init_data();
 
 //Array_2d.c
 t_rgb		**create_2d_rgb(int cols, int rows);
