@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   list_utils3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/18 10:08:47 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/20 16:03:49 by grenaud-         ###   ########.fr       */
+/*   Created: 2022/11/04 17:56:16 by grenaud-          #+#    #+#             */
+/*   Updated: 2023/03/17 11:17:50 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../miniRT.h"
 
-void	ft_lstiter(t_listl *lst, void (*f)(void *))
+void	printll(t_list *lst)
 {
-	t_listl	*tmp_lst;
-
-	if (!lst || !f)
-		return ;
-	tmp_lst = lst;
-	while (tmp_lst)
+	printf("start");
+	while (lst)
 	{
-		f(tmp_lst->content);
-		tmp_lst = tmp_lst->next;
+		printf("-->[%s]\n", (lst->data));
+		lst = lst->next;
 	}
+	printf("-->[end]\n");
+}
+
+void	print_ic(t_list_i *lst_i, t_list *lst)
+{
+	printf("start\n");
+	while (lst && lst_i)
+	{
+		printf("[%d]-->[%s]\n", (lst_i->data), (lst->data));
+		lst = lst->next;
+		lst_i = lst_i->next;
+	}
+	printf("-->[end]\n");
 }

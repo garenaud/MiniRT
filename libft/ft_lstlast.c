@@ -6,15 +6,15 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:34:03 by grenaud-          #+#    #+#             */
-/*   Updated: 2021/11/24 12:29:08 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:04:04 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+t_listl	*ft_lstlast(t_listl *lst)
 {
-	t_list	*tmp_lst;
+	t_listl	*tmp_lst;
 
 	if (!lst)
 		return (NULL);

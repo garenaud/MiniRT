@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/15 15:14:03 by grenaud-          #+#    #+#              #
-#    Updated: 2023/03/16 16:41:14 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/03/20 16:51:46 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,16 @@ NAME			= miniRT
 SRCS_LIST		= \
 					miniRT.c \
 					parsing/ft_atod.c \
-					parsing/get_next_line.c 
+					parsing/get_next_line.c \
+					parsing/list_utils1.c \
+					parsing/list_utils2.c \
+					parsing/list_utils3.c \
+					parsing/dico.c \
+					parsing/dico_1.c \
+					parsing/dico_2.c \
+					parsing/dico_4.c \
+					parsing/parsing_fd.c \
+					#parsing/dico_3.c 
 
 OBJS			= ${SRCS_LIST:.c=.o}
 
@@ -36,10 +45,10 @@ LIBFT 			= libft
 MLX 			= mlx
 
 CC				= gcc
-CFLAGS 			= -Wall -Wextra -Werror
+CFLAGS 			= -Wall -Wextra -Werror -g
 LFLAGS			= -L libft -lft
 
-METAL_MLX		= -framework OpenGL -framework AppKit -L./mlx -lmlx 
+METAL_MLX		= -framework OpenGL -framework AppKit -L./mlx -lmlx -g -fsanitize=address
 
 RM				= rm -f
 
