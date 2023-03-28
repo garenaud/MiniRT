@@ -6,13 +6,13 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 14:43:22 by grenaud-          #+#    #+#             */
-/*   Updated: 2021/11/24 12:28:09 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/28 14:12:45 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_isspace(int c)
+int	ft_isspace(int c)
 {
 	return (c == '\f' || c == '\n' || c == '\r' \
 	|| c == '\t' || c == '\v' || c == ' ');
@@ -20,28 +20,26 @@ static int	ft_isspace(int c)
 
 int	ft_atoi(const char *str)
 {
-	long	num;
-	int		sign;
+	int	neg;
+	int	i;
+	int	num;
 
+	i = 0;
+	neg = 1;
 	num = 0;
-	sign = 1;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '-' || *str == '+')
+	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || str[i] == '\v'
+			|| str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		if (*str == '-')
-			sign = -1;
-		str++;
+		if (str[i] == '-')
+			neg *= -1;
+		i++;
 	}
-	while (ft_isdigit(*str))
+	while (str[i] >= 48 && str[i] <= 57)
 	{
-		if ((num > LONG_MAX / 10) || (num == LONG_MAX / 10 && *str > '7'))
-		{
-			if (sign == 1)
-				return (-1);
-			return (0);
-		}
-		num = num * 10 + (*str++ - '0');
+		num = num * 10 + (str[i] - 48);
+		i++;
 	}
-	return ((int)(sign * num));
+	return (num * neg);
 }

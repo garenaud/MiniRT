@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:34:00 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/21 12:37:07 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/28 14:13:16 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ typedef struct s_listl
 
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+int		ft_isspace(int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strdup(const char *s);
+char	*ft_strdup_num(char *s1, int start, int end);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*strjoin_gnl(char *left_str, char *buff);
 char	*ft_strjoin(char const *s1, char const *s2);
@@ -69,6 +71,7 @@ int		ft_isupper(int c);
 int		ft_isprint(int c);
 int		ft_isdigit(int c);
 int		ft_isascii(int c);
+char	ft_isascii_num(char c);
 int		ft_isalpha(int c);
 int		ft_isalnum(int c);
 void	ft_bzero(void *s, size_t n);

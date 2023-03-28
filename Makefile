@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/15 15:14:03 by grenaud-          #+#    #+#              #
-#    Updated: 2023/03/20 16:51:46 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/03/28 15:21:29 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRCS_LIST		= \
 					parsing/dico_2.c \
 					parsing/dico_4.c \
 					parsing/parsing_fd.c \
-					#parsing/dico_3.c 
+					parsing/list_cy.c \
 
 OBJS			= ${SRCS_LIST:.c=.o}
 

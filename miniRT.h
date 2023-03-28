@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/23 19:11:00 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/28 22:34:27 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,34 @@
 /* ************************************************************************** */
 /* STRUCTS																	  */
 /* ************************************************************************** */
+
+typedef struct s_vector
+{
+	double	vec[3];
+	double	norm;
+}			t_vector;
+
+typedef struct s_rgb
+{
+	int		rgb[3];
+}			t_rgb;
+
+typedef struct s_listobj
+{
+	char				*id;
+	t_vector			pos;
+	t_vector			dir;
+	double				diam;
+	double				h;
+	t_rgb				color;
+	struct s_listobj	*next;
+}			t_listobj;
+
 typedef struct s_list
 {
 	char			*data;
 	struct s_list	*next;
-}			t_list;
+}		t_list;
 
 typedef struct s_list_i
 {
@@ -62,17 +85,6 @@ typedef struct s_dico
 	char			*value;
 	struct s_dico	*next;
 }		t_dico;
-
-typedef struct s_vector
-{
-	double	vec[3];
-	double	norm;
-}			t_vector;
-
-typedef struct s_rgb
-{
-	int		rgb[3];
-}			t_rgb;
 
 typedef struct s_ambiant
 {
@@ -94,17 +106,12 @@ typedef struct s_light
 	t_rgb		color;
 }		t_light;
 
-typedef struct s_readfd
-{
-	char	**fdcontent;
-	t_list	**readfd;
-}			t_readfd;
-
 typedef struct s_scene
 {
 	t_ambiant	a;
 	t_camera	c;
 	t_light		l;
+	t_listobj	*obj;
 }			t_scene;
 /* ************************************************************************** */
 /* FUNCTION PROTOTYPES														  */
@@ -170,9 +177,17 @@ void		init_cam(t_scene *p, char *line);
 void		init_light(t_scene *p, char *line);
 void		parsing(t_scene *p, char **argv);
 char		*get_numb(char *line);
+char		*clean_line(char *line);
+//void		init_data(t_scene *p);
 //void		init_ambiant(t_scene *p, char *line);
-
-void		init_data();
+//list_cy.c
+t_listobj	*init_listobj();
+size_t		size_stack_obj(t_listobj *top);
+void		printll_obj(t_listobj *obj);
+void		push_cy(t_scene *p, char *line);
+void		push_sp(t_scene *p, char *line);
+void		push_pl(t_scene *p, char *line);
+void		add_to_list(t_listobj **head, t_listobj *new_element) ;
 
 //Array_2d.c
 t_rgb		**create_2d_rgb(int cols, int rows);
