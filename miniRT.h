@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/28 22:34:27 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/28 22:48:52 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ void		push_cy(t_scene *p, char *line);
 void		push_sp(t_scene *p, char *line);
 void		push_pl(t_scene *p, char *line);
 void		add_to_list(t_listobj **head, t_listobj *new_element) ;
+void		delete_obj(t_listobj **top);
 
 //Array_2d.c
 t_rgb		**create_2d_rgb(int cols, int rows);

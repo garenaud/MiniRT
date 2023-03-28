@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 09:50:19 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/28 22:34:00 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/28 23:01:01 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_cam(t_scene *p, char *line)
 	test = get_numb(line);
 	num = ascii_to_double(test);
 	p->c.fov = num;
+	//free(test);
 	free(line);
 }
 
@@ -82,6 +83,7 @@ void	parsing(t_scene *p, char **argv)
 		if (line[0] == 's' || line[0] == 'p' || line[0] == 'c')
 			init_obj(p, line);
 	}
+	free(line);
 	close(fd);
 }
 

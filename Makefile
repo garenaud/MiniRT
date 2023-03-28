@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/15 15:14:03 by grenaud-          #+#    #+#              #
-#    Updated: 2023/03/28 15:21:29 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/03/28 22:49:27 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ CC				= gcc
 CFLAGS 			= -Wall -Wextra -Werror -g
 LFLAGS			= -L libft -lft
 
-METAL_MLX		= -framework OpenGL -framework AppKit -L./mlx -lmlx -g -fsanitize=address
+METAL_MLX		= -framework OpenGL -framework AppKit -L./mlx -lmlx -g #-fsanitize=address
 
 RM				= rm -f
 
