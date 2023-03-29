@@ -74,25 +74,25 @@ void	printll_obj(t_listobj *obj)
 	{
 		if (obj->id[0] == 'c' && obj->id[1] == 'y')
 		{
-			printf(GREEN"objet N%d \tid = %s\n"ENDC, i, (obj->id));
-			printf(GREEN"coordonne f \t[x %f][y %f][z %f]\n"ENDC, (obj->pos.vec[0]), (obj->pos.vec[1]), (obj->pos.vec[2]));
-			printf(GREEN"vect 3d \t[x %f][y %f][z %f]\n"ENDC, (obj->dir.vec[0]), (obj->dir.vec[1]), (obj->dir.vec[2]));
+			printf(GREEN"objet N%d \nid = %s\n"ENDC, i, (obj->id));
+			printf(GREEN"coordonne f \t[x %f]\t[y %f]\t[z %f]\n"ENDC, (obj->pos.vec[0]), (obj->pos.vec[1]), (obj->pos.vec[2]));
+			printf(GREEN"vect 3d \t[x %f]\t[y %f]\t[z %f]\n"ENDC, (obj->dir.vec[0]), (obj->dir.vec[1]), (obj->dir.vec[2]));
 			printf(GREEN"diametre \t[%f] \nhauteur \t[%f]\n"ENDC, (obj->diam), (obj->h));
-			printf(GREEN"color \t\t[R %d][G %d][B %d]\n\n"ENDC, (obj->color.rgb[0]), (obj->color.rgb[1]), (obj->color.rgb[2]));
+			printf(GREEN"color \t\t[R %d]\t\t[G %d]\t\t[B %d]\n\n"ENDC, (obj->color.rgb[0]), (obj->color.rgb[1]), (obj->color.rgb[2]));
 		}
 		if (obj->id[0] == 's' && obj->id[1] == 'p')
 		{
-			printf(PURP"objet N%d \tid = %s\n"ENDC, i, (obj->id));
-			printf(PURP"coordonne \t[x %f][y %f][z %f]\n"ENDC, (obj->pos.vec[0]), (obj->pos.vec[1]), (obj->pos.vec[2]));
+			printf(PURP"objet N%d \nid = %s\n"ENDC, i, (obj->id));
+			printf(PURP"coordonne \t[x %f]\t[y %f]\t[z %f]\n"ENDC, (obj->pos.vec[0]), (obj->pos.vec[1]), (obj->pos.vec[2]));
 			printf(PURP"diametre \t[%f]\n"ENDC, (obj->diam));
-			printf(PURP"color \t\t[R %d][G %d][B %d]\n\n"ENDC, (obj->color.rgb[0]), (obj->color.rgb[1]), (obj->color.rgb[2]));
+			printf(PURP"color \t\t[R %d]\t\t[G %d]\t\t[B %d]\n\n"ENDC, (obj->color.rgb[0]), (obj->color.rgb[1]), (obj->color.rgb[2]));
 		}
 		if (obj->id[0] == 'p' && obj->id[1] == 'l')
 		{
-			printf(BLUE"objet N%d \tid = %s\n"ENDC, i, (obj->id));
-			printf(BLUE"coordonne f \t[x %f][y %f][z %f]\n"ENDC, (obj->pos.vec[0]), (obj->pos.vec[1]), (obj->pos.vec[2]));
-			printf(BLUE"vect 3d \t[x %f][y %f][z %f]\n"ENDC, (obj->dir.vec[0]), (obj->dir.vec[1]), (obj->dir.vec[2]));
-			printf(BLUE"color \t\t[R %d][G %d][B %d]\n\n"ENDC, (obj->color.rgb[0]), (obj->color.rgb[1]), (obj->color.rgb[2]));
+			printf(BLUE"objet N%d \nid = %s\n"ENDC, i, (obj->id));
+			printf(BLUE"coordonne f \t[x %f]\t[y %f]\t[z %f]\n"ENDC, (obj->pos.vec[0]), (obj->pos.vec[1]), (obj->pos.vec[2]));
+			printf(BLUE"vect 3d \t[x %f]\t[y %f]\t[z %f]\n"ENDC, (obj->dir.vec[0]), (obj->dir.vec[1]), (obj->dir.vec[2]));
+			printf(BLUE"color \t\t[R %d]\t\t[G %d]\t\t[B %d]\n\n"ENDC, (obj->color.rgb[0]), (obj->color.rgb[1]), (obj->color.rgb[2]));
 		}
 		i++;
 		obj = obj->next;
@@ -123,9 +123,7 @@ void	push_cy(t_scene *p, char *line)
 	tmp->color.rgb[2] = ft_atoi(get_numb(line));
 	tmp->next = NULL;
 	add_to_list(&p->obj, tmp);
-/* 	tmp->next = *top;
-	*top = tmp; */
-	free(line);
+	//free(&line);
 }
 
 void	push_sp(t_scene *p, char *line)
@@ -147,7 +145,7 @@ void	push_sp(t_scene *p, char *line)
 	tmp->color.rgb[2] = ft_atoi(get_numb(line));
 	tmp->next = NULL;
 	add_to_list(&p->obj, tmp);
-	free(line);
+	//free(&line);
 }
 
 void	push_pl(t_scene *p, char *line)
@@ -171,7 +169,8 @@ void	push_pl(t_scene *p, char *line)
 	tmp->color.rgb[2] = ft_atoi(get_numb(line));
 	tmp->next = NULL;
 	add_to_list(&p->obj, tmp);
-	free(line);
+	//free(&line);
+	//printf("line est-il free? %p line = %s et tmp %p\n", line, line, tmp);
 }
 
 void	delete_obj(t_listobj **top)
@@ -184,7 +183,12 @@ void	delete_obj(t_listobj **top)
 	{
 		tmp = *top;
 		*top = (*top)->next;
-		free(tmp->id);
-		free(tmp);
+/* 		free(&tmp->id);
+		free(&tmp->pos.norm);
+		free(&tmp->pos.vec);
+		free(&tmp->dir.norm);
+		free(&tmp->dir.vec);
+		free(&tmp->id);
+		free(&tmp); */
 	}
 }

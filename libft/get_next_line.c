@@ -6,11 +6,12 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 14:17:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2022/03/23 14:54:06 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/29 12:13:29 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 char	*ft_get_start(char *raw_line)
 {
@@ -62,6 +63,7 @@ char	*ft_get_line(char *raw_line)
 		str[i] = raw_line[i];
 		i++;
 	}
+	printf("\n\nla line est: %s et le caractère qui sera remplace est %c\n\n", str, str[i]);
 	str[i] = '\0';
 	return (str);
 }
@@ -102,5 +104,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = ft_get_line(raw_line);
 	raw_line = ft_get_start(raw_line);
+	printf("\nj'utilise gnl\n");
 	return (line);
 }

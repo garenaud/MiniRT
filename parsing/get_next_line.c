@@ -6,11 +6,12 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 14:17:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/20 19:18:00 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:35:34 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../miniRT.h"
+#include "get_next_line.h"
 
 char	*ft_get_start(char *raw_line)
 {
@@ -62,6 +63,7 @@ char	*ft_get_line(char *raw_line)
 		str[i] = raw_line[i];
 		i++;
 	}
+//	printf("\n\ni = %d la size de line = %zula line est: %s \net le caractère qui sera remplace est %c\n\n", i, ft_strlen(str), str, str[i]);
 	str[i] = '\0';
 	return (str);
 }
@@ -102,6 +104,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = ft_get_line(raw_line);
 	raw_line = ft_get_start(raw_line);
+	printf("la line = %s\n\n", line);
 	return (line);
 }
 

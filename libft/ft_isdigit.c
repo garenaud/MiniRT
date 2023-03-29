@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 11:50:59 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/24 12:13:36 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:43:49 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 int	ft_isdigit(int c)
 {
 	if (c >= '0' || c <= '9' || c == '.' || c == '-' || c == '+')
+		return (1);
+	return (0);
+}
+
+int	ft_isdigit2(char c)
+{
+	if (c == 46 || c == 45 || c == 43)
+		return (1);
+	else if (c >= 48 && c <= 57)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:34:00 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/28 14:13:16 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/29 15:36:56 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_isupper(int c);
 int		ft_isprint(int c);
 int		ft_isdigit(int c);
+int		ft_isdigit2(char c);
 int		ft_isascii(int c);
 char	ft_isascii_num(char c);
 int		ft_isalpha(int c);
