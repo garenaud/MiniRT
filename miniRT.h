@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/29 16:20:48 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:56:41 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_rgb
 
 typedef struct s_listobj
 {
+	int					index;
 	char				*id;
 	t_vector			pos;
 	t_vector			dir;
@@ -191,13 +192,6 @@ void		push_pl(t_scene *p, char *line);
 void		add_to_list(t_listobj **head, t_listobj *new_element) ;
 void		delete_obj(t_listobj **top);
 void		free_struct(t_scene *p);
-
-//char		*get_numb2(char *line);
-//get_next_line2.c
-char		*get_next_line2(int fd);
-void		ft_strdel2(char **str);
-char		*ft_strdupcat2(char **s1, char *s2);
-int			ft_strichr2(const char *s, int c);
 
 //Array_2d.c
 t_rgb		**create_2d_rgb(int cols, int rows);

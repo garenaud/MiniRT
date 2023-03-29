@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/29 12:04:54 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:51:08 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	free_struct(t_scene *p)
 {
-	free(&p->a.lum);
-	free(&p->a.color.rgb[0]);
+	//free(&p->a.lum);
+/* 	free(&p->a.color.rgb[0]);
 	free(&p->a.color.rgb[1]);
 	free(&p->a.color.rgb[2]);
 	free(&p->c.pos.vec[0]);
@@ -32,7 +32,7 @@ void	free_struct(t_scene *p)
 	free(&p->l.color.rgb[1]);
 	free(&p->l.color.rgb[2]);
 	free(&p->l.lum);
-	free(&p->l.color);
+	free(&p->l.color); */
 	delete_obj(&p->obj);
 }
 

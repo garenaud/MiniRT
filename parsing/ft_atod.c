@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:19:09 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/29 16:08:38 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:50:31 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ double	ascii_to_double(char *str)
 	}
 	if (fraclen)
 		result += frac / pow(10.0, fraclen);
+	//free(str);
 	return (result *= sign);
 }
