@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 11:48:48 by marvin            #+#    #+#             */
-/*   Updated: 2023/03/29 14:39:33 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/31 20:02:41 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_strdup_num(char *s1, int start, int end)
 
 	i = 0;
 	len = end - (start - 1);
-	s2 = (char *)malloc(sizeof(char) * (len + 1));
+	s2 = (char *)malloc(sizeof(char) * (len + 2));
 	if (s2 == NULL)
 		return (NULL);
 	while (start < end)

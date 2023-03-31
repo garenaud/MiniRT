@@ -106,6 +106,7 @@ void	push_cy(t_scene *p, char *line)
 	char		*id;
 	t_listobj	*tmp;
 
+	//printf("line = %s\n", line);
 	id = "cy";
 	tmp = init_listobj();
 	if (!tmp)

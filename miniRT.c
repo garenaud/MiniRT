@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/29 16:51:08 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:50:55 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,3 +53,37 @@ int		main(int argc, char **argv)
 	//free(&p.c.fov);
 	return (0);
 }
+
+/* int		main(int argc, char **argv)
+{
+	//t_scene	p;
+	(void) argc;
+	int		fd;
+	//int		len;
+	char	*line;
+	//char	*test;
+	int i = 0;
+	int j = 0;
+
+	fd = open(argv[1], O_RDONLY);
+	i = ft_count_lines(fd);
+	printf("i = %d\n", i);
+	while (fd)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break;
+		//printf("line au debut = [%s]\n", line);
+		//line = trim_line(line);
+		//len = strlen_comm(&p, line);
+		//printf("line apres = [%s] et strlen = %zu longueur malloc = %d\n", line, ft_strlen(line), len);
+		//line = clean_comm(&p, line);
+		//printf("line apres clean comm = [%s]\n", line);
+		//free(line);
+		j++;
+	}
+	//free_struct(&p);
+	//delete_obj(&p.obj);
+	//free(&p.c.fov);
+	return (0);
+} */

@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/15 15:14:03 by grenaud-          #+#    #+#              #
-#    Updated: 2023/03/29 16:45:06 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/03/31 15:56:38 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS_LIST		= \
 					parsing/parsing_fd.c \
 					parsing/list_cy.c \
 					parsing/fd_data_init.c \
+					parsing/check_line.c \
 
 OBJS			= ${SRCS_LIST:.c=.o}
 
@@ -49,7 +50,7 @@ CC				= gcc
 CFLAGS 			= -Wall -Wextra -Werror -g
 LFLAGS			= -L libft -lft
 
-METAL_MLX		= -framework OpenGL -framework AppKit -L./mlx -lmlx -g #-fsanitize=address
+METAL_MLX		= -framework OpenGL -framework AppKit -L./mlx -lmlx -g -fsanitize=address
 
 RM				= rm -f
 

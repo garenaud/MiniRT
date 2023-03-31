@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/29 16:56:41 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/31 20:16:51 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # include <unistd.h>
 # include <math.h>
 # include <stdlib.h>
+# include <stddef.h>
+# include <stdbool.h>
 
 # include "libft/libft.h"
 # include "mlx/mlx.h"
@@ -108,12 +110,19 @@ typedef struct s_light
 	t_rgb		color;
 }		t_light;
 
+typedef struct s_check
+{
+	int		comm;
+}		t_check;
+
+
 typedef struct s_scene
 {
 	t_ambiant	a;
 	t_camera	c;
 	t_light		l;
 	t_listobj	*obj;
+	t_check		check;
 }			t_scene;
 /* ************************************************************************** */
 /* FUNCTION PROTOTYPES														  */
@@ -179,7 +188,6 @@ void		init_cam(t_scene *p, char *line);
 void		init_light(t_scene *p, char *line);
 void		parsing(t_scene *p, char **argv);
 char		*get_numb(char *line);
-char		*clean_line(char *line);
 //void		init_data(t_scene *p);
 //void		init_ambiant(t_scene *p, char *line);
 //list_cy.c
@@ -192,6 +200,15 @@ void		push_pl(t_scene *p, char *line);
 void		add_to_list(t_listobj **head, t_listobj *new_element) ;
 void		delete_obj(t_listobj **top);
 void		free_struct(t_scene *p);
+
+//check_line.c
+int		is_empty(char *line);
+char	*clean_line(t_scene *p, char *line);
+int		strlen_comm(t_scene *p, char *line);
+char	*clean_comm(t_scene *p, char *line);
+char	*trim_line(char *line);
+int		ft_count_lines(int fd);
+
 
 //Array_2d.c
 t_rgb		**create_2d_rgb(int cols, int rows);
