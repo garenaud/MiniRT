@@ -35,6 +35,13 @@ void	init_sphere(t_sphere *sphere, t_vector center, double r)
 
 void	init_plan(t_plan *plan, t_vector OC, t_vector n)
 {
-	init_vector(&plan->C, C.vec[0], C.vec[1], C.vec[2]);
+	init_vector(&plan->C, OC.vec[0], OC.vec[1], OC.vec[2]);
 	init_vector(&plan->n, n.vec[0], n.vec[1], n.vec[2]);
+}
+
+void	init_cylindre(t_cyl *cyl, t_vector C, t_vector dir, t_vector OC)
+{
+	init_vector(&cyl->C0, C.vec[0], C.vec[1], C.vec[2]);
+	init_vector(&cyl->dir, dir.vec[0], dir.vec[1], dir.vec[2]);
+	init_vector(&cyl->OC, OC.vec[0], OC.vec[1], OC.vec[2]);
 }
