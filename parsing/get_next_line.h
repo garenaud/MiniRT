@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 09:10:41 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/31 20:16:39 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:58:09 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include "../libft/libft.h" 
 # include "../miniRT.h"
 
 char	*ft_get_raw_line(int fd, char *raw_line);

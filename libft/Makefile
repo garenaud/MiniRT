@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/01 15:33:28 by grenaud-          #+#    #+#              #
-#    Updated: 2023/03/21 12:33:25 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/04/03 14:50:30 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,6 @@ SRCS		=	ft_atoi.c\
 				ft_tolower.c\
 				ft_toupper.c\
 				ft_striteri.c\
-				get_next_line.c\
 				ft_lstnew.c\
 				ft_lstadd_front.c\
 				ft_lstsize.c\

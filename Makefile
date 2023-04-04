@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/15 15:14:03 by grenaud-          #+#    #+#              #
-#    Updated: 2023/03/31 15:56:38 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/04/03 22:33:54 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS_LIST		= \
 					parsing/list_cy.c \
 					parsing/fd_data_init.c \
 					parsing/check_line.c \
+					parsing/msg_error.c \
 
 OBJS			= ${SRCS_LIST:.c=.o}
 

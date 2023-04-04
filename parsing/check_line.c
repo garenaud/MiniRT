@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 10:23:16 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/31 20:48:12 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/04 12:04:51 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*trim_line(char *line)
 	char	*new;
 
 	i = 0;
-	j = ft_strlen(line);
+	j = ft_strlen(line) - 1;
 	if (j <= 0)
 		return (NULL);
 	k = 0;
@@ -58,46 +58,15 @@ int	is_empty(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i])
+	if (!line)
+		return (1);
+	while (line[i] != '\0')
 	{
 		if (!ft_isspace(line[i]))
 			return (0);
 		i++;
 	}
 	return (1);
-}
-
-char	*clean_comm(t_scene *p, char *line)
-{
-	int		i;
-	int		j;
-	char	*new;
-
-	i = 0;
-	j = 0;
-	new = (char *)malloc(sizeof(char) * (strlen_comm(p, line) + 2));
-	if (!new)
-		return (NULL);
-	while (line[i])
-	{
-		if (line[i] == '/' && line[i + 1] != '\0' && line[i + 1] == '*')
-			p->check.comm = 1;
-		else if (line[i] == '*' && line[i + 1] != '\0' && line[i + 1] == '/'
-			&& p->check.comm == 1)
-		{
-			p->check.comm = 0;
-			i += 2;
-		}
-		else if (line[i] == '/' && line[i + 1] != '\0' && line[i + 1] == '/')
-			break;
-		if (p->check.comm == 0)
-			new[j++] = line[i++];
-		else
-			i++;
-	}
-	new[j] = '\0';
-	free(line);
-	return (new);
 }
 
 int		strlen_comm(t_scene *p, char *line)
@@ -123,6 +92,41 @@ int		strlen_comm(t_scene *p, char *line)
 	if (j >= i)
 		return (-1);
 	return ((i - j) - 2);
+}
+
+char	*clean_comm(t_scene *p, char *line)
+{
+	int		i;
+	int		j;
+	char	*new;
+
+	i = 0;
+	j = 0;
+	new = (char *)malloc(sizeof(char) * (strlen_comm(p, line) + 3));
+	if (!new)
+		return (NULL);
+	while (line[i])
+	{
+		if (line[i] == '/' && line[i + 1] != '\0' && line[i + 1] == '*')
+			p->check.comm = 1;
+		else if (line[i] == '*' && line[i + 1] != '\0' && line[i + 1] == '/'
+			&& p->check.comm == 1)
+		{
+			p->check.comm = 0;
+			i += 2;
+		}
+		else if (line[i] == '/' && line[i + 1] != '\0' && line[i + 1] == '/')
+			break;
+		else if (line[i] == '#')
+			break;
+		if (p->check.comm == 0)
+			new[j++] = line[i++];
+		else
+			i++;
+	}
+	new[j] = '\0';
+	free(line);
+	return (new);
 }
 
 int	ft_count_lines(int fd)

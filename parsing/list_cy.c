@@ -101,7 +101,7 @@ void	printll_obj(t_listobj *obj)
 	printf(RED"-------------------------------------------------------\n\n"ENDC);
 }
 
-void	push_cy(t_scene *p, char *line)
+void	push_cy(t_scene *p, char *line, int index)
 {
 	char		*id;
 	t_listobj	*tmp;
@@ -112,23 +112,23 @@ void	push_cy(t_scene *p, char *line)
 	if (!tmp)
 		return ;
 	tmp->id = ft_strdup(id);
-	tmp->pos.vec[0] = ascii_to_double(get_numb(line));
-	tmp->pos.vec[1] = ascii_to_double(get_numb(line));
-	tmp->pos.vec[2] = ascii_to_double(get_numb(line));
-	tmp->dir.vec[0] = ascii_to_double(get_numb(line));
-	tmp->dir.vec[1] = ascii_to_double(get_numb(line));
-	tmp->dir.vec[2] = ascii_to_double(get_numb(line));
-	tmp->diam = ascii_to_double(get_numb(line));
-	tmp->h = ascii_to_double(get_numb(line));
-	tmp->color.rgb[0] = ft_atoi(get_numb(line));
-	tmp->color.rgb[1] = ft_atoi(get_numb(line));
-	tmp->color.rgb[2] = ft_atoi(get_numb(line));
+	tmp->pos.vec[0] = ascii_to_double(get_numb(line, index));
+	tmp->pos.vec[1] = ascii_to_double(get_numb(line, index));
+	tmp->pos.vec[2] = ascii_to_double(get_numb(line, index));
+	tmp->dir.vec[0] = ascii_to_double(get_numb(line, index));
+	tmp->dir.vec[1] = ascii_to_double(get_numb(line, index));
+	tmp->dir.vec[2] = ascii_to_double(get_numb(line, index));
+	tmp->diam = ascii_to_double(get_numb(line, index));
+	tmp->h = ascii_to_double(get_numb(line, index));
+	tmp->color.rgb[0] = ft_atoi(get_numb(line, index));
+	tmp->color.rgb[1] = ft_atoi(get_numb(line, index));
+	tmp->color.rgb[2] = ft_atoi(get_numb(line, index));
 	tmp->next = NULL;
 	add_to_list(&p->obj, tmp);
 	//free(&line);
 }
 
-void	push_sp(t_scene *p, char *line)
+void	push_sp(t_scene *p, char *line, int index)
 {
 	char		*id;
 	t_listobj	*tmp;
@@ -138,19 +138,19 @@ void	push_sp(t_scene *p, char *line)
 	if (!tmp)
 		return ;
 	tmp->id = ft_strdup(id);
-	tmp->pos.vec[0] = ascii_to_double(get_numb(line));
-	tmp->pos.vec[1] = ascii_to_double(get_numb(line));
-	tmp->pos.vec[2] = ascii_to_double(get_numb(line));
-	tmp->diam = ascii_to_double(get_numb(line));
-	tmp->color.rgb[0] = ft_atoi(get_numb(line));
-	tmp->color.rgb[1] = ft_atoi(get_numb(line));
-	tmp->color.rgb[2] = ft_atoi(get_numb(line));
+	tmp->pos.vec[0] = ascii_to_double(get_numb(line, index));
+	tmp->pos.vec[1] = ascii_to_double(get_numb(line, index));
+	tmp->pos.vec[2] = ascii_to_double(get_numb(line, index));
+	tmp->diam = ascii_to_double(get_numb(line, index));
+	tmp->color.rgb[0] = ft_atoi(get_numb(line, index));
+	tmp->color.rgb[1] = ft_atoi(get_numb(line, index));
+	tmp->color.rgb[2] = ft_atoi(get_numb(line, index));
 	tmp->next = NULL;
 	add_to_list(&p->obj, tmp);
 	//free(&line);
 }
 
-void	push_pl(t_scene *p, char *line)
+void	push_pl(t_scene *p, char *line, int index)
 {
 	char	*id;
 	t_listobj	*tmp;
@@ -160,17 +160,18 @@ void	push_pl(t_scene *p, char *line)
 	if (!tmp)
 		return ;
 	tmp->id = ft_strdup(id);
-	tmp->pos.vec[0] = ascii_to_double(get_numb(line));
-	tmp->pos.vec[1] = ascii_to_double(get_numb(line));
-	tmp->pos.vec[2] = ascii_to_double(get_numb(line));
-	tmp->dir.vec[0] = ascii_to_double(get_numb(line));
-	tmp->dir.vec[1] = ascii_to_double(get_numb(line));
-	tmp->dir.vec[2] = ascii_to_double(get_numb(line));
-	tmp->color.rgb[0] = ft_atoi(get_numb(line));
-	tmp->color.rgb[1] = ft_atoi(get_numb(line));
-	tmp->color.rgb[2] = ft_atoi(get_numb(line));
+	tmp->pos.vec[0] = ascii_to_double(get_numb(line, index));
+	tmp->pos.vec[1] = ascii_to_double(get_numb(line, index));
+	tmp->pos.vec[2] = ascii_to_double(get_numb(line, index));
+	tmp->dir.vec[0] = ascii_to_double(get_numb(line, index));
+	tmp->dir.vec[1] = ascii_to_double(get_numb(line, index));
+	tmp->dir.vec[2] = ascii_to_double(get_numb(line, index));
+	tmp->color.rgb[0] = ft_atoi(get_numb(line, index));
+	tmp->color.rgb[1] = ft_atoi(get_numb(line, index));
+	tmp->color.rgb[2] = ft_atoi(get_numb(line, index));
 	tmp->next = NULL;
 	add_to_list(&p->obj, tmp);
+	//free(&line);
 }
 
 void	delete_obj(t_listobj **top)

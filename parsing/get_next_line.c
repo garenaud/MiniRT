@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 14:17:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/31 20:38:11 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:26:48 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char	*ft_get_line(char *raw_line)
 	}
 	if (raw_line[i] == '\n')
 		str[i] = '\0';
+	if (raw_line[i] == '\0')
+		str[i] = '\0';
 	return (str);
 }
 
@@ -99,7 +101,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = ft_get_line(raw_line);
 	raw_line = ft_get_start(raw_line);
-	line = trim_line(line);
 	return (line);
 }
 
@@ -118,4 +119,5 @@ char	*get_next_line(int fd)
 		printf("|%s|\n", ret);
 		i++;
 	}
-} */
+}
+ */

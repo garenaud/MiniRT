@@ -6,41 +6,93 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:42:55 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/29 16:24:56 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/04 11:57:50 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../miniRT.h"
 
-void	init_ambiant(t_scene *p, char *line)
+void	init_ambiant(t_scene *p, char *line, int index)
 {
-	p->a.lum = ascii_to_double(get_numb(line));
-	p->a.color.rgb[0] = ft_atoi(get_numb(line));
-	p->a.color.rgb[1] = ft_atoi(get_numb(line));
-	p->a.color.rgb[2] = ft_atoi(get_numb(line));
-	free(line);
+	if (p->a.check_a == 0)
+	{
+		p->a.lum = ascii_to_double(get_numb(line, index));
+		p->a.color.rgb[0] = ft_atoi(get_numb(line, index));
+		p->a.color.rgb[1] = ft_atoi(get_numb(line, index));
+		p->a.color.rgb[2] = ft_atoi(get_numb(line, index));
+		p->a.check_a = 1;
+		printf("le check dans Apre = %d\n", p->a.check_a);
+	}
+	else if (p->a.check_a > 0)
+		message("Only one ambient lightning is allowed", 0);
 }
 
-void	init_cam(t_scene *p, char *line)
+/* void	init_ambiant(t_scene *p, char *line, int index)
 {
-	p->c.pos.vec[0] = ascii_to_double(get_numb(line));
-	p->c.pos.vec[1] = ascii_to_double(get_numb(line));
-	p->c.pos.vec[2] = ascii_to_double(get_numb(line));
-	p->c.dir.vec[0] = ascii_to_double(get_numb(line));
-	p->c.dir.vec[1] = ascii_to_double(get_numb(line));
-	p->c.dir.vec[2] = ascii_to_double(get_numb(line));
-	p->c.fov = ascii_to_double(get_numb(line));
-	free(line);
+	p->a.lum = ascii_to_double(get_numb(line, index));
+	p->a.color.rgb[0] = ft_atoi(get_numb(line, index));
+	p->a.color.rgb[1] = ft_atoi(get_numb(line, index));
+	p->a.color.rgb[2] = ft_atoi(get_numb(line, index));
+	p->a.check_a = 1;
+} */
+ 
+void	init_cam(t_scene *p, char *line, int index)
+{
+	printf("le check dans C = %d\n", p->c.check_c);
+	if (p->c.check_c == 0)
+	{
+		p->c.pos.vec[0] = ascii_to_double(get_numb(line, index));
+		p->c.pos.vec[1] = ascii_to_double(get_numb(line, index));
+		p->c.pos.vec[2] = ascii_to_double(get_numb(line, index));
+		p->c.dir.vec[0] = ascii_to_double(get_numb(line, index));
+		p->c.dir.vec[1] = ascii_to_double(get_numb(line, index));
+		p->c.dir.vec[2] = ascii_to_double(get_numb(line, index));
+		p->c.fov = ascii_to_double(get_numb(line, index));
+		p->c.check_c = 1;
+	}
+	else
+		message("Only one camera is allowed", 0);
 }
 
-void	init_light(t_scene *p, char *line)
+/* void	init_cam(t_scene *p, char *line, int index)
 {
-	p->l.pos.vec[0] = ascii_to_double(get_numb(line));
-	p->l.pos.vec[1] = ascii_to_double(get_numb(line));
-	p->l.pos.vec[2] = ascii_to_double(get_numb(line));
-	p->l.lum = ascii_to_double(get_numb(line));
-	p->l.color.rgb[0] = ft_atoi(get_numb(line));
-	p->l.color.rgb[1] = ft_atoi(get_numb(line));
-	p->l.color.rgb[2] = ft_atoi(get_numb(line));
-	free(line);
+	p->c.pos.vec[0] = ascii_to_double(get_numb(line, index));
+	p->c.pos.vec[1] = ascii_to_double(get_numb(line, index));
+	p->c.pos.vec[2] = ascii_to_double(get_numb(line, index));		
+	p->c.dir.vec[0] = ascii_to_double(get_numb(line, index));
+	p->c.dir.vec[1] = ascii_to_double(get_numb(line, index));
+	p->c.dir.vec[2] = ascii_to_double(get_numb(line, index));
+	p->c.fov = ascii_to_double(get_numb(line, index));
+	p->c.check_c = 1;
+} */
+
+void	init_light(t_scene *p, char *line, int index)
+{
+	printf("le check dans L = %d\n", p->l.check_l);
+	if (p->l.check_l == 0)
+	{
+		printf("je passe dans check_l\n");
+		p->l.pos.vec[0] = ascii_to_double(get_numb(line, index));
+		p->l.pos.vec[1] = ascii_to_double(get_numb(line, index));
+		p->l.pos.vec[2] = ascii_to_double(get_numb(line, index));
+		p->l.lum = ascii_to_double(get_numb(line, index));
+		p->l.color.rgb[0] = ft_atoi(get_numb(line, index));
+		p->l.color.rgb[1] = ft_atoi(get_numb(line, index));
+		p->l.color.rgb[2] = ft_atoi(get_numb(line, index));
+		p->l.check_l = 1;
+	}
+	else
+		message("Only one camera is allowed", 0);
 }
+
+/* void	init_light(t_scene *p, char *line, int index)
+{
+	p->l.pos.vec[0] = ascii_to_double(get_numb(line, index));
+	p->l.pos.vec[1] = ascii_to_double(get_numb(line, index));
+	p->l.pos.vec[2] = ascii_to_double(get_numb(line, index));
+	p->l.lum = ascii_to_double(get_numb(line, index));
+	p->l.color.rgb[0] = ft_atoi(get_numb(line, index));
+	p->l.color.rgb[1] = ft_atoi(get_numb(line, index));
+	p->l.color.rgb[2] = ft_atoi(get_numb(line, index));
+	p->l.check_l = 1;
+} */

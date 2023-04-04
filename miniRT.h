@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/31 20:16:51 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/04 11:41:07 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,14 @@ typedef struct s_dico
 
 typedef struct s_ambiant
 {
+	int			check_a;
 	double		lum;
 	t_rgb		color;
 }		t_ambiant;
 
 typedef struct s_camera
 {
+	int			check_c;
 	t_vector	pos;
 	t_vector	dir;
 	double		fov;
@@ -105,6 +107,7 @@ typedef struct s_camera
 
 typedef struct s_light
 {
+	int			check_l;
 	t_vector	pos;
 	double		lum;
 	t_rgb		color;
@@ -113,6 +116,7 @@ typedef struct s_light
 typedef struct s_check
 {
 	int		comm;
+	int		fd_lines;
 }		t_check;
 
 
@@ -183,20 +187,20 @@ void		duplicate(t_dico **orig, t_dico **copy);
 char		*getword1(t_list **raw, char *search);
 char		*delimitateur(t_list **raw);
 //parsing_fd.c
-void		init_ambiant(t_scene *p, char *line);
-void		init_cam(t_scene *p, char *line);
-void		init_light(t_scene *p, char *line);
+void		init_ambiant(t_scene *p, char *line, int index);
+void		init_cam(t_scene *p, char *line, int index);
+void		init_light(t_scene *p, char *line, int index);
 void		parsing(t_scene *p, char **argv);
-char		*get_numb(char *line);
+char		*get_numb(char *line, int index);
 //void		init_data(t_scene *p);
 //void		init_ambiant(t_scene *p, char *line);
 //list_cy.c
 t_listobj	*init_listobj();
 size_t		size_stack_obj(t_listobj *top);
 void		printll_obj(t_listobj *obj);
-void		push_cy(t_scene *p, char *line);
-void		push_sp(t_scene *p, char *line);
-void		push_pl(t_scene *p, char *line);
+void		push_cy(t_scene *p, char *line, int index);
+void		push_sp(t_scene *p, char *line, int index);
+void		push_pl(t_scene *p, char *line, int index);
 void		add_to_list(t_listobj **head, t_listobj *new_element) ;
 void		delete_obj(t_listobj **top);
 void		free_struct(t_scene *p);
@@ -208,6 +212,9 @@ int		strlen_comm(t_scene *p, char *line);
 char	*clean_comm(t_scene *p, char *line);
 char	*trim_line(char *line);
 int		ft_count_lines(int fd);
+void	init_check(t_scene *p, char **argv);
+void	message(char *msg, int index);
+void	check_fd(int fd, char **argv);
 
 
 //Array_2d.c

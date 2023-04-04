@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:34:00 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/29 15:36:56 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:49:57 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,5 @@ void	ft_lstadd_back(t_listl **alst, t_listl *new);
 void	ft_lstdelone(t_listl *lst, void (*del)(void *));
 void	ft_lstclear(t_listl **lst, void (*del)(void *));
 void	ft_lstiter(t_listl *lst, void (*f)(void *));
-char	*ft_get_raw_line(int fd, char *raw_line);
-char	*ft_get_line(char *raw_line);
-char	*ft_get_start(char *raw_line);
-char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
 #endif
