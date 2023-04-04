@@ -6,25 +6,11 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 10:23:16 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/04 12:04:51 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:55:06 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../miniRT.h"
-
-char	*clean_line(t_scene *p, char *line)
-{
-	char	*new = NULL;
-	(void)	p;
-	(void) line;
-
-	//new = trim_line(line);
-	//new = clean_comm(p, new);
-	if (new == NULL || is_empty(new))
-		return (NULL);
-	//free(line);
-	return (new);
-}
 
 char	*trim_line(char *line)
 {
@@ -43,7 +29,7 @@ char	*trim_line(char *line)
 	while (ft_isspace(line[j]))
 		j--;
 	j -= i;
-	new = (char *)malloc(sizeof(char) * (j + 2));
+	new = wrmalloc(sizeof(char *) * (j + 2));
 	if (!new)
 		return (NULL);
 	while (k <= j)
@@ -69,7 +55,7 @@ int	is_empty(char *line)
 	return (1);
 }
 
-int		strlen_comm(t_scene *p, char *line)
+int	strlen_comm(t_scene *p, char *line)
 {
 	int		i;
 	int		j;
@@ -102,23 +88,15 @@ char	*clean_comm(t_scene *p, char *line)
 
 	i = 0;
 	j = 0;
-	new = (char *)malloc(sizeof(char) * (strlen_comm(p, line) + 3));
+	new = wrmalloc(sizeof(char *) * (strlen_comm(p, line) + 3));
 	if (!new)
 		return (NULL);
 	while (line[i])
 	{
-		if (line[i] == '/' && line[i + 1] != '\0' && line[i + 1] == '*')
-			p->check.comm = 1;
-		else if (line[i] == '*' && line[i + 1] != '\0' && line[i + 1] == '/'
-			&& p->check.comm == 1)
-		{
-			p->check.comm = 0;
-			i += 2;
-		}
-		else if (line[i] == '/' && line[i + 1] != '\0' && line[i + 1] == '/')
-			break;
+		if (line[i] == '/' && line[i + 1] != '\0' && line[i + 1] == '/')
+			break ;
 		else if (line[i] == '#')
-			break;
+			break ;
 		if (p->check.comm == 0)
 			new[j++] = line[i++];
 		else

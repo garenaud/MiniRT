@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/15 15:14:03 by grenaud-          #+#    #+#              #
-#    Updated: 2023/04/03 22:33:54 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/04/04 18:33:52 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,10 +35,11 @@ SRCS_LIST		= \
 					parsing/dico_2.c \
 					parsing/dico_4.c \
 					parsing/parsing_fd.c \
-					parsing/list_cy.c \
+					parsing/listobj_util.c \
 					parsing/fd_data_init.c \
 					parsing/check_line.c \
 					parsing/msg_error.c \
+					parsing/fd_obj_init.c \
 
 OBJS			= ${SRCS_LIST:.c=.o}
 
@@ -51,7 +52,7 @@ CC				= gcc
 CFLAGS 			= -Wall -Wextra -Werror -g
 LFLAGS			= -L libft -lft
 
-METAL_MLX		= -framework OpenGL -framework AppKit -L./mlx -lmlx -g -fsanitize=address
+METAL_MLX		= -framework OpenGL -framework AppKit -L./mlx -lmlx -g #-fsanitize=address
 
 RM				= rm -f
 

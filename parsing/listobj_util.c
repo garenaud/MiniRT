@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_obj.c                                          :+:      :+:    :+:   */
+/*   listobj_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:29:20 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/24 14:46:01 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:34:07 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../miniRT.h"
 
-t_listobj	*init_listobj()
+t_listobj	*init_listobj(t_scene *p)
 {
 	t_listobj	*new;
+
+	(void) p;
 	new = (t_listobj *)malloc(sizeof(t_listobj));
 	if (!new)
 		return (NULL);
-	new->id = (char *)malloc(sizeof(char *) * (2 + 1));
+	new->id = wrmalloc(sizeof(char *) * (2 + 1));
 	new->id = "cy";
 	new->pos.vec[0] = 0;
 	new->pos.vec[1] = 0;
@@ -32,23 +34,22 @@ t_listobj	*init_listobj()
 	return (new);
 }
 
-void add_to_list(t_listobj **head, t_listobj *new_element) 
+void	add_to_list(t_listobj **head, t_listobj *new_element)
 {
-    t_listobj	*current;
+	t_listobj	*current;
 
 	if (*head == NULL)
-        *head = new_element;
-    else 
+		*head = new_element;
+	else
 	{
-        current = *head;
-        while (current->next != NULL)
-            current = current->next;
-        current->next = new_element;
-    }
+		current = *head;
+		while (current->next != NULL)
+			current = current->next;
+		current->next = new_element;
+	}
 	new_element->index = size_stack_obj(*head);
-    new_element->next = NULL;
+	new_element->next = NULL;
 }
-
 
 size_t	size_stack_obj(t_listobj *top)
 {
@@ -66,6 +67,7 @@ size_t	size_stack_obj(t_listobj *top)
 void	printll_obj(t_listobj *obj)
 {
 	int	i;
+
 	i = 1;
 	printf(RED"\n-------------------------------------------------------"ENDC);
 	printf(RED"\nstart obj list\n\n"ENDC);
@@ -101,79 +103,6 @@ void	printll_obj(t_listobj *obj)
 	printf(RED"-------------------------------------------------------\n\n"ENDC);
 }
 
-void	push_cy(t_scene *p, char *line, int index)
-{
-	char		*id;
-	t_listobj	*tmp;
-
-	//printf("line = %s\n", line);
-	id = "cy";
-	tmp = init_listobj();
-	if (!tmp)
-		return ;
-	tmp->id = ft_strdup(id);
-	tmp->pos.vec[0] = ascii_to_double(get_numb(line, index));
-	tmp->pos.vec[1] = ascii_to_double(get_numb(line, index));
-	tmp->pos.vec[2] = ascii_to_double(get_numb(line, index));
-	tmp->dir.vec[0] = ascii_to_double(get_numb(line, index));
-	tmp->dir.vec[1] = ascii_to_double(get_numb(line, index));
-	tmp->dir.vec[2] = ascii_to_double(get_numb(line, index));
-	tmp->diam = ascii_to_double(get_numb(line, index));
-	tmp->h = ascii_to_double(get_numb(line, index));
-	tmp->color.rgb[0] = ft_atoi(get_numb(line, index));
-	tmp->color.rgb[1] = ft_atoi(get_numb(line, index));
-	tmp->color.rgb[2] = ft_atoi(get_numb(line, index));
-	tmp->next = NULL;
-	add_to_list(&p->obj, tmp);
-	//free(&line);
-}
-
-void	push_sp(t_scene *p, char *line, int index)
-{
-	char		*id;
-	t_listobj	*tmp;
-
-	id = "sp";
-	tmp = init_listobj();
-	if (!tmp)
-		return ;
-	tmp->id = ft_strdup(id);
-	tmp->pos.vec[0] = ascii_to_double(get_numb(line, index));
-	tmp->pos.vec[1] = ascii_to_double(get_numb(line, index));
-	tmp->pos.vec[2] = ascii_to_double(get_numb(line, index));
-	tmp->diam = ascii_to_double(get_numb(line, index));
-	tmp->color.rgb[0] = ft_atoi(get_numb(line, index));
-	tmp->color.rgb[1] = ft_atoi(get_numb(line, index));
-	tmp->color.rgb[2] = ft_atoi(get_numb(line, index));
-	tmp->next = NULL;
-	add_to_list(&p->obj, tmp);
-	//free(&line);
-}
-
-void	push_pl(t_scene *p, char *line, int index)
-{
-	char	*id;
-	t_listobj	*tmp;
-
-	id = "pl";
-	tmp = init_listobj();
-	if (!tmp)
-		return ;
-	tmp->id = ft_strdup(id);
-	tmp->pos.vec[0] = ascii_to_double(get_numb(line, index));
-	tmp->pos.vec[1] = ascii_to_double(get_numb(line, index));
-	tmp->pos.vec[2] = ascii_to_double(get_numb(line, index));
-	tmp->dir.vec[0] = ascii_to_double(get_numb(line, index));
-	tmp->dir.vec[1] = ascii_to_double(get_numb(line, index));
-	tmp->dir.vec[2] = ascii_to_double(get_numb(line, index));
-	tmp->color.rgb[0] = ft_atoi(get_numb(line, index));
-	tmp->color.rgb[1] = ft_atoi(get_numb(line, index));
-	tmp->color.rgb[2] = ft_atoi(get_numb(line, index));
-	tmp->next = NULL;
-	add_to_list(&p->obj, tmp);
-	//free(&line);
-}
-
 void	delete_obj(t_listobj **top)
 {
 	t_listobj	*tmp;
@@ -184,12 +113,7 @@ void	delete_obj(t_listobj **top)
 	{
 		tmp = *top;
 		*top = (*top)->next;
-/* 		free(&tmp->id);
-		free(&tmp->pos.norm);
-		free(&tmp->pos.vec);
-		free(&tmp->dir.norm);
-		free(&tmp->dir.vec);
-		free(&tmp->id);
-		free(&tmp); */
+		if (top)
+			free(&top);
 	}
 }

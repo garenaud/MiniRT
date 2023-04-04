@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/01 15:33:28 by grenaud-          #+#    #+#              #
-#    Updated: 2023/04/03 14:50:30 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/04/04 15:08:27 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,8 @@ SRCS		=	ft_atoi.c\
 				ft_lstclear.c\
 				ft_lstiter.c\
 				ft_lstmap.c\
+				wr_collector.c\
+				ft_putstr.c\
 
 BONUS_SRC	=	ft_lstnew.c\
 				ft_lstadd_front.c\

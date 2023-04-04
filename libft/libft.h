@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:34:00 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/03 14:49:57 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/04 15:08:15 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,8 @@ void	ft_lstdelone(t_listl *lst, void (*del)(void *));
 void	ft_lstclear(t_listl **lst, void (*del)(void *));
 void	ft_lstiter(t_listl *lst, void (*f)(void *));
 size_t	ft_strlen(const char *s);
+void	*wrmalloc(unsigned long size);
+int		wrfree(void *ptr);
+void	wrdestroy(void);
+void	ft_putstr(char *s);
 #endif

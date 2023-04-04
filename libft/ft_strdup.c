@@ -6,11 +6,12 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 11:48:48 by marvin            #+#    #+#             */
-/*   Updated: 2023/03/31 20:02:41 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:10:24 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "../miniRT.h"
 
 char	*ft_strdup(const char *s1)
 {
@@ -18,7 +19,7 @@ char	*ft_strdup(const char *s1)
 	char	*s2;
 
 	i = 0;
-	s2 = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	s2 = wrmalloc(sizeof(char) * (ft_strlen(s1) + 1));
 	if (s2 == NULL)
 		return (NULL);
 	while (s1[i])
@@ -38,7 +39,7 @@ char	*ft_strdup_num(char *s1, int start, int end)
 
 	i = 0;
 	len = end - (start - 1);
-	s2 = (char *)malloc(sizeof(char) * (len + 2));
+	s2 = wrmalloc(sizeof(char) * (len + 1));
 	if (s2 == NULL)
 		return (NULL);
 	while (start < end)

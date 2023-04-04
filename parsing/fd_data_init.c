@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:42:55 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/04 11:57:50 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:55:21 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	init_ambiant(t_scene *p, char *line, int index)
 		p->a.color.rgb[1] = ft_atoi(get_numb(line, index));
 		p->a.color.rgb[2] = ft_atoi(get_numb(line, index));
 		p->a.check_a = 1;
-		printf("le check dans Apre = %d\n", p->a.check_a);
 	}
 	else if (p->a.check_a > 0)
 		message("Only one ambient lightning is allowed", 0);
@@ -35,10 +34,9 @@ void	init_ambiant(t_scene *p, char *line, int index)
 	p->a.color.rgb[2] = ft_atoi(get_numb(line, index));
 	p->a.check_a = 1;
 } */
- 
+
 void	init_cam(t_scene *p, char *line, int index)
 {
-	printf("le check dans C = %d\n", p->c.check_c);
 	if (p->c.check_c == 0)
 	{
 		p->c.pos.vec[0] = ascii_to_double(get_numb(line, index));
@@ -68,10 +66,8 @@ void	init_cam(t_scene *p, char *line, int index)
 
 void	init_light(t_scene *p, char *line, int index)
 {
-	printf("le check dans L = %d\n", p->l.check_l);
 	if (p->l.check_l == 0)
 	{
-		printf("je passe dans check_l\n");
 		p->l.pos.vec[0] = ascii_to_double(get_numb(line, index));
 		p->l.pos.vec[1] = ascii_to_double(get_numb(line, index));
 		p->l.pos.vec[2] = ascii_to_double(get_numb(line, index));
@@ -82,7 +78,7 @@ void	init_light(t_scene *p, char *line, int index)
 		p->l.check_l = 1;
 	}
 	else
-		message("Only one camera is allowed", 0);
+		message("Only one light is allowed", 0);
 }
 
 /* void	init_light(t_scene *p, char *line, int index)

@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/04 11:41:07 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:27:32 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ char		*get_numb(char *line, int index);
 //void		init_data(t_scene *p);
 //void		init_ambiant(t_scene *p, char *line);
 //list_cy.c
-t_listobj	*init_listobj();
+t_listobj	*init_listobj(t_scene *p);
 size_t		size_stack_obj(t_listobj *top);
 void		printll_obj(t_listobj *obj);
 void		push_cy(t_scene *p, char *line, int index);
@@ -207,7 +207,6 @@ void		free_struct(t_scene *p);
 
 //check_line.c
 int		is_empty(char *line);
-char	*clean_line(t_scene *p, char *line);
 int		strlen_comm(t_scene *p, char *line);
 char	*clean_comm(t_scene *p, char *line);
 char	*trim_line(char *line);
@@ -215,7 +214,8 @@ int		ft_count_lines(int fd);
 void	init_check(t_scene *p, char **argv);
 void	message(char *msg, int index);
 void	check_fd(int fd, char **argv);
-
+void	check_struct(t_scene *p);
+void	read_fd(t_scene *p, int fd, int i);
 
 //Array_2d.c
 t_rgb		**create_2d_rgb(int cols, int rows);
