@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:57:13 by marvin            #+#    #+#             */
-/*   Updated: 2021/11/17 14:09:34 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 11:16:33 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	end = ft_getend(s1, set);
 	if (start >= end)
 		return (ft_strdup(""));
-	trim = (char *)malloc(sizeof(char) * (end - start + 1));
+	trim = wrmalloc(sizeof(char *) * (end - start + 1));
 	if (trim == NULL)
 		return (NULL);
 	ft_strlcpy(trim, s1 + start, end - start + 1);

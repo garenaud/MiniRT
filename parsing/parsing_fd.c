@@ -6,129 +6,80 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 09:50:19 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/23 20:54:56 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 11:29:23 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../miniRT.h"
 
-void	init_ambiant(t_scene *p, char *line)
+void	init_obj(t_scene *p, char *line, int index)
 {
-	p->a.lum = ascii_to_double(get_numb(line));
-	p->a.color.rgb[0] = ft_atoi(get_numb(line));
-	p->a.color.rgb[1] = ft_atoi(get_numb(line));
-	p->a.color.rgb[2] = ft_atoi(get_numb(line));
-	free(line);
-}
-
-void	init_cam(t_scene *p, char *line)
-{
-	char	*test;
-	double	num;
-	p->c.pos.vec[0] = ascii_to_double(get_numb(line));
-	p->c.pos.vec[1] = ascii_to_double(get_numb(line));
-	p->c.pos.vec[2] = ascii_to_double(get_numb(line));
-	p->c.dir.vec[0] = ascii_to_double(get_numb(line));
-	p->c.dir.vec[1] = ascii_to_double(get_numb(line));
-	p->c.dir.vec[2] = ascii_to_double(get_numb(line));
-	test = get_numb(line);
-	num = ascii_to_double(test);
-	p->c.fov = num;
-	free(line);
-}
-
-void	init_light(t_scene *p, char *line)
-{
-	p->l.pos.vec[0] = ascii_to_double(get_numb(line));
-	p->l.pos.vec[1] = ascii_to_double(get_numb(line));
-	p->l.pos.vec[2] = ascii_to_double(get_numb(line));
-	p->l.lum = ascii_to_double(get_numb(line));
-	p->l.color.rgb[0] = ft_atoi(get_numb(line));
-	p->l.color.rgb[1] = ft_atoi(get_numb(line));
-	p->l.color.rgb[2] = ft_atoi(get_numb(line));
-	free(line);
+	if (line[0] == 's' && line[1] == 'p')
+		push_sp(p, line, index);
+	if (line[0] == 'p' && line[1] == 'l')
+		push_pl(p, line, index);
+	if (line[0] == 'c' && line[1] == 'y')
+		push_cy(p, line, index);
 }
 
 void	parsing(t_scene *p, char **argv)
 {
 	int		fd;
-	char	*line;
-	//(void)	p;
-	//int		i = 0;
+	int		i;
 
 	fd = open(argv[1], O_RDONLY);
-	while (fd)
-	{
- 		//line = malloc(sizeof(char *) * 1000);
-		printf(BLUE"tour de boucle, fd = %d \n"ENDC, fd);
-		line = get_next_line(fd);
-		if (line == NULL)
-			break;
-		if (line != NULL)
-			printf(RED"line[0] = %c, line = %s\n\n"ENDC, line[0], line);
-		if (line[0] == 'A')
-			init_ambiant(p, line);
-		if (line[0] == 'C')
-			init_cam(p, line);
-		if (line[0] == 'L')
-			init_light(p, line);
-/*		if (line[0] == 's' && line[1] == 'p')
-			init_sp(p, line);
-		if (line[0] == 'p' && line[1] == 'l')
-			init_pl(p, line);
-		if (line[0] == 'c' && line[1] == 'y')
-			init_cy(p, line);*/
-		else
-		{
-			printf("error dans le parsing line[0] = %c\n", line[0]);
-			//break;
-		}
-		//free(line);
-	}
+	i = 1;
+	while (i++ <= p->check.fd_lines)
+		read_fd(p, fd, i);
+	check_struct(p);
 	close(fd);
 }
 
-char	*get_numb(char *line)
+void	read_fd(t_scene *p, int fd, int i)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	if (is_empty(line) == 0 && line != NULL)
+		line = clean_comm(p, line);
+	if (is_empty(line) == 0 && line != NULL)
+	{
+		line = trim_line(line);
+		if (line[0] == 'A')
+			init_ambiant(p, line, i - 1);
+		if (line[0] == 'C')
+			init_cam(p, line, i - 1);
+		if (line[0] == 'L')
+			init_light(p, line, i - 1);
+		if (line[0] == 's' || line[0] == 'p' || line[0] == 'c')
+			init_obj(p, line, i - 1);
+		//free(line);
+	}
+/* 	else if (is_empty(line) == 1 || line == NULL)
+		free(line); */
+}
+
+char	*get_numb(char *line, int index)
 {
 	static int		i;
 	int				j;
 	int				k;
-	int				linelen;
-	char			*lum = NULL;
-	
-	i = 1;
-	k = 0;
-	linelen = ft_strlen(line) - 1;
-	while(line[i] != '\0')
+
+	i = 2;
+	k = ft_strlen(line);
+	while (line[i] != '\0')
 	{
-		while (line[i] == ' ' && linelen >= i)
+		while (ft_isdigit2(line[i]) == 0 && line[i] != '\0')
 			i++;
-		if (i == linelen)
-			break;
 		j = i;
-		if (line[i] != ',' && line[i] != ' ')
-		{
-			while (line[i] != ',' && line[i] != ' ')
-				i++;
-		}
-		if (line[i] == ',')
-			line[i] = ' ';
-  		lum = malloc(sizeof(char *) * (i - j));
-		if (lum == NULL)
-			printf(RED"error Malloc!\n"ENDC);
-		while (j < i)
-		{
-			lum[k] = line[j];
-			line[j] = ' ';
-			k++;
-			j++;
-			if (j == i)
-			{
-				lum[k] = '\0';
-				return (lum);
-			}
-		}
+		while (ft_isdigit2(line[i]) == 1)
+			i++;
+		if (i > k)
+			message("Your fd doesn't have enough information on line", index);
+		if (j < i)
+			return (ft_strdup_num(line, j, i));
 		i++;
 	}
-	return (lum);
+	message(RED"Your fd doesn't have enough information on line"ENDC, index);
+	return (ft_strdup_num(line, j, i));
 }

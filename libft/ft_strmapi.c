@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 13:51:02 by grenaud-          #+#    #+#             */
-/*   Updated: 2021/11/17 13:56:21 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 11:16:02 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 		return (NULL);
 	len = ft_strlen(s);
 	i = 0;
-	str = (char *)malloc(sizeof(char) * (len + 1));
+	str = wrmalloc(sizeof(char *) * (len + 1));
 	if (str == NULL)
 		return (NULL);
 	if (!s || !f)

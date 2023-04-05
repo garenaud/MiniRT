@@ -1,32 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_init.c                                        :+:      :+:    :+:   */
+/*   msg_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 15:42:55 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/20 15:45:28 by grenaud-         ###   ########.fr       */
+/*   Created: 2023/04/03 17:45:13 by grenaud-          #+#    #+#             */
+/*   Updated: 2023/04/04 18:06:24 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../miniRT.h"
 
-void	ft_window_size(t_game *game, char **argv)
+void	message(char *msg, int index)
 {
-	int	fd;
+	printf(RED"Error\n");
+	if (index == 0)
+		printf("%s"ENDC, msg);
+	else
+		printf("%s %d"ENDC, msg, index);
+	exit(0);
+}
 
-	fd = open(argv[1], O_RDONLY);
+void	check_fd(int fd, char **argv)
+{
 	if (fd < 0)
 	{
-		ft_printf(RED"Error\nNo files found\n"ENDC);
+		printf(RED"Error\nNo files found\n"ENDC);
 		exit (0);
 	}
 	if (ft_strnstr(argv[1], ".rt", ft_strlen(argv[1])) == NULL)
 	{
-		ft_printf(RED"Error\nyou need a .rt extension\n"ENDC);
+		printf(RED"Error\nyou need a .rt extension\n"ENDC);
 		exit (0);
 	}
-	game->size_x = (ft_line_length(fd) * 48);
-	game->size_y = (ft_count_lines(fd) * 48);
+}
+
+void	check_struct(t_scene *p)
+{
+	if (p->a.check_a == 0)
+		message("You forgot to add an ambient lightining", 0);
+	if (p->c.check_c == 0)
+		message("You forgot to add a camera", 0);
+	if (p->l.check_l == 0)
+		message("You forgot to add a light", 0);
 }

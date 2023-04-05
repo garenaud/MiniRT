@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 16:23:03 by grenaud-          #+#    #+#             */
-/*   Updated: 2021/11/17 14:10:09 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 11:06:21 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_itoa(int n)
 
 	len = ft_getlen(n);
 	nb = n;
-	str = ((char *)malloc(sizeof(char) * len + 1));
+	str = wrmalloc(sizeof(char) * (len + 1));
 	if (str == NULL)
 		return (NULL);
 	if (nb < 0)

@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:19:09 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/21 11:52:12 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:30:57 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ double	ascii_to_double(char *str)
 
 	sign = 1;
 	fraclen = 0;
-	if (*str == '-' || *str == '+')
+	if (str[0] == '-' || str[0] == '+')
 	{
 		sign = sign_atod(*str);
 		str++;

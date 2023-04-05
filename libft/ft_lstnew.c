@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 12:50:35 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/03/20 16:04:37 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 11:10:47 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_listl	*ft_lstnew(void *content)
 {
 	t_listl	*result;
 
-	result = (t_listl *)malloc(sizeof(t_listl));
+	result = wrmalloc(sizeof(t_listl) * 1);
 	if (!result)
 		return (NULL);
 	result->content = content;
