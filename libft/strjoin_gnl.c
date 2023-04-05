@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:31:29 by marvin            #+#    #+#             */
-/*   Updated: 2023/04/04 17:07:16 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 11:39:38 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ char	*strjoin_gnl(char *left_str, char *buff)
 	while (buff[j] != '\0')
 		s[i++] = buff[j++];
 	s[ft_strlen(left_str) + ft_strlen(buff)] = '\0';
-	free(left_str);
+	wrfree(left_str);
 	return (s);
 }

@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/04 18:27:32 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 12:08:18 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,6 @@ typedef struct s_list_i
 	struct s_list_i	*next;
 }		t_list_i;
 
-typedef struct s_dico
-{
-	char			*key;
-	char			*value;
-	struct s_dico	*next;
-}		t_dico;
-
 typedef struct s_ambiant
 {
 	int			check_a;
@@ -119,7 +112,6 @@ typedef struct s_check
 	int		fd_lines;
 }		t_check;
 
-
 typedef struct s_scene
 {
 	t_ambiant	a;
@@ -145,47 +137,7 @@ char		*ft_get_line(char *raw_line);
 char		*ft_get_raw_line(int fd, char *raw_line);
 char		*get_next_line(int fd);
 /* ************************************************************************** */
-//list_utils1.c
-void		push(t_list **top, char *item);
-char		*pop(t_list **top);
-void		delete(t_list **top);
-t_list		*reverse(t_list **top);
-int			getpos_c(t_list *top, char *item);
-//list_utils2.c
-size_t		size_stack(t_list *top);
-int			transfer_c(t_list **start, t_list **end);
-int			remove_pos_c(t_list **top, size_t pos);
-char		*getitem(t_list *top, size_t pos);
-//list_utils3.c
-void		printll(t_list *lst);
-//void		print_ic(t_list_i *lst_i, t_list *lst);
-//dico.c
-void		push_dico(t_dico **top, char *key, char *value);
-t_dico		*pop_dico(t_dico **top);
-void		delete_dico(t_dico **top);
-size_t		size_stack_dico(t_dico *top);
-int			get_key(t_dico *top, char *item);
-//dico_1.c
-int			get_value(t_dico *top, char *item);
-int			transfer_dico(t_dico **start, t_dico **end);
-int			remove_pos_dico(t_dico **top, size_t pos);
-t_dico		*reverse_dico(t_dico **top);
-t_dico		*getitem_dico(t_dico *top, size_t pos);
-//dico_2.c
-void		printll_dico(t_dico *dico);
-char		*put_key(int *i, int *j, char *env[]);
-char		*put_value(int *i, int *j, char *env[]);
-void		create_dico_list(t_dico **dico, char *env[]);
-/* //dico_3.c
-void		clean_dico_32(t_list **p, t_list **raw_tmp, t_list_i **flag_tmp);
-void		clean_dico_helper(t_list **p, t_list **raw_tmp, t_list_i **flag_tmp);
-void		clean_dico(t_list *p);
-size_t		find_min_key(t_dico *dico);
-size_t		find_max_key(t_dico *dico); */
-//dico_4.c
-void		duplicate(t_dico **orig, t_dico **copy);
-char		*getword1(t_list **raw, char *search);
-char		*delimitateur(t_list **raw);
+
 //parsing_fd.c
 void		init_ambiant(t_scene *p, char *line, int index);
 void		init_cam(t_scene *p, char *line, int index);
@@ -201,21 +153,20 @@ void		printll_obj(t_listobj *obj);
 void		push_cy(t_scene *p, char *line, int index);
 void		push_sp(t_scene *p, char *line, int index);
 void		push_pl(t_scene *p, char *line, int index);
-void		add_to_list(t_listobj **head, t_listobj *new_element) ;
+void		add_to_list(t_listobj **head, t_listobj *new_element);
 void		delete_obj(t_listobj **top);
-void		free_struct(t_scene *p);
 
 //check_line.c
-int		is_empty(char *line);
-int		strlen_comm(t_scene *p, char *line);
-char	*clean_comm(t_scene *p, char *line);
-char	*trim_line(char *line);
-int		ft_count_lines(int fd);
-void	init_check(t_scene *p, char **argv);
-void	message(char *msg, int index);
-void	check_fd(int fd, char **argv);
-void	check_struct(t_scene *p);
-void	read_fd(t_scene *p, int fd, int i);
+int			is_empty(char *line);
+int			strlen_comm(t_scene *p, char *line);
+char		*clean_comm(t_scene *p, char *line);
+char		*trim_line(char *line);
+int			ft_count_lines(int fd);
+void		init_check(t_scene *p, char **argv);
+void		message(char *msg, int index);
+void		check_fd(int fd, char **argv);
+void		check_struct(t_scene *p);
+void		read_fd(t_scene *p, int fd, int i);
 
 //Array_2d.c
 t_rgb		**create_2d_rgb(int cols, int rows);

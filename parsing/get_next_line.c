@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 14:17:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/03 16:26:48 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 11:40:18 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ char	*ft_get_start(char *raw_line)
 		i++;
 	if (!raw_line[i])
 	{
-		free (raw_line);
+		wrfree(raw_line);
 		return (NULL);
 	}
-	str = (char *)malloc(sizeof(char) * (ft_strlen(raw_line) - i + 1));
+	str = wrmalloc(sizeof(char) * (ft_strlen(raw_line) - i + 1));
 	if (!str)
 		return (NULL);
 	i++;
@@ -35,7 +35,7 @@ char	*ft_get_start(char *raw_line)
 	while (raw_line[i])
 		str[j++] = raw_line[i++];
 	str[j] = '\0';
-	free (raw_line);
+	wrfree(raw_line);
 	return (str);
 }
 
@@ -49,7 +49,7 @@ char	*ft_get_line(char *raw_line)
 		return (NULL);
 	while (raw_line[i] && raw_line[i] != '\n')
 		i++;
-	str = (char *)malloc(sizeof(char) * (i + 2));
+	str = wrmalloc(sizeof(char) * (i + 2));
 	if (!str)
 		return (NULL);
 	i = 0;
@@ -70,7 +70,7 @@ char	*ft_get_raw_line(int fd, char *raw_line)
 	char	*buff;
 	int		bytes;
 
-	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	buff = wrmalloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
 		return (NULL);
 	bytes = 1;
@@ -79,13 +79,13 @@ char	*ft_get_raw_line(int fd, char *raw_line)
 		bytes = read(fd, buff, BUFFER_SIZE);
 		if (bytes == -1)
 		{
-			free (buff);
+			wrfree(buff);
 			return (NULL);
 		}
 		buff[bytes] = '\0';
 		raw_line = ft_strjoin2(raw_line, buff);
 	}
-	free (buff);
+	wrfree(buff);
 	return (raw_line);
 }
 

@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 09:50:19 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/04 18:30:05 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 11:29:23 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ void	read_fd(t_scene *p, int fd, int i)
 			init_light(p, line, i - 1);
 		if (line[0] == 's' || line[0] == 'p' || line[0] == 'c')
 			init_obj(p, line, i - 1);
-		free(line);
+		//free(line);
 	}
-	else if (is_empty(line) == 1 || line == NULL)
-		free(line);
+/* 	else if (is_empty(line) == 1 || line == NULL)
+		free(line); */
 }
 
 char	*get_numb(char *line, int index)

@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:29:20 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/04 18:34:07 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 11:47:24 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_listobj	*init_listobj(t_scene *p)
 	t_listobj	*new;
 
 	(void) p;
-	new = (t_listobj *)malloc(sizeof(t_listobj));
+	new = (t_listobj *)wrmalloc(sizeof(t_listobj));
 	if (!new)
 		return (NULL);
 	new->id = wrmalloc(sizeof(char *) * (2 + 1));
@@ -114,6 +114,6 @@ void	delete_obj(t_listobj **top)
 		tmp = *top;
 		*top = (*top)->next;
 		if (top)
-			free(&top);
+			wrfree(top);
 	}
 }

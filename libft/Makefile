@@ -6,9 +6,19 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/01 15:33:28 by grenaud-          #+#    #+#              #
-#    Updated: 2023/04/04 15:08:27 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/04/05 12:25:30 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+Y = "\033[33m"
+R = "\033[31m"
+G = \033[32m
+B = "\033[34m"
+X = "\033[0m"
+UP = "\033[A"
+CUT = "\033[K"
+REVR = \033[7m
+BOLD = "\033[1m"
 
 SRC_DIR		=	./
 
@@ -86,8 +96,10 @@ all:            ${NAME}
 
 .c.o:
 				@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+				@printf "$(G) $(REVR) " $(X)
 
 ${NAME}:        ${OBJS}
+				@echo $(BOLD)[libft compiled]$(BOLD)
 				@${AR_RCS} ${NAME} ${OBJS}
 
 bonus:			${BONUS_OBJS}

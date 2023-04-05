@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 10:23:16 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/04 17:55:06 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 11:45:10 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*trim_line(char *line)
 	while (k <= j)
 		new[k++] = line[i++];
 	new[k] = '\0';
-	free(line);
+	wrfree(line);
 	return (new);
 }
 
@@ -103,7 +103,7 @@ char	*clean_comm(t_scene *p, char *line)
 			i++;
 	}
 	new[j] = '\0';
-	free(line);
+	wrfree(line);
 	return (new);
 }
 

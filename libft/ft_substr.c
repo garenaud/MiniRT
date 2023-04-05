@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 14:49:48 by marvin            #+#    #+#             */
-/*   Updated: 2021/11/24 12:33:44 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 11:16:57 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	new_len = ft_strlen(s + start);
 	if (new_len < len)
 		len = new_len;
-	substr = (char *)malloc(sizeof(char) * (len + 1));
+	substr = wrmalloc(sizeof(char) * (len + 1));
 	if (!substr)
 		return (NULL);
 	ft_strlcpy(substr, s + start, len + 1);

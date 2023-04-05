@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 14:50:25 by grenaud-          #+#    #+#             */
-/*   Updated: 2021/11/29 13:37:18 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 11:12:06 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*word_dup(const char *str, int start, int finish)
 	int		i;
 
 	i = 0;
-	word = malloc((finish - start + 1) * sizeof(char));
+	word = wrmalloc(sizeof(char) * (finish - start + 1));
 	if (!word)
 		return (0);
 	while (start < finish)
@@ -55,7 +55,7 @@ char	**ft_split(char const *s, char c)
 	int		index;
 	char	**split;
 
-	split = malloc((count_words(s, c) + 1) * sizeof(char *));
+	split = wrmalloc(sizeof(char *) * (count_words(s, c) + 1));
 	if (!s || !split)
 		return (0);
 	i = 0;
