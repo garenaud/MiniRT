@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:19:09 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/04 14:30:57 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:14:25 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	frac_len(char *str)
 	return (i - 1);
 }
 
-double	ascii_to_double(char *str)
+double	ascii_to_double(char *str, int check, int index)
 {
 	double	result;
 	double	frac;
@@ -64,10 +64,8 @@ double	ascii_to_double(char *str)
 	sign = 1;
 	fraclen = 0;
 	if (str[0] == '-' || str[0] == '+')
-	{
 		sign = sign_atod(*str);
-		str++;
-	}
+	str++;
 	while (*str != '\0' && *str != '.')
 	{
 		result = int_part(*str, result);
@@ -80,5 +78,6 @@ double	ascii_to_double(char *str)
 	}
 	if (fraclen)
 		result += frac / pow(10.0, fraclen);
+	check_double((result *= sign), check, index);
 	return (result *= sign);
 }

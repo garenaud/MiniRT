@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/05 12:08:18 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:38:40 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define VIEWPORT_HEIGHT	256
 # define VIEWPORT_WIDTH		256
 # define MCC		255
+
 
 # include <stdio.h>
 # include <string.h>
@@ -128,7 +129,7 @@ int			sign_atod(char c);
 double		int_part(char c, double result);
 double		frac_part(char *str);
 int			frac_len(char *str);
-double		ascii_to_double(char *str);
+double		ascii_to_double(char *str, int check, int index);
 
 /* ************************************************************************** */
 //get_next_line.c
@@ -148,7 +149,7 @@ char		*get_numb(char *line, int index);
 //void		init_ambiant(t_scene *p, char *line);
 //list_cy.c
 t_listobj	*init_listobj(t_scene *p);
-size_t		size_stack_obj(t_listobj *top);
+int			size_stack_obj(t_listobj *top);
 void		printll_obj(t_listobj *obj);
 void		push_cy(t_scene *p, char *line, int index);
 void		push_sp(t_scene *p, char *line, int index);
@@ -167,6 +168,10 @@ void		message(char *msg, int index);
 void		check_fd(int fd, char **argv);
 void		check_struct(t_scene *p);
 void		read_fd(t_scene *p, int fd, int i);
+t_listobj	*getobj(t_listobj *top, int index);
+void		check_int(int value, int check, int index);
+void		check_double(double value, int check, int index);
+int			ft_atoi_check(const char *str, int check, int index);
 
 //Array_2d.c
 t_rgb		**create_2d_rgb(int cols, int rows);

@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:29:20 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/05 11:47:24 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:54:50 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_listobj	*init_listobj(t_scene *p)
 	new = (t_listobj *)wrmalloc(sizeof(t_listobj));
 	if (!new)
 		return (NULL);
+	new->index = 0;
 	new->id = wrmalloc(sizeof(char *) * (2 + 1));
 	new->id = "cy";
 	new->pos.vec[0] = 0;
@@ -32,6 +33,34 @@ t_listobj	*init_listobj(t_scene *p)
 	new->color.rgb[2] = 0;
 	new->next = NULL;
 	return (new);
+}
+
+t_listobj	*getobj(t_listobj *top, int index)
+{
+	t_listobj	*tmp;
+
+	tmp = (t_listobj *)wrmalloc(sizeof(t_listobj));
+	if (!tmp)
+		exit (-1);
+	if (index > size_stack_obj(top))
+		return (NULL);
+	else
+	{
+		while (index != top->index)
+			top = top->next;
+		tmp->index = top->index;
+		tmp->id = ft_strdup(top->id);
+		tmp->pos.vec[0] = top->pos.vec[0];
+		tmp->pos.vec[1] = top->pos.vec[1];
+		tmp->pos.vec[2] = top->pos.vec[2];
+		tmp->diam = top->diam;
+		tmp->h = top->h;
+		tmp->color.rgb[0] = top->color.rgb[0];
+		tmp->color.rgb[1] = top->color.rgb[1];
+		tmp->color.rgb[2] = top->color.rgb[2];
+		tmp->next = NULL;
+		return (tmp);
+	}
 }
 
 void	add_to_list(t_listobj **head, t_listobj *new_element)
@@ -51,9 +80,9 @@ void	add_to_list(t_listobj **head, t_listobj *new_element)
 	new_element->next = NULL;
 }
 
-size_t	size_stack_obj(t_listobj *top)
+int	size_stack_obj(t_listobj *top)
 {
-	size_t	size;
+	int	size;
 
 	size = 0;
 	while (top != NULL)

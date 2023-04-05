@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:45:13 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/04 18:06:24 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 16:59:12 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	message(char *msg, int index)
 		printf("%s"ENDC, msg);
 	else
 		printf("%s %d"ENDC, msg, index);
+	wrdestroy();
 	exit(0);
 }
 
@@ -44,4 +45,28 @@ void	check_struct(t_scene *p)
 		message("You forgot to add a camera", 0);
 	if (p->l.check_l == 0)
 		message("You forgot to add a light", 0);
+}
+
+void	check_double(double value, int check, int index)
+{
+	if (check == 1)
+		if (value < 0 || value > 1)
+			message("Your lightning/brightness ratio has to \
+be between 0.0 and 1.0 on line", index);
+	if (check == 2)
+		if (value < -1 || value > 1)
+			message("Your orientation vector has to \
+be between -1 and 1.0 on line", index);
+}
+
+void	check_int(int value, int check, int index)
+{
+	if (check == 1)
+		if (value < 0 || value > 255)
+			message("Your RGB values has to\
+be between 0 and 255 on line", index);
+	if (check == 2)
+		if (value < 0 || value > 180)
+			message("Your FOV values has to \
+be between 0 and 180 on line", index);
 }
