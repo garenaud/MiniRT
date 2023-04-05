@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 09:50:19 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/05 11:29:23 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 17:39:33 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*get_numb(char *line, int index)
 	int				j;
 	int				k;
 
-	i = 2;
+	i = 0;
 	k = ft_strlen(line);
 	while (line[i] != '\0')
 	{

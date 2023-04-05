@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:42:55 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/05 16:31:15 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 17:24:58 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	init_ambiant(t_scene *p, char *line, int index)
 {
 	if (p->a.check_a == 0)
 	{
+		printf("line = %s ", line);
 		p->a.lum = ascii_to_double(get_numb(line, index), 1, index);
+		printf("p->a.lum = %f\n", p->a.lum);
 		p->a.color.rgb[0] = ft_atoi_check(get_numb(line, index), 1, index);
 		p->a.color.rgb[1] = ft_atoi_check(get_numb(line, index), 1, index);
 		p->a.color.rgb[2] = ft_atoi_check(get_numb(line, index), 1, index);
