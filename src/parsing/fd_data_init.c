@@ -6,11 +6,11 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:42:55 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/05 17:24:58 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:07:41 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniRT.h"
+#include "../../include/miniRT.h"
 
 void	init_ambiant(t_scene *p, char *line, int index)
 {

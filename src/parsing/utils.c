@@ -6,11 +6,11 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 16:01:00 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/05 16:29:24 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:28:09 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniRT.h"
+#include "../../include/miniRT.h"
 
 int	ft_atoi_check(const char *str, int check, int index)
 {

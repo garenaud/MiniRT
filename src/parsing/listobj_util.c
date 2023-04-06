@@ -6,11 +6,11 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:29:20 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/05 16:54:50 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:27:53 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniRT.h"
+#include "../../include/miniRT.h"
 
 t_listobj	*init_listobj(t_scene *p)
 {

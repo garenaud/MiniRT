@@ -15,7 +15,7 @@ all: $(NOM)
 
 $(NOM):	$(OBJ)
 	@ar -r -s $(NOM) $(OBJ)
-	ranlib -s $(NOM)
+	@ranlib -s $(NOM)
 
 clean:
 	rm -f $(NOM) $(OBJ) *~

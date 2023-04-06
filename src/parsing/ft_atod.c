@@ -6,11 +6,11 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:19:09 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/05 18:46:59 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:27:18 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniRT.h"
+#include "../../include/miniRT.h"
 
 int	sign_atod(char c)
 {

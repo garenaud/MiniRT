@@ -6,11 +6,11 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 14:17:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/05 11:40:18 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:27:27 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniRT.h"
+#include "../../include/miniRT.h"
 #include "get_next_line.h"
 
 char	*ft_get_start(char *raw_line)

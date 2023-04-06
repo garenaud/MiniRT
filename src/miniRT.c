@@ -6,11 +6,11 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/05 16:55:52 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:26:23 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "../include/miniRT.h"
 
 void	init_check(t_scene *p, char **argv)
 {

@@ -6,11 +6,11 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 17:45:13 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/05 17:23:29 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:27:59 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniRT.h"
+#include "../../include/miniRT.h"
 
 void	message(char *msg, int index)
 {

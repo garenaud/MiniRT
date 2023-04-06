@@ -6,11 +6,11 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 18:32:48 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/05 16:30:22 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:27:14 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniRT.h"
+#include "../../include/miniRT.h"
 
 void	push_cy(t_scene *p, char *line, int index)
 {

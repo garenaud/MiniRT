@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/05 16:38:40 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:06:56 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@
 # include <stddef.h>
 # include <stdbool.h>
 
-# include "libft/libft.h"
-# include "mlx/mlx.h"
-# include "parsing/get_next_line.h"
+# include "../libft/libft.h"
+# include "../mlx/mlx.h"
+# include "../src/parsing/get_next_line.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
@@ -113,6 +113,12 @@ typedef struct s_check
 	int		fd_lines;
 }		t_check;
 
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*window;
+}		t_mlx;
+
 typedef struct s_scene
 {
 	t_ambiant	a;
@@ -146,7 +152,6 @@ void		init_light(t_scene *p, char *line, int index);
 void		parsing(t_scene *p, char **argv);
 char		*get_numb(char *line, int index);
 //void		init_data(t_scene *p);
-//void		init_ambiant(t_scene *p, char *line);
 //list_cy.c
 t_listobj	*init_listobj(t_scene *p);
 int			size_stack_obj(t_listobj *top);
