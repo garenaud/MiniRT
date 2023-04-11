@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 19:21:45 by grenaud-          #+#    #+#              #
-#    Updated: 2023/04/06 17:29:43 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/04/11 13:30:24 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CC 			= gcc
 CFLAGS		= -Wall -Wextra -Werror -g
 LFLAGS		= -L libft -lft
 DFLAGS		= -MMD -MF $(@:.o=.d)
-METAL_MLX	= -framework OpenGL -framework AppKit -L./mlx -lmlx -g
+METAL_MLX	= -framework OpenGL -framework AppKit -L./mlx -lmlx -g -fsanitize=address
 DANGER		= -fsanitize=address
 
 LIBFT 		= libft
@@ -50,6 +50,7 @@ SRCS			= 	parsing/ft_atod.c \
 					parsing/msg_error.c \
 					parsing/fd_obj_init.c \
 					parsing/utils.c \
+					MLX_files/windows.c \
 
 MAIN			= miniRT.c
 

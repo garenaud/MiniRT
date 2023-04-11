@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/06 17:06:56 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/11 12:03:04 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define BOLDRED	"\033[31m"
 # define BLUE		"\033[1;34m"
 
+# define ESC		53
 # define CANVAS_X	1024
 # define CANVAS_Y	1024
 # define VIEWPORT_HEIGHT	256
@@ -117,6 +118,7 @@ typedef struct s_mlx
 {
 	void	*mlx;
 	void	*window;
+	char	*title;
 }		t_mlx;
 
 typedef struct s_scene
@@ -126,6 +128,7 @@ typedef struct s_scene
 	t_light		l;
 	t_listobj	*obj;
 	t_check		check;
+	t_mlx		mlx_init;
 }			t_scene;
 /* ************************************************************************** */
 /* FUNCTION PROTOTYPES														  */
@@ -177,6 +180,15 @@ t_listobj	*getobj(t_listobj *top, int index);
 void		check_int(int value, int check, int index);
 void		check_double(double value, int check, int index);
 int			ft_atoi_check(const char *str, int check, int index);
+
+//windows.c
+int			destroy_window(t_scene *p);
+void		init_mlx(t_scene *p, char **argv);
+void		free_and_exit(t_scene *p);
+int			deal_key(int key_code, t_scene *p);
+int			escape(int key_code, t_scene *p);
+
+
 
 //Array_2d.c
 t_rgb		**create_2d_rgb(int cols, int rows);
