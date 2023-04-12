@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/11 12:03:04 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/12 11:38:22 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@
 # define BLUE		"\033[1;34m"
 
 # define ESC		53
-# define CANVAS_X	1024
-# define CANVAS_Y	1024
+# define CANVAS_X	512
+# define CANVAS_Y	512
 # define VIEWPORT_HEIGHT	256
 # define VIEWPORT_WIDTH		256
 # define MCC		255
-
 
 # include <stdio.h>
 # include <string.h>
@@ -123,6 +122,7 @@ typedef struct s_mlx
 
 typedef struct s_scene
 {
+	char		*line;
 	t_ambiant	a;
 	t_camera	c;
 	t_light		l;
@@ -149,19 +149,18 @@ char		*get_next_line(int fd);
 /* ************************************************************************** */
 
 //parsing_fd.c
-void		init_ambiant(t_scene *p, char *line, int index);
-void		init_cam(t_scene *p, char *line, int index);
-void		init_light(t_scene *p, char *line, int index);
+void		init_ambiant(t_scene *p, int index);
+void		init_cam(t_scene *p, int index);
+void		init_light(t_scene *p, int index);
 void		parsing(t_scene *p, char **argv);
-char		*get_numb(char *line, int index);
 //void		init_data(t_scene *p);
 //list_cy.c
 t_listobj	*init_listobj(t_scene *p);
 int			size_stack_obj(t_listobj *top);
 void		printll_obj(t_listobj *obj);
-void		push_cy(t_scene *p, char *line, int index);
-void		push_sp(t_scene *p, char *line, int index);
-void		push_pl(t_scene *p, char *line, int index);
+void		push_cy(t_scene *p, int index);
+void		push_sp(t_scene *p, int index);
+void		push_pl(t_scene *p, int index);
 void		add_to_list(t_listobj **head, t_listobj *new_element);
 void		delete_obj(t_listobj **top);
 
@@ -179,7 +178,7 @@ void		read_fd(t_scene *p, int fd, int i);
 t_listobj	*getobj(t_listobj *top, int index);
 void		check_int(int value, int check, int index);
 void		check_double(double value, int check, int index);
-int			ft_atoi_check(const char *str, int check, int index);
+int			atoi_c(const char *str, int check, int index);
 
 //windows.c
 int			destroy_window(t_scene *p);
@@ -188,7 +187,10 @@ void		free_and_exit(t_scene *p);
 int			deal_key(int key_code, t_scene *p);
 int			escape(int key_code, t_scene *p);
 
-
+//test get_numb
+void		*trim_numb(char *line, int i);
+char		*get_numb(t_scene *p, int index);
+void		mlx_key(t_scene *p);
 
 //Array_2d.c
 t_rgb		**create_2d_rgb(int cols, int rows);
