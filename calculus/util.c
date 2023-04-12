@@ -9,6 +9,7 @@
 /*   Updated: 2023/03/24 16:12:52 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "../miniRT.h"
 
 int	egal(double lhs, double rhs, double tolerance)
 {

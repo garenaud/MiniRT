@@ -9,7 +9,7 @@
 /*   Updated: 2023/03/22 11:27:52 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "miniRT.h"
+#include "../miniRT.h"
 
 double	dot(t_vector v1, t_vector v2)
 {

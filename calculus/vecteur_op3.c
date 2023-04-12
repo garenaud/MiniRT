@@ -9,7 +9,7 @@
 /*   Updated: 2023/04/06 09:39:50 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "miniRT.h"
+#include "../miniRT.h"
 
 t_vector	projection(t_vector from, t_vector to)
 {

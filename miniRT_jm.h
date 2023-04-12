@@ -253,4 +253,10 @@ double		discr(double a, double b, double c);
 void		test_quad_sol(t_discr *d);
 void		quadratic_solution(t_discr *d, double a, double b, double c);
 void		quadratic_solution2(t_discr *d);
+/* ************************************************************************** */
+// cylindre.c
+void		get_coeff_cyl(t_discr *d, t_ray ray, t_cyl Cyl);
+void		compute_intersect_cyl(t_discr *delta, t_ray ray, t_cyl *Cyl);
+double		intersect_axe(t_cyl *Cyl, int param);
+double		cylindre_hit(t_cyl *Cyl, t_discr *delta, double eps);
 #endif

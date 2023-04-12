@@ -9,7 +9,7 @@
 /*   Updated: 2023/03/22 11:15:14 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "miniRT.h"
+#include "../miniRT.h"
 
 void	printv(t_vector *v)
 {

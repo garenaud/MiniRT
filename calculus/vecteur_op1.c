@@ -9,7 +9,7 @@
 /*   Updated: 2023/03/22 11:27:58 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "miniRT.h"
+#include "../miniRT.h"
 
 t_vector	reverse(t_vector v)
 {

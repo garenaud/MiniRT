@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "../miniRT.h"
 // en cours
 
 void	init_vector(t_vector *v, double v0, double v1, double v2)

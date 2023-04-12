@@ -9,7 +9,7 @@
 /*   Updated: 2023/03/30 14:25:10 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "miniRT.h"
+#include "../miniRT.h"
 
 double	discr(double a, double b, double c)
 {
