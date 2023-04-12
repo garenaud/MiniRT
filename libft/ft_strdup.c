@@ -6,12 +6,11 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 11:48:48 by marvin            #+#    #+#             */
-/*   Updated: 2023/04/04 18:10:24 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:28:53 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "../miniRT.h"
 
 char	*ft_strdup(const char *s1)
 {

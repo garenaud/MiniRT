@@ -6,11 +6,11 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 10:23:16 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/05 11:45:10 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:26:56 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniRT.h"
+#include "../../include/miniRT.h"
 
 char	*trim_line(char *line)
 {

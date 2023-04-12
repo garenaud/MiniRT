@@ -6,11 +6,11 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:19:09 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/04 14:30:57 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/12 11:39:03 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniRT.h"
+#include "../../include/miniRT.h"
 
 int	sign_atod(char c)
 {
@@ -54,20 +54,17 @@ int	frac_len(char *str)
 	return (i - 1);
 }
 
-double	ascii_to_double(char *str)
+double	ascii_to_double(char *str, int check, int index)
 {
 	double	result;
 	double	frac;
 	double	sign;
 	int		fraclen;
 
-	sign = 1;
+	sign = sign_atod(str[0]);
 	fraclen = 0;
 	if (str[0] == '-' || str[0] == '+')
-	{
-		sign = sign_atod(*str);
 		str++;
-	}
 	while (*str != '\0' && *str != '.')
 	{
 		result = int_part(*str, result);
@@ -80,5 +77,7 @@ double	ascii_to_double(char *str)
 	}
 	if (fraclen)
 		result += frac / pow(10.0, fraclen);
-	return (result *= sign);
+	result *= sign;
+	check_double(result, check, index);
+	return (result);
 }

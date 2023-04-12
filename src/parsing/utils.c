@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/01 14:43:22 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/05 15:59:24 by grenaud-         ###   ########.fr       */
+/*   Created: 2023/04/05 16:01:00 by grenaud-          #+#    #+#             */
+/*   Updated: 2023/04/12 11:22:59 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/miniRT.h"
 
-int	ft_isspace(int c)
-{
-	return (c == '\f' || c == '\n' || c == '\r' \
-	|| c == '\t' || c == '\v' || c == ' ');
-}
-
-int	ft_atoi(const char *str)
+int	atoi_c(const char *str, int check, int index)
 {
 	int	neg;
 	int	i;
@@ -41,5 +35,6 @@ int	ft_atoi(const char *str)
 		num = num * 10 + (str[i] - 48);
 		i++;
 	}
+	check_int((num * neg), check, index);
 	return (num * neg);
 }
