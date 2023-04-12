@@ -6,10 +6,11 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 11:27:51 by jsollett          #+#    #+#             */
-/*   Updated: 2023/03/22 11:27:52 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:01:30 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../miniRT.h"
+
+#include "../../include/miniRT.h"
 
 double	dot(t_vector v1, t_vector v2)
 {

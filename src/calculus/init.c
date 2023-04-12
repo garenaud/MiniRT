@@ -6,11 +6,11 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 11:10:12 by jsollett          #+#    #+#             */
-/*   Updated: 2023/03/22 11:10:19 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:00:10 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniRT.h"
+#include "../../include/miniRT.h"
 // en cours
 
 void	init_vector(t_vector *v, double v0, double v1, double v2)

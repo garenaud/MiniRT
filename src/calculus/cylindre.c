@@ -6,10 +6,11 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:39:21 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/06 09:39:36 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:00:42 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../miniRT.h"
+
+#include "../../include/miniRT.h"
 
 void	get_coeff_cyl(t_discr *d, t_ray ray, t_cyl Cyl)
 {

@@ -6,10 +6,11 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 15:46:05 by jsollett          #+#    #+#             */
-/*   Updated: 2023/03/24 16:12:52 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:01:14 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../miniRT.h"
+
+#include "../../include/miniRT.h"
 
 int	egal(double lhs, double rhs, double tolerance)
 {

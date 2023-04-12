@@ -6,10 +6,11 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 11:14:59 by jsollett          #+#    #+#             */
-/*   Updated: 2023/03/22 11:15:14 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:00:34 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../miniRT.h"
+
+#include "../../include/miniRT.h"
 
 void	printv(t_vector *v)
 {

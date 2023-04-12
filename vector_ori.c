@@ -1,6 +1,6 @@
 #include "miniRT.h"
 // faux plan.
-
+/*
 void	get_coeff_cyl(t_discr *d, t_ray ray, t_cyl Cyl)
 {
 	d->a = norm_2(ray.dir) - pow(dot(ray.dir, Cyl.ul), 2);
@@ -8,7 +8,7 @@ void	get_coeff_cyl(t_discr *d, t_ray ray, t_cyl Cyl)
 	d->c = norm_2(Cyl.w1) - pow(dot(Cyl.w1,Cyl.ul),2) - Cyl.r*Cyl.r;
 	d->discr = discr(d->a, d->b, d->c);
 }
-
+*/
 void	get_coeff_sph(t_discr *d, t_ray ray, t_sphere Sph)
 {// a tester
 	d->a = dot(ray.dir, ray.dir);
@@ -28,7 +28,7 @@ void	compute_intersect_plan(t_ray ray, t_plan *P, double eps, int debug)
 	P->ndotray = dot(P->n, ray.dir);// l1.n
 	if (not_egal(P->ndotray, 0, eps))// not egal avant
 	{
-		
+
 		P->tmin = P->OCn / P->ndotray;
 		if ( P->tmin >0)
 		{
@@ -42,7 +42,7 @@ void	compute_intersect_plan(t_ray ray, t_plan *P, double eps, int debug)
 			}
 		}
 	}
-	//...	
+	//...
 }
 
 double	plan_hit(t_plan *P,  double eps, int debug )
@@ -51,14 +51,14 @@ double	plan_hit(t_plan *P,  double eps, int debug )
 //		return(P->tmin);
 	if (not_egal(P->ndotray, 0, eps) && not_egal(P->OCn, 0, eps))
 	{
-		
+
 		if (debug)
 	//		printf("plan_Hit: ---ptmin = %lf\n", P->tmin);
 		return (P->tmin);
 	}
 	return (-1);
 }
-
+/*
 void	compute_intersect_cyl(t_discr *delta, t_ray ray , t_cyl *Cyl)
 {
 	Cyl->intersect0 = add(ray.orig,scalar_prod(ray.dir, delta->tmin));
@@ -74,7 +74,7 @@ double	intersect_axe(t_cyl *Cyl, int param)
 {
 	t_vector	v_tmp;
 	double		tmp;
-	
+
 	tmp = -1.0;
 	if (param == 0)
 	{
@@ -116,12 +116,12 @@ double	cylindre_hit(t_cyl *Cyl, t_discr *delta , double eps)
 	Cyl->inside = 2;
 	return (-1);
 }
-
+*/
 double	sphere_hit(t_sphere *Sph, t_discr *delta, double eps)
 {
 	(void)delta;
 	double	r_hit;
-	
+
 	r_hit = norm(sub(Sph->intersect0, Sph->C));
 	if (egal(r_hit, Sph->r, eps))
 	{
@@ -130,17 +130,17 @@ double	sphere_hit(t_sphere *Sph, t_discr *delta, double eps)
 	else
 		return (-1);
 }
-
+/*
 int main(void)
-{// version void 
+{// version void
 	int			debug = 1;
 	int			show = 0;
 //	int			inside = 2;
-	
+
 	int			obj_index;
 	t_discr		*delta;
 	t_closest	*close;
-	
+
 	t_color		back;
 	back.r = 0;
 	back.g = 0;
@@ -164,11 +164,11 @@ int main(void)
 	// test dynarr obj..
 	t_objet		*objet;
 	int			size = 2;
-	
+
 	objet = malloc(sizeof(t_objet)*size);
 	if (objet == NULL)
-		return (2);	
-	
+		return (2);
+
 
 	close = malloc(sizeof(t_closest));
 	if (close == NULL)
@@ -244,7 +244,7 @@ int main(void)
 	init_vector(&c_dir, 0, 2, 4);
 	init_vector(&c1, 0,0 ,6);
 	init_vector(&c_dir1, 0, 2, 4);
-		
+
 	init_cylindre(Cyl, c0, c_dir, (sub(c0, cam))); //
 	init2_cylindre(Cyl, cam, 3, 3);
 //  valeur objet[1] de faux
@@ -279,9 +279,9 @@ int main(void)
 	rgb = create_2d_rgb(cols, rows);
 	t_vector aa,bb;
 //	int i;
-//	int	j; 
+//	int	j;
 	double eps = 0.01;
-	
+
 	for (int j = VIEWPORT_HEIGHT - 1; j >= 0; --j)
 		for (int i = 0; i < VIEWPORT_WIDTH; ++i)
 			background(rgb, back, i, j);
@@ -295,25 +295,25 @@ int main(void)
 		{
 			uu = (double)(i)/(VIEWPORT_WIDTH -1);
 			vv = (double)(j)/(VIEWPORT_HEIGHT - 1);
-/*			rgb[i][j].rgb[0]= 0;
+			rgb[i][j].rgb[0]= 0;
 			rgb[i][j].rgb[1]= 0;
 			rgb[i][j].rgb[2]= 0;
-*/			// ray generator , avant 2
+			// ray generator , avant 2
 			aa = (scalar_prod(U, hor*uu));
 			bb = (scalar_prod(V, ver*vv));
 			init_ray(&ray,cam, sub(add(ll, add(aa, bb)), cam));
 			init_closest(close);
-			// 
+			//
 			obj_index = 0;
-	/*		version qui fonctionnait
+			version qui fonctionnait
 	 		while (obj_index < 2)
-			{// recherche minimum distanc 
+			{// recherche minimum distanc
 				get_coeff_cyl(delta, ray, *(t_cyl *)ptr[obj_index]);
 				if (delta->discr >= 0)
 				{
 					quadratic_solution2(delta);
 					compute_intersect_cyl(delta, ray, (t_cyl *)ptr[obj_index]);
-					// test 
+					// test
 					min_dist = cylindre_hit((t_cyl *)ptr[obj_index], delta, eps);
 					if (min_dist >= 0 && min_dist < close->tmin)
 					{
@@ -323,11 +323,11 @@ int main(void)
 					//	printf(RED"CLOSE %d\t%lf\n"ENDC, close->index, close->tmin);
 					}
 				}
-				obj_index++;	
+				obj_index++;
 			}
-	*/		// version avec objet..Semble fonctionner.
+			// version avec objet..Semble fonctionner.
 			while (obj_index < size)
-			{// recherche minimum distanc 
+			{// recherche minimum distanc
 				if (objet[obj_index].type == 3)
 				{
 					get_coeff_cyl(delta, ray, *(t_cyl *)objet[obj_index].ptr);
@@ -373,19 +373,19 @@ int main(void)
 					}
 				//	printf("PLAN\n");
 				}
-				obj_index++;	
+				obj_index++;
 			}
-			
-			
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
+
+
 			// recalcul;
 			// a verifier;
-			// seg falut 
+			// seg falut
 			if (close->index != -1)
 			{
 				if (objet[close->index].type == 3)
@@ -430,7 +430,7 @@ int main(void)
 					if ((((long int)(10*inters.vec[2]))%2 == 0 && labs((long int)((10*(inters.vec[0])))) % 2 == 0)
 						||(((long int)(10*inters.vec[2]))%2 == 1 && labs((long int)((10*(inters.vec[0])))) % 2 == 1))
 					{
-					
+
 						rgb[i][j].rgb[0]= 0;
 						rgb[i][j].rgb[1]= 255;
 						rgb[i][j].rgb[2]= 0;
@@ -443,11 +443,11 @@ int main(void)
 					}
 					// debug imprime les coorsonnees
 					// printf("plan");
-				}	
+				}
 			}
 		}
 	}// fin cylindre intersection
-		
+
 	if (debug == 0 && show == 0)
 		print(rgb, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 	free_2d_rgb(rgb,cols);
@@ -455,3 +455,4 @@ int main(void)
 		free(ptr[i]);
 	return (0);
 }
+*/

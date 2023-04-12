@@ -6,10 +6,11 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:38:39 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/06 09:39:50 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:01:38 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../miniRT.h"
+
+#include "../../include/miniRT.h"
 
 t_vector	projection(t_vector from, t_vector to)
 {

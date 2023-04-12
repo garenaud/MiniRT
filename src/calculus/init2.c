@@ -6,11 +6,11 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:03:05 by jsollett          #+#    #+#             */
-/*   Updated: 2023/03/30 16:03:16 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:00:13 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniRT.h"
+#include "../../include/miniRT.h"
 
 void	init2_cylindre(t_cyl *Cyl, t_vector cam, double r, double h)
 {

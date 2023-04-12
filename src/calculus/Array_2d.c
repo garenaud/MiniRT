@@ -6,11 +6,11 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 10:38:24 by jsollett          #+#    #+#             */
-/*   Updated: 2023/03/17 10:38:33 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:00:03 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniRT.h"
+#include "../../include/miniRT.h"
 
 t_rgb	**create_2d_rgb(int cols, int rows)
 {

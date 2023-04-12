@@ -6,10 +6,11 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 14:24:49 by jsollett          #+#    #+#             */
-/*   Updated: 2023/03/30 14:25:10 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:00:51 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../miniRT.h"
+
+#include "../../include/miniRT.h"
 
 double	discr(double a, double b, double c)
 {
@@ -49,23 +50,6 @@ void	quadratic_solution(t_discr *d, double a, double b, double c)
 	{
 		d->t1 = (-b + sqrt(d->discr)) / (2 * a);
 		d->t2 = (-b - sqrt(d->discr)) / (2 * a);
-		test_quad_sol(d);
-	}
-}
-
-void	quadratic_solution2(t_discr *d)
-{
-	if (d->discr == 0)
-	{
-		d->t1 = -(d->b) / (2 * d->a);
-		d->t2 = d->t1;
-		d->tmin = d->t1;
-		d->tmax = d->t1;
-	}
-	else
-	{
-		d->t1 = (-(d->b) + sqrt(d->discr)) / (2 * d->a);
-		d->t2 = (-(d->b) - sqrt(d->discr)) / (2 * d->a);
 		test_quad_sol(d);
 	}
 }
