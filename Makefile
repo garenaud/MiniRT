@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 19:21:45 by grenaud-          #+#    #+#              #
-#    Updated: 2023/04/11 13:30:24 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/04/12 14:44:13 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,18 @@ SRCS_PATH		= ./src
 
 INCLUDE_PATH	= ./include
 
-SRCS			= 	parsing/ft_atod.c \
+SRCS			= 	vector_ori.c \
+					Calculus/init.c \
+					Calculus/init2.c \
+					Calculus/Array_2d.c \
+					Calculus/print.c \
+					Calculus/util.c \
+					Calculus/vecteur_op1.c \
+					Calculus/vecteur_op2.c \
+					Calculus/vecteur_op3.c \
+					Calculus/quadratic_solver2.c \
+					Calculus/cylindre.c \
+					parsing/ft_atod.c \
 					parsing/get_next_line.c \
 					parsing/parsing_fd.c \
 					parsing/listobj_util.c \
