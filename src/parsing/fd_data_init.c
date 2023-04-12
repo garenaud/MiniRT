@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:42:55 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/12 11:37:39 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/12 12:41:56 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	init_light(t_scene *p, int index)
 			message("Only one light is allowed", 0);
 		else if (p->l.check_l == 0)
 		{
-			printf("line = %p\n", p->line);
 			p->l.pos.vec[0] = ascii_to_double(get_numb(p, index), 0, index);
 			p->l.pos.vec[1] = ascii_to_double(get_numb(p, index), 0, index);
 			p->l.pos.vec[2] = ascii_to_double(get_numb(p, index), 0, index);
