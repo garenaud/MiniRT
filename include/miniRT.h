@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/12 12:39:13 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/14 12:00:07 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,10 @@ typedef struct s_color
 	double	tr;
 }			t_color;
 
+// id = 1   plan
+// id = 2   sphere
+// id = 3   cylindre
+
 typedef struct s_listobj
 {
 	int					index;
@@ -113,8 +117,10 @@ typedef struct	s_cam
 
 typedef struct	s_sphere
 {
-	t_vector	C;
-	t_vector	OC;
+	int			index;
+	t_rgb		color;
+	t_vector	C;// centre
+	t_vector	OC; // position camera vers centre C
 	t_vector	intersect0;
 	double		discr_c;
 	double		OC_norm_2;
@@ -124,7 +130,7 @@ typedef struct	s_sphere
 
 typedef struct	s_plan
 {
-	int			label;
+	int			index;
 	t_vector	C;
 	t_vector	n;
 	t_vector	OC; //ray to Po plan
@@ -132,10 +138,13 @@ typedef struct	s_plan
 	double		OCn;//(po-lo).n
 	double		ndotray;
 	double		tmin; //?
+	t_rgb		color;
 }			t_plan;
 
 typedef struct	s_cyl
 {
+	t_rgb		color;
+	int			index;
 	t_vector	C0;
 	t_vector	C1;
 	t_vector	dir;
@@ -152,7 +161,7 @@ typedef struct	s_cyl
 	t_vector	w11;
 	double		tmp;
 	int			inside; // bool...
-	// 
+	//
 	double		r;
 	double		h;
 }			t_cyl;
@@ -171,8 +180,9 @@ typedef struct	s_discr
 
 typedef struct	s_objet
 {
-	int			type;
-	void		*ptr;;
+//	int			type;
+	int			id;
+	void		*ptr;
 }			t_objet;
 
 typedef struct	s_closest
@@ -180,7 +190,7 @@ typedef struct	s_closest
 	int			index;
 	int			type;
 	double		tmin;
-	
+
 }			t_closest;
 
 typedef struct s_ambiant
@@ -221,13 +231,15 @@ typedef struct s_mlx
 
 typedef struct s_scene
 {
-	char		*line;
+	char		*line;// parsing
 	t_ambiant	a;
 	t_camera	c;
 	t_light		l;
+	t_objet		*forme;
 	t_listobj	*obj;
 	t_check		check;
 	t_mlx		mlx_init;
+//	t_plan		pl;
 }			t_scene;
 /* ************************************************************************** */
 /* FUNCTION PROTOTYPES														  */
@@ -273,7 +285,7 @@ void		push_pl(t_scene *p, int index);
 
 /* ************************************************************************** */
 //listobj_util.c
-t_listobj	*init_listobj(t_scene *p);
+t_listobj	*init_listobj(void);
 t_listobj	*getobj(t_listobj *top, int index);
 void		add_to_list(t_listobj **head, t_listobj *new_element);
 int			size_stack_obj(t_listobj *top);
@@ -366,5 +378,12 @@ double		discr(double a, double b, double c);
 void		test_quad_sol(t_discr *d);
 void		quadratic_solution(t_discr *d, double a, double b, double c);
 void		quadratic_solution2(t_discr *d);
+
+t_plan		*create_plan(void);
+t_sphere	*create_sp(void);
+t_cyl		*create_cy(void);
+void		create_array(t_scene *s);
+void		print_array(t_scene *p, t_objet *array);
+
 
 #endif

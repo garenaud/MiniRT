@@ -184,9 +184,13 @@ int main(void)
 	if (Cyl0 == NULL)
 		return (2);
 	ptr[1] = Cyl0;
+
+
 	p = malloc(sizeof(t_plan));
 	if (p == NULL)
 		return (2);
+
+
 	Sph0 = malloc(sizeof(t_sphere));
 	if (Sph0 == NULL)
 		return (2);

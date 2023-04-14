@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   listobj_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:29:20 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/12 12:40:24 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:59:53 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/miniRT.h"
 
-t_listobj	*init_listobj(t_scene *p)
+t_listobj	*init_listobj(void)
 {
 	t_listobj	*new;
 
-	(void) p;
 	new = (t_listobj *)wrmalloc(sizeof(t_listobj));
 	if (!new)
 		return (NULL);
@@ -65,7 +64,6 @@ t_listobj	*getobj(t_listobj *top, int index)
 void	add_to_list(t_listobj **head, t_listobj *new_element)
 {
 	t_listobj	*current;
-
 	if (*head == NULL)
 		*head = new_element;
 	else

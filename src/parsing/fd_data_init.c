@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_data_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:42:55 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/12 12:41:56 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/14 12:17:28 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	init_ambiant(t_scene *p, int index)
 {
+    printf("le check init_ambiant: %d\n", p->a.check_a);
 	if (p->a.check_a == 0)
 	{
 		p->a.lum = ascii_to_double(get_numb(p, index), 1, index);
@@ -57,7 +58,7 @@ void	init_light(t_scene *p, int index)
 			p->l.pos.vec[1] = ascii_to_double(get_numb(p, index), 0, index);
 			p->l.pos.vec[2] = ascii_to_double(get_numb(p, index), 0, index);
 			p->l.lum = ascii_to_double(get_numb(p, index), 1, index);
-			if (p->line != NULL)
+			if (!is_empty(p->line) && p->line != NULL)
 			{
 				p->l.color.rgb[0] = atoi_c(get_numb(p, index), 1, index);
 				p->l.color.rgb[1] = atoi_c(get_numb(p, index), 1, index);
