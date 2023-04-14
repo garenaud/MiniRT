@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 19:21:45 by grenaud-          #+#    #+#              #
-#    Updated: 2023/04/12 14:44:13 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/04/14 15:37:49 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,17 +41,17 @@ SRCS_PATH		= ./src
 
 INCLUDE_PATH	= ./include
 
-SRCS			= 	vector_ori.c \
-					Calculus/init.c \
-					Calculus/init2.c \
-					Calculus/Array_2d.c \
-					Calculus/print.c \
-					Calculus/util.c \
-					Calculus/vecteur_op1.c \
-					Calculus/vecteur_op2.c \
-					Calculus/vecteur_op3.c \
-					Calculus/quadratic_solver2.c \
-					Calculus/cylindre.c \
+SRCS			= 	
+					calculus/init.c \
+					calculus/init2.c \
+					calculus/Array_2d.c \
+					calculus/print.c \
+					calculus/util.c \
+					calculus/vecteur_op1.c \
+					calculus/vecteur_op2.c \
+					calculus/vecteur_op3.c \
+					calculus/quadratic_solver2.c \
+					calculus/cylindre.c \
 					parsing/ft_atod.c \
 					parsing/get_next_line.c \
 					parsing/parsing_fd.c \
@@ -88,15 +88,15 @@ NO_COLOR    = \033[m
 
 COM_STRING   = "compiling"
 
-HASH	= 
+HASH	=
 
-ifeq ($(OS),Windows_NT) 
+ifeq ($(OS),Windows_NT)
     detected_OS := Windows
 else
     detected_OS := $(shell sh -c 'uname 2>/dev/null || echo Unknown')
 endif
 
-ifeq ($(detected_OS),Darwin) 
+ifeq ($(detected_OS),Darwin)
 	RUN_CMD = script -q $@.log $1 > /dev/null; \
 				RESULT=$$?
 else ifeq ($(detected_OS),Linux)
@@ -237,6 +237,7 @@ header:
 	@echo "⠀⠀⠀⢀⣾⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣴⣾⣿⣿⣿⡿⣶⣦⡀⠀⠀⠀⠀⠀⠈⠻⣿⣦⡀⠀⠀⠀"
 	@echo "⠀⠀⢠⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢤⣤⣿⣿⣿⣿⣿⣿⣿⣆⠘⣿⠟⣷⣦⣄⡀⠀⠀⠀⠘⣿⣷⡀⠀⠀"
 	@echo "⠀⢠⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢶⣤⣽⣿⣿⣿⣿⣿⣿⣿⡋⢠⣿⡧⠈⠙⣿⣿⣿⣶⣦⡄⠘⣿⣷⡀⠀"
+	@printf "$(WARN_COLOR)"
 	@echo "⠀⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⣦⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣴⣯⣩⣿⣿⣿⣿⣦⠘⣿⣧⠀"
 	@echo "⢸⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣏⠉⠉⠉⠛⢻⣿⢿⡿⡿⡿⢿⡟⠀⢻⣿⡄"
 	@echo "⣾⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢲⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣳⠀⠀⠀⠹⠋⠛⠽⠟⠋⠋⠀⠀⢸⣿⡇"
@@ -244,6 +245,7 @@ header:
 	@echo "⣿⣿⠀⠀⠀⠀⠀⣤⣳⣶⣿⣿⣿⣿⣿⣿⡏⡿⠃⢀⡀⠈⠉⠛⠻⠿⣿⣷⣽⣟⠷⠶⡄⠀⠀⠀⠀⠀⢸⣿⡇"
 	@echo "⢸⣿⡆⣤⣄⣻⣷⣿⣿⣿⣿⣿⣿⡿⣿⡁⠇⠁⠀⢻⡞⠉⠀⠀⠀⠀⠀⠙⠻⠿⠟⠛⠀⠀⠀⠀⠀⠀⣸⣿⠇"
 	@echo "⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣾⣄⣠⣠⡴⠿⣣⣿⡵⠧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⡿⠀"
+	@printf "$(ERROR_COLOR)"
 	@echo "⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⣿⠿⣿⣿⣿⣿⣴⡞⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⠃⠀"
 	@echo "⠀⠀⠹⣿⣿⣿⣿⣿⣿⢻⠿⣆⠘⠢⡘⠘⠛⠛⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⠃⠀⠀"
 	@echo "⠀⠀⠀⠙⣿⣿⣿⡏⠙⢦⣣⠈⠖⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣄⣀⢀⣦⣀⠀⢀⣠⣾⡿⠃⠀⠀⠀"
@@ -251,11 +253,14 @@ header:
 	@echo "⠀⠀⠀⠀⠀⠀⠉⠻⣿⣷⣄⣀⣴⣦⣤⣽⣟⣙⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀"
 	@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀"
 	@echo "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⠿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠛⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+	@printf "$(OK_COLOR)"
 	@echo
 	@echo "███╗   ███╗██╗███╗   ██╗██╗██████╗ ████████╗"
 	@echo "████╗ ████║██║████╗  ██║██║██╔══██╗╚══██╔══╝"
+	@printf "$(WARN_COLOR)"
 	@echo "██╔████╔██║██║██╔██╗ ██║██║██████╔╝   ██║   "
 	@echo "██║╚██╔╝██║██║██║╚██╗██║██║██╔══██╗   ██║   "
+	@printf "$(ERROR_COLOR)"
 	@echo "██║ ╚═╝ ██║██║██║ ╚████║██║██║  ██║   ██║   "
 	@echo "╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝   ╚═╝   "
 	@echo
@@ -287,6 +292,7 @@ objs/%.o: 	$(SRCS_PATH)/%$(FILE_EXTENSION)
 
 clean:		header
 			@rm -rf objs objs_tests
+			@rm -rf *.o *.d
 			@make clean -C $(MLX)
 			@make clean -C $(LIBFT)
 			@printf "%-53b%b" "$(COM_COLOR)clean:" "$(OK_COLOR)[✓]$(NO_COLOR)\n"
