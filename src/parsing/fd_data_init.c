@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:42:55 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/14 12:17:28 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:27:33 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_ambiant(t_scene *p, int index)
 {
-    printf("le check init_ambiant: %d\n", p->a.check_a);
+	printf("le check init_ambiant: %d\n", p->a.check_a);
 	if (p->a.check_a == 0)
 	{
 		p->a.lum = ascii_to_double(get_numb(p, index), 1, index);
@@ -40,6 +40,7 @@ void	init_cam(t_scene *p, int index)
 		p->c.fov = atoi_c(get_numb(p, index), 2, index);
 		if (!is_empty(p->line))
 			message("Too many informations on line", index);
+		init_camera(p);
 		p->c.check_c = 1;
 	}
 	else

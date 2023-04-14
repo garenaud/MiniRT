@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/14 12:00:07 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/14 15:44:20 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@
 # define BLUE		"\033[1;34m"
 
 # define ESC		53
-# define CANVAS_X	512
-# define CANVAS_Y	512
 # define VIEWPORT_HEIGHT	256
 # define VIEWPORT_WIDTH		256
 # define MCC		255
 # define POS_INF	1.0/0
+# define PI			3.141592
 
 # include <stdio.h>
 # include <string.h>
@@ -205,7 +204,15 @@ typedef struct s_camera
 	int			check_c;
 	t_vector	pos;
 	t_vector	dir;
+	t_vector	vup;
+	t_vector	vp_middle;
+	t_vector	w1;
+	t_vector	u;
+	t_vector	v;
+	t_vector	ll;
 	double		fov;
+	double		hor;
+	double		ver;
 }		t_camera;
 
 typedef struct s_light
@@ -235,8 +242,10 @@ typedef struct s_scene
 	t_ambiant	a;
 	t_camera	c;
 	t_light		l;
+	t_ray		ray;
 	t_objet		*forme;
 	t_listobj	*obj;
+	t_closest	closest;
 	t_check		check;
 	t_mlx		mlx_init;
 //	t_plan		pl;
@@ -378,6 +387,11 @@ double		discr(double a, double b, double c);
 void		test_quad_sol(t_discr *d);
 void		quadratic_solution(t_discr *d, double a, double b, double c);
 void		quadratic_solution2(t_discr *d);
+
+/* ************************************************************************** */
+// init_camera.c
+void		init_camera(t_scene *p);
+
 
 t_plan		*create_plan(void);
 t_sphere	*create_sp(void);

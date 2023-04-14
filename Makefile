@@ -6,7 +6,7 @@
 #    By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 19:21:45 by grenaud-          #+#    #+#              #
-#    Updated: 2023/04/12 17:13:52 by jsollett         ###   ########.fr        #
+#    Updated: 2023/04/14 15:30:17 by jsollett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ SRCS_PATH		= ./src
 
 INCLUDE_PATH	= ./include
 
-SRCS			= 	../vector_ori.c \
+SRCS			=	parsing/init_camera.c \
 					calculus/init.c \
 					calculus/init2.c \
 					calculus/Array_2d.c \
@@ -52,6 +52,8 @@ SRCS			= 	../vector_ori.c \
 					calculus/vecteur_op3.c \
 					calculus/quadratic_solver2.c \
 					calculus/cylindre.c \
+					calculus/sphere.c \
+					calculus/plan.c \
 					parsing/ft_atod.c \
 					parsing/get_next_line.c \
 					parsing/parsing_fd.c \
