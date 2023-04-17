@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/14 15:44:20 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/17 16:15:34 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@
 # define BLUE		"\033[1;34m"
 
 # define ESC		53
-# define VIEWPORT_HEIGHT	256
-# define VIEWPORT_WIDTH		256
+# define VIEWPORT_HEIGHT	200
+# define VIEWPORT_WIDTH		200
 # define MCC		255
 # define POS_INF	1.0/0
 # define PI			3.141592
+# define EPS		0.01
 
 # include <stdio.h>
 # include <string.h>
@@ -210,6 +211,7 @@ typedef struct s_camera
 	t_vector	u;
 	t_vector	v;
 	t_vector	ll;
+	t_rgb		**film; // test
 	double		fov;
 	double		hor;
 	double		ver;
@@ -229,25 +231,38 @@ typedef struct s_check
 	int		fd_lines;
 }		t_check;
 
+// Necessaire...// ajout 17/04
+typedef struct s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
+
 typedef struct s_mlx
 {
 	void	*mlx;
 	void	*window;
+	t_img	img; // ajout 17/04
 	char	*title;
 }		t_mlx;
 
 typedef struct s_scene
 {
 	char		*line;// parsing
+	t_color		bg;
 	t_ambiant	a;
 	t_camera	c;
 	t_light		l;
 	t_ray		ray;
 	t_objet		*forme;
 	t_listobj	*obj;
-	t_closest	closest;
+	t_closest	*closest;
 	t_check		check;
 	t_mlx		mlx_init;
+	t_discr		*delta;// AJOUT 1704
 //	t_plan		pl;
 }			t_scene;
 /* ************************************************************************** */
@@ -330,6 +345,10 @@ void		init_mlx(t_scene *p, char **argv);
 void		free_and_exit(t_scene *p);
 
 /* ************************************************************************** */
+//draw.c
+void		img_pix_put(t_mlx *d, int x, int y, t_rgb rgb);
+void		render(t_scene *p);
+/* ************************************************************************** */
 //Array_2d.c
 t_rgb		**create_2d_rgb(int cols, int rows);
 t_vector	**create_2d_vector(int cols, int rows);
@@ -354,6 +373,7 @@ void		background(t_rgb **rgb, t_color color, int i, int j);
 //print.c
 void		printv(t_vector *v);
 void		print(t_rgb **array, int col, int row);
+void		print_parsing(t_scene *p, int debug);
 /* ************************************************************************** */
 //vecteur_op1.c
 t_vector	reverse(t_vector v);
@@ -391,13 +411,20 @@ void		quadratic_solution2(t_discr *d);
 /* ************************************************************************** */
 // init_camera.c
 void		init_camera(t_scene *p);
-
+int			rgb_to_int(t_rgb rgb);
 
 t_plan		*create_plan(void);
 t_sphere	*create_sp(void);
 t_cyl		*create_cy(void);
 void		create_array(t_scene *s);
 void		print_array(t_scene *p, t_objet *array);
-
-
+void		init_film(t_scene *p, t_color back);
+t_discr		*create_discriminant(void);
+t_closest	*create_closest(void);
+//void		put_sphere(t_scene *p, int obj, int i, int j);
+/* ************************************************************************** */
+// sphere.c a controller
+void		get_coeff_sph(t_discr *d, t_ray ray, t_sphere Sph);
+void		compute_intersect_sph(t_discr *delta, t_ray ray, t_sphere *Sph);
+double		sphere_hit(t_sphere *Sph, t_discr *delta, double eps);
 #endif

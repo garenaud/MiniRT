@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/14 14:49:47 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/17 16:35:02 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,15 @@ void	init_check(t_scene *p, char **argv)
 	p->a.check_a = 0;
 	p->l.check_l = 0;
 	p->c.check_c = 0;*/
-    //p->pl.index = 0;
+	//p->pl.index = 0;
 	p->l.color.rgb[0] = 255;
 	p->l.color.rgb[1] = 255;
 	p->l.color.rgb[2] = 255;
-    p->obj = NULL;
+	// setting background color
+	p->bg.r = 100;
+	p->bg.g = 0;
+	p->bg.b = 0;
+	p->obj = NULL;
 	close(fd);
 }
 
@@ -76,34 +80,94 @@ t_objet	*transfer(t_scene *s)
 	return (objet);
 }
 
+void	put_sphere(t_scene *p, int obj, int i, int j)
+{// a modifier
+	double min_dist;
+
+	if (p->forme[obj].id == 2) // sphere
+	{// recalcul
+		get_coeff_sph(p->delta, p->ray, *(t_sphere *)p->forme[obj].ptr);
+		quadratic_solution2(p->delta);
+		compute_intersect_sph(p->delta, p->ray, (t_sphere *)p->forme[obj].ptr);
+		min_dist = sphere_hit((t_sphere *)p->forme[obj].ptr, p->delta,EPS);
+		if (min_dist >= 0)
+		{
+			p->c.film[i][j] = ((t_sphere *)(p->forme[obj].ptr))->color;
+
+			//rgb[i][j].rgb[0] = 125;
+			//rgb[i][j].rgb[1] = 25;
+			//rgb[i][j].rgb[2] = 125;
+		}
+	}
+}
+
+void	ray_tracer_0(t_scene *p, int obj)
+{
+	int		i;
+	int		j;
+	double min_dist;
+	 //
+
+	j = VIEWPORT_HEIGHT - 1;
+	while (j >= 0)
+	{
+		i = 0;
+		while (i < VIEWPORT_WIDTH)
+		{// sphere
+			if (p->forme[obj].id == 2)
+			{
+				get_coeff_sph(p->delta, p->ray, *(t_sphere *)p->forme[obj].ptr);
+				if (p->delta->discr >= 0)
+				{
+					quadratic_solution2(p->delta);
+					compute_intersect_sph(p->delta, p->ray, (t_sphere *)p->forme[obj].ptr);
+					min_dist = sphere_hit((t_sphere *)p->forme[obj].ptr, p->delta,EPS);
+					if (min_dist >= 0 && min_dist < p->closest->tmin)
+					{
+					//	p->closest->index = p->forme[obj].id;
+						p->closest->index = obj;
+						p->closest->tmin = sphere_hit((t_sphere *)p->forme[obj].ptr, p->delta, EPS);
+						p->closest->type = p->forme[obj].id;
+					}
+				}
+				//	printf("SPHERE\n");
+			}
+			++i;
+		}
+		--j;
+	}
+	put_sphere(p, obj, i, j);
+}
+
+
 int		main(int argc, char **argv)
 {
 	t_scene	*p;
 	(void) argc;
-    p = wrmalloc(sizeof(t_scene));
+	p = wrmalloc(sizeof(t_scene));
+	p = &(t_scene){0};
+	p->delta = create_discriminant();
+	p->closest = create_closest();
+	init_closest(p->closest);
+
 	int			debug = 1;
 
-	p = &(t_scene){0};
 
+
+
+	init_check(p, argv);
 	parsing(p, argv);
 
-	if (debug)
-	{
-		printf(GREEN"\n\np->a.lum = %f, p->a.color.rgb[0] = %d, p->a.color.rgb[1] = %d, p->a.color.rgb[2] = %d\n"ENDC, p->a.lum, p->a.color.rgb[0], p->a.color.rgb[1], p->a.color.rgb[2]);
-		printf(BLUE"\np->c.vec[0] = %f, p->c.vec[1] = %f, p->c.vec[2] = %f, p->c.dir.vec[0] = %f, p->c.dir.vec[1] = %f, p->c.dir.vec[2] = %f, p->c.fov = %f \n"ENDC, p->c.pos.vec[0], p->c.pos.vec[1], p->c.pos.vec[2], p->c.dir.vec[0], p->c.dir.vec[1], p->c.dir.vec[2], p->c.fov);
-        printf("\nvup\t\t");printv(&p->c.vup);
-        printf("\nvp_middle\t");printv(&p->c.vp_middle);
-        printf("\nvup\t\t");printv(&p->c.vup);
-        printf("\nU\t\t");printv(&p->c.u);
-        printf("\nV\t\t");printv(&p->c.v);
-        printf("\nhor = %f ver = %f", p->c.hor, p->c.ver);
-		printf(YEL"\np->l.pos.vec[0] = %f, p->l.pos.vec[1] = %f, p->l.pos.vec[2] = %f, p->l.lum = %f, p->l.color.rgb[0] = %d, p->l.color.rgb[1] = %d, p->l.color.rgb[2] = %d \n"ENDC, p->l.pos.vec[0], p->l.pos.vec[1], p->l.pos.vec[2], p->l.lum, p->l.color.rgb[0], p->l.color.rgb[1], p->l.color.rgb[2]);
-		printll_obj(p->obj);
-	}
-    printll_obj(p->obj);
+	print_parsing(p, debug);
+	ray_tracer_0(p, 0);
+
+
+
+
 	init_mlx(p, argv);
 	//mlx_key(&p);
  	mlx_key_hook(p->mlx_init.window, deal_key, p);
+	render(p);
 	mlx_hook(p->mlx_init.window, 17, 1L << 0, destroy_window, p);
 	mlx_hook(p->mlx_init.window, 17, 1L << 17, destroy_window, p);
 	mlx_loop(p->mlx_init.mlx);

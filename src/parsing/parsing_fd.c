@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 09:50:19 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/14 12:03:14 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/17 16:28:44 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,26 @@ t_cyl	*create_cy()
 	if (cyl == NULL)
 		wrdestroy();
 	return (cyl);
+}
+
+t_discr	*create_discriminant()
+{
+	t_discr	*ds;
+
+	ds = wrmalloc(sizeof(t_discr));
+	if (ds == NULL)
+		wrdestroy();
+	return (ds);
+}
+
+t_closest	*create_closest()
+{
+	t_closest	*clos;
+
+	clos = wrmalloc(sizeof(t_closest));
+	if (clos == NULL)
+		wrdestroy();
+	return (clos);
 }
 
 void	create_array(t_scene *s)
@@ -168,7 +188,7 @@ void	parsing(t_scene *p, char **argv)
 	int			fd;
 	int			i;
 
-    init_check(p, argv);
+	init_check(p, argv);
 	fd = open(argv[1], O_RDONLY);
 	i = 1;
 	while (i++ <= p->check.fd_lines)
@@ -178,7 +198,7 @@ void	parsing(t_scene *p, char **argv)
 	if (p->forme == NULL)
 		wrdestroy();
 	create_array(p);
-	print_array(p, p->forme);
+//	print_array(p, p->forme);
 	close(fd);
 }
 
