@@ -6,14 +6,14 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:46:07 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/17 14:15:45 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/18 12:24:55 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/miniRT.h"
 // adapte de fractol, ET de AURELEIN BRABANT...
 
-// A VERIFIER, senble ok
+// A VERIFIER, senble ok, mod l25 ajout de viewportheight-y a la place de y
 void	img_pix_put(t_mlx *d, int x, int y, t_rgb rgb)
 {
 	char	*pixel;
@@ -22,7 +22,7 @@ void	img_pix_put(t_mlx *d, int x, int y, t_rgb rgb)
 
 	color = rgb_to_int(rgb);
 	i = d->img.bpp - 8;
-	pixel = d->img.addr + (y * d->img.line_len + x * (d->img.bpp / 8));
+	pixel = d->img.addr + ((VIEWPORT_HEIGHT- y) * d->img.line_len + x * (d->img.bpp / 8));
 	while (i >= 0)
 	{
 		if (d->img.endian != 0)
@@ -33,7 +33,7 @@ void	img_pix_put(t_mlx *d, int x, int y, t_rgb rgb)
 	}
 }
 
-// A VERIFIER, semble ok compile
+// A VERIFIER, semble ok compile, inversion y et j
 void	render(t_scene *p)
 {
 	int		i;
@@ -41,8 +41,10 @@ void	render(t_scene *p)
 //	int		color;
 	t_rgb	pixel;
 
-	j = 0;
-	while (j < VIEWPORT_HEIGHT)
+	j = VIEWPORT_HEIGHT - 1;
+	//j = 0;
+	//while (j < VIEWPORT_HEIGHT)
+	while (j >= 0)
 	{
 		i = 0;
 		while (i < VIEWPORT_WIDTH)
@@ -52,7 +54,8 @@ void	render(t_scene *p)
 			img_pix_put(&p->mlx_init, i++, j, pixel);
 			//img_pix_put(d, i++, j, *(d->f.color + color));
 		}
-		++j;
+		//++j;
+		j--;
 	}
 	mlx_put_image_to_window(p->mlx_init.mlx, p->mlx_init.window, p->mlx_init.img.mlx_img,
 		0, 0);

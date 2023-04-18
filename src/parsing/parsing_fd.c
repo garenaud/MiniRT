@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 09:50:19 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/17 16:28:44 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/18 14:04:42 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void	create_array(t_scene *s)
 		i++;
 	}
 	s->obj = start;
+	s->n_obj = i;
 }
 
 void	print_array(t_scene *p, t_objet *array)

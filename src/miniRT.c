@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/17 16:35:02 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/18 16:51:02 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	mlx_key(t_scene *p)
 	mlx_hook(p->mlx_init.window, 17, 1L << 17, destroy_window, &p);
 	mlx_loop(p->mlx_init.mlx);
 }
-
+/*
 t_objet	*transfer(t_scene *s)
 {
 	int		size;
@@ -79,28 +79,33 @@ t_objet	*transfer(t_scene *s)
 	}
 	return (objet);
 }
-
+*/
 void	put_sphere(t_scene *p, int obj, int i, int j)
-{// a modifier
+{// a modifier, ici aussi a modifier 92, et voir la logique...
 	double min_dist;
 
 	if (p->forme[obj].id == 2) // sphere
 	{// recalcul
-		get_coeff_sph(p->delta, p->ray, *(t_sphere *)p->forme[obj].ptr);
+		get_coeff_sph(p->delta, &p->ray, (t_sphere *)p->forme[obj].ptr);
 		quadratic_solution2(p->delta);
 		compute_intersect_sph(p->delta, p->ray, (t_sphere *)p->forme[obj].ptr);
 		min_dist = sphere_hit((t_sphere *)p->forme[obj].ptr, p->delta,EPS);
 		if (min_dist >= 0)
 		{
 			p->c.film[i][j] = ((t_sphere *)(p->forme[obj].ptr))->color;
-
-			//rgb[i][j].rgb[0] = 125;
-			//rgb[i][j].rgb[1] = 25;
-			//rgb[i][j].rgb[2] = 125;
 		}
 	}
 }
 
+void	put_sphere1(t_scene *p, int i, int j)
+{
+	//printf(GREEN"avant put sphere %d\n"ENDC, p->closest->index);
+	if (p->closest->tmin != -1 && p->closest->type == 2)
+	{
+		p->c.film[i][j] = ((t_sphere *)(p->forme[p->closest->index].ptr))->color;
+	}
+}
+/*
 void	ray_tracer_0(t_scene *p, int obj)
 {
 	int		i;
@@ -114,21 +119,28 @@ void	ray_tracer_0(t_scene *p, int obj)
 		i = 0;
 		while (i < VIEWPORT_WIDTH)
 		{// sphere
+			create_ray(p, i, j);
 			if (p->forme[obj].id == 2)
 			{
-				get_coeff_sph(p->delta, p->ray, *(t_sphere *)p->forme[obj].ptr);
+				get_coeff_sph(p->delta, &p->ray, (t_sphere *)p->forme[obj].ptr);
 				if (p->delta->discr >= 0)
 				{
 					quadratic_solution2(p->delta);
 					compute_intersect_sph(p->delta, p->ray, (t_sphere *)p->forme[obj].ptr);
-					min_dist = sphere_hit((t_sphere *)p->forme[obj].ptr, p->delta,EPS);
-					if (min_dist >= 0 && min_dist < p->closest->tmin)
+					if (sphere_hit((t_sphere *)p->forme[obj].ptr, p->delta,EPS) != -1)// modif 1804
+					{// intersect0 sur la sphere
+						min_dist = norm(sub(p->c.pos, ((t_sphere *)p->forme[obj].ptr)->intersect0));
+					}
+					if (min_dist >= 0 && min_dist < p->closest->dmin)
 					{
 					//	p->closest->index = p->forme[obj].id;
 						p->closest->index = obj;
-						p->closest->tmin = sphere_hit((t_sphere *)p->forme[obj].ptr, p->delta, EPS);
+						p->closest->tmin = p->delta->tmin;
+						p->closest->dmin = min_dist;
 						p->closest->type = p->forme[obj].id;
 					}
+					put_sphere(p, obj, i, j);// faux a modifier
+				//	put_sphere1(p, i, j);
 				}
 				//	printf("SPHERE\n");
 			}
@@ -136,9 +148,66 @@ void	ray_tracer_0(t_scene *p, int obj)
 		}
 		--j;
 	}
-	put_sphere(p, obj, i, j);
 }
+*/
 
+void	ray_tracer_1(t_scene *p)
+{// put_sphere logique error
+	int		i;
+	int		j;
+	double min_dist;
+	int		obj;
+
+	obj = 0;
+	j = VIEWPORT_HEIGHT - 1;
+	while (j >= 0)
+	{
+		i = 0;
+		while (i < VIEWPORT_WIDTH)
+		{// sphere
+			min_dist = 0;
+            obj = 0;
+			create_ray(p, i, j);
+			while (obj < p->n_obj)
+			{
+				if (p->forme[obj].id == 2)
+				{
+					get_coeff_sph(p->delta, &p->ray, (t_sphere *)p->forme[obj].ptr);
+					if (p->delta->discr >= 0)
+					{
+						quadratic_solution2(p->delta);
+						compute_intersect_sph(p->delta, p->ray, (t_sphere *)p->forme[obj].ptr);
+						if (sphere_hit((t_sphere *)p->forme[obj].ptr, p->delta,EPS) != -1)// modif 1804
+						{// intersect0 sur la sphere
+							min_dist = norm(sub(p->c.pos, ((t_sphere *)p->forme[obj].ptr)->intersect0));
+						//	printf(GREEN"distance minimum of %d is \t%f\n"ENDC,obj, min_dist);
+						}
+						if (min_dist > 0 && min_dist < p->closest->dmin)
+						{// erreur ici logique ? ou structure
+						//	printf(GREEN"distance update of %d\t"ENDC, obj);
+						//	p->closest->index = p->forme[obj].id;
+							p->closest->index = obj;
+							p->closest->tmin = p->delta->tmin;
+							p->closest->dmin = min_dist;
+							p->closest->type = p->forme[obj].id;
+						//	printf(RED"update min distance is for %d \t %f\n"ENDC, p->closest->index, p->closest->dmin);
+
+						}
+
+					}
+				}
+				obj++;
+			}
+
+			//put_sphere(p, p->closest->index, i, j);// faux a modifier
+			// printf("update min distance is for %d,%d %d \t %f\n"ENDC,i,j, p->closest->index, p->closest->dmin);
+			put_sphere1(p, i, j);
+			++i;
+            init_closest(p->closest);// pb ici
+		}
+		--j;
+	}
+}
 
 int		main(int argc, char **argv)
 {
@@ -159,7 +228,9 @@ int		main(int argc, char **argv)
 	parsing(p, argv);
 
 	print_parsing(p, debug);
-	ray_tracer_0(p, 0);
+	printf(RED"nb objet = %d\n"ENDC, p->n_obj);
+//	ray_tracer_0(p, 0);
+	ray_tracer_1(p);
 
 
 

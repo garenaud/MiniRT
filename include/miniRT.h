@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/17 16:15:34 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/18 16:50:37 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # define BLUE		"\033[1;34m"
 
 # define ESC		53
-# define VIEWPORT_HEIGHT	200
-# define VIEWPORT_WIDTH		200
+# define VIEWPORT_HEIGHT	500
+# define VIEWPORT_WIDTH		500
 # define MCC		255
 # define POS_INF	1.0/0
 # define PI			3.141592
@@ -53,15 +53,15 @@
 typedef struct s_vector
 {
 	double	vec[3];
-	double	norm;
+//	double	norm;
 }			t_vector;
-
+/*
 typedef struct	s_vecteur
 {
 	double	arr[3];
 	double	norm;
 }			t_vecteur;
-
+*/
 typedef struct s_rgb
 {
 	int		rgb[3];
@@ -190,6 +190,7 @@ typedef struct	s_closest
 	int			index;
 	int			type;
 	double		tmin;
+	double		dmin;
 
 }			t_closest;
 
@@ -252,6 +253,7 @@ typedef struct s_mlx
 typedef struct s_scene
 {
 	char		*line;// parsing
+	int			n_obj;// ou est il ?
 	t_color		bg;
 	t_ambiant	a;
 	t_camera	c;
@@ -412,19 +414,22 @@ void		quadratic_solution2(t_discr *d);
 // init_camera.c
 void		init_camera(t_scene *p);
 int			rgb_to_int(t_rgb rgb);
+void		create_ray(t_scene *p, int i, int j);
+void		init_film(t_scene *p, t_color back);
+
 
 t_plan		*create_plan(void);
 t_sphere	*create_sp(void);
 t_cyl		*create_cy(void);
 void		create_array(t_scene *s);
 void		print_array(t_scene *p, t_objet *array);
-void		init_film(t_scene *p, t_color back);
+
 t_discr		*create_discriminant(void);
 t_closest	*create_closest(void);
 //void		put_sphere(t_scene *p, int obj, int i, int j);
 /* ************************************************************************** */
 // sphere.c a controller
-void		get_coeff_sph(t_discr *d, t_ray ray, t_sphere Sph);
+void		get_coeff_sph(t_discr *d, t_ray *ray, t_sphere *Sph);
 void		compute_intersect_sph(t_discr *delta, t_ray ray, t_sphere *Sph);
 double		sphere_hit(t_sphere *Sph, t_discr *delta, double eps);
 #endif
