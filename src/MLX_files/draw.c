@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:46:07 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/18 12:24:55 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/21 10:24:04 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	img_pix_put(t_mlx *d, int x, int y, t_rgb rgb)
 
 	color = rgb_to_int(rgb);
 	i = d->img.bpp - 8;
-	pixel = d->img.addr + ((VIEWPORT_HEIGHT- y) * d->img.line_len + x * (d->img.bpp / 8));
+	pixel = d->img.addr + ((y) * d->img.line_len + x * (d->img.bpp / 8));
 	while (i >= 0)
 	{
 		if (d->img.endian != 0)
@@ -41,21 +41,22 @@ void	render(t_scene *p)
 //	int		color;
 	t_rgb	pixel;
 
-	j = VIEWPORT_HEIGHT - 1;
-	//j = 0;
-	//while (j < VIEWPORT_HEIGHT)
-	while (j >= 0)
+	//j = VIEWPORT_HEIGHT - 1;
+	j = 0;
+	while (j <= VIEWPORT_HEIGHT - 1)
+	//while (j >= 0)
 	{
 		i = 0;
 		while (i < VIEWPORT_WIDTH)
 		{// a modifier
 			//pixel = *p->c.film[j * VIEWPORT_WIDTH + i];
-			pixel = p->c.film[i][j];
-			img_pix_put(&p->mlx_init, i++, j, pixel);
+			pixel = p->c.film[i][VIEWPORT_HEIGHT - 1 - j];
+			img_pix_put(&p->mlx_init, i, j, pixel);//i++
 			//img_pix_put(d, i++, j, *(d->f.color + color));
+            i++;
 		}
-		//++j;
-		j--;
+		j++;
+		//j--;
 	}
 	mlx_put_image_to_window(p->mlx_init.mlx, p->mlx_init.window, p->mlx_init.img.mlx_img,
 		0, 0);

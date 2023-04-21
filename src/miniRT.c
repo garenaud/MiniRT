@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/18 16:51:02 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/21 15:09:56 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	init_check(t_scene *p, char **argv)
 	p->l.color.rgb[1] = 255;
 	p->l.color.rgb[2] = 255;
 	// setting background color
-	p->bg.r = 100;
+	p->bg.r = 0;
 	p->bg.g = 0;
 	p->bg.b = 0;
 	p->obj = NULL;
@@ -42,69 +42,7 @@ void	mlx_key(t_scene *p)
 	mlx_hook(p->mlx_init.window, 17, 1L << 17, destroy_window, &p);
 	mlx_loop(p->mlx_init.mlx);
 }
-/*
-t_objet	*transfer(t_scene *s)
-{
-	int		size;
-	t_objet	*objet;
-	t_plan	*plan;
-	int		i;
 
-	i = 0;
-	size = size_stack_obj(s->obj);
-	objet = (t_objet *)wrmalloc(size * sizeof(t_objet));
-	plan = (t_plan *)wrmalloc(size * sizeof(t_plan));
-	while (s->obj)
-	{
-		if (s->obj->id == 1)
-		{
-			objet[i].id = 1;
-			objet[i].ptr = &plan[i];
-			init_vector(&plan[i].C, s->obj->pos.vec[0], s->obj->pos.vec[1], s->obj->pos.vec[2]);
-			init_vector(&plan[i].n, s->obj->dir.vec[0], s->obj->dir.vec[1], s->obj->dir.vec[2]);
-			init_plan(&plan[i], plan[i].C, unit(plan[i].n));
-			plan[i].OC = sub(plan[i].C, s->c.pos);//cam pos de la camera...
-				//p->OC = sub(p0, cam); // a tester
-				//p->OCn = dot(p->OC, p->n); // a tester
-			plan[i].OCn = dot(plan[i].OC, plan[i].n);
-			plan[i].index = i;
-		}
-		if (s->obj->id == 2)
-		{
-		}
-		if (s->obj->id == 3)
-		{
-		}
-		s->obj = s->obj->next;
-	}
-	return (objet);
-}
-*/
-void	put_sphere(t_scene *p, int obj, int i, int j)
-{// a modifier, ici aussi a modifier 92, et voir la logique...
-	double min_dist;
-
-	if (p->forme[obj].id == 2) // sphere
-	{// recalcul
-		get_coeff_sph(p->delta, &p->ray, (t_sphere *)p->forme[obj].ptr);
-		quadratic_solution2(p->delta);
-		compute_intersect_sph(p->delta, p->ray, (t_sphere *)p->forme[obj].ptr);
-		min_dist = sphere_hit((t_sphere *)p->forme[obj].ptr, p->delta,EPS);
-		if (min_dist >= 0)
-		{
-			p->c.film[i][j] = ((t_sphere *)(p->forme[obj].ptr))->color;
-		}
-	}
-}
-
-void	put_sphere1(t_scene *p, int i, int j)
-{
-	//printf(GREEN"avant put sphere %d\n"ENDC, p->closest->index);
-	if (p->closest->tmin != -1 && p->closest->type == 2)
-	{
-		p->c.film[i][j] = ((t_sphere *)(p->forme[p->closest->index].ptr))->color;
-	}
-}
 /*
 void	ray_tracer_0(t_scene *p, int obj)
 {
@@ -150,63 +88,60 @@ void	ray_tracer_0(t_scene *p, int obj)
 	}
 }
 */
+//	printf(GREEN"distance minimum of %d is \t%f\n"ENDC,obj, min_dist);
+// dans if min_dist > 0..
+// erreur ici logique ? ou structure
+//	printf(GREEN"distance update of %d\t"ENDC, obj);
+//	p->closest->index = p->forme[obj].id;
+//	printf(RED"update min distance is for %d \t %f\n"ENDC, p->closest->index, p->closest->dmin);
+// put_sphere logique error
+// modif 1804 (sphere_hit)
 
 void	ray_tracer_1(t_scene *p)
-{// put_sphere logique error
+{
 	int		i;
 	int		j;
-	double min_dist;
+	double	min_dist;
 	int		obj;
+	int     count;
 
 	obj = 0;
+	count = 0;
 	j = VIEWPORT_HEIGHT - 1;
+  //  j = 200;
 	while (j >= 0)
 	{
 		i = 0;
 		while (i < VIEWPORT_WIDTH)
-		{// sphere
+		{
 			min_dist = 0;
-            obj = 0;
+			obj = 0;
 			create_ray(p, i, j);
+			init_closest(p->closest);// pb ici
 			while (obj < p->n_obj)
 			{
 				if (p->forme[obj].id == 2)
 				{
-					get_coeff_sph(p->delta, &p->ray, (t_sphere *)p->forme[obj].ptr);
-					if (p->delta->discr >= 0)
-					{
-						quadratic_solution2(p->delta);
-						compute_intersect_sph(p->delta, p->ray, (t_sphere *)p->forme[obj].ptr);
-						if (sphere_hit((t_sphere *)p->forme[obj].ptr, p->delta,EPS) != -1)// modif 1804
-						{// intersect0 sur la sphere
-							min_dist = norm(sub(p->c.pos, ((t_sphere *)p->forme[obj].ptr)->intersect0));
-						//	printf(GREEN"distance minimum of %d is \t%f\n"ENDC,obj, min_dist);
-						}
-						if (min_dist > 0 && min_dist < p->closest->dmin)
-						{// erreur ici logique ? ou structure
-						//	printf(GREEN"distance update of %d\t"ENDC, obj);
-						//	p->closest->index = p->forme[obj].id;
-							p->closest->index = obj;
-							p->closest->tmin = p->delta->tmin;
-							p->closest->dmin = min_dist;
-							p->closest->type = p->forme[obj].id;
-						//	printf(RED"update min distance is for %d \t %f\n"ENDC, p->closest->index, p->closest->dmin);
-
-						}
-
-					}
+					closest_sphere(p, obj);
+				}
+				if (p->forme[obj].id == 1)
+				{count++;
+					closest_plan(p, obj, i, j);
 				}
 				obj++;
 			}
 
 			//put_sphere(p, p->closest->index, i, j);// faux a modifier
-			// printf("update min distance is for %d,%d %d \t %f\n"ENDC,i,j, p->closest->index, p->closest->dmin);
 			put_sphere1(p, i, j);
+		//	printf(RED"index plan %d\n"ENDC, p->closest->index);
+		//	put_plan(p, p->closest->index, i, j);
+			put_plan1(p, i, j);
 			++i;
-            init_closest(p->closest);// pb ici
+		//	init_closest(p->closest);// pb ici
 		}
 		--j;
 	}
+  //  printf(RED"count = %d\n"ENDC, count);
 }
 
 int		main(int argc, char **argv)
@@ -217,9 +152,9 @@ int		main(int argc, char **argv)
 	p = &(t_scene){0};
 	p->delta = create_discriminant();
 	p->closest = create_closest();
-	init_closest(p->closest);
+//	init_closest(p->closest);
 
-	int			debug = 1;
+	int			debug = 0;
 
 
 
@@ -228,7 +163,7 @@ int		main(int argc, char **argv)
 	parsing(p, argv);
 
 	print_parsing(p, debug);
-	printf(RED"nb objet = %d\n"ENDC, p->n_obj);
+//	printf(RED"nb objet = %d\n"ENDC, p->n_obj);
 //	ray_tracer_0(p, 0);
 	ray_tracer_1(p);
 

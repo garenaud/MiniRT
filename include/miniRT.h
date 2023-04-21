@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/18 16:50:37 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/21 15:45:46 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@
 # define BLUE		"\033[1;34m"
 
 # define ESC		53
-# define VIEWPORT_HEIGHT	500
-# define VIEWPORT_WIDTH		500
+# define VIEWPORT_HEIGHT	400
+# define VIEWPORT_WIDTH		400
 # define MCC		255
 # define POS_INF	1.0/0
 # define PI			3.141592
-# define EPS		0.01
+# define EPS		0.00000001
+# define DEBUG		0
 
 # include <stdio.h>
 # include <string.h>
@@ -259,7 +260,7 @@ typedef struct s_scene
 	t_camera	c;
 	t_light		l;
 	t_ray		ray;
-	t_objet		*forme;
+    t_objet		*forme;
 	t_listobj	*obj;
 	t_closest	*closest;
 	t_check		check;
@@ -417,7 +418,12 @@ int			rgb_to_int(t_rgb rgb);
 void		create_ray(t_scene *p, int i, int j);
 void		init_film(t_scene *p, t_color back);
 
-
+void		put_plan1(t_scene *p, int i, int j);
+double		plan_hit(t_plan *P,  double eps, int debug );
+double		plan_hit1(t_plan *p, t_scene *s);
+void		put_plan(t_scene *p, int obj, int i, int j);
+//void		closest_plan(t_scene *p, int obj, double eps, int debug);
+void		compute_intersect_plan(t_ray ray, t_plan *P, int debug);
 t_plan		*create_plan(void);
 t_sphere	*create_sp(void);
 t_cyl		*create_cy(void);
@@ -432,4 +438,10 @@ t_closest	*create_closest(void);
 void		get_coeff_sph(t_discr *d, t_ray *ray, t_sphere *Sph);
 void		compute_intersect_sph(t_discr *delta, t_ray ray, t_sphere *Sph);
 double		sphere_hit(t_sphere *Sph, t_discr *delta, double eps);
+void		put_sphere(t_scene *p, int obj, int i, int j);
+void		put_sphere1(t_scene *p, int i, int j);
+/* ************************************************************************** */
+// intersection.c a controller
+void		closest_sphere(t_scene *p, int obj);
+void		closest_plan(t_scene *p, int obj, int i, int j);
 #endif
