@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 13:58:08 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/20 14:46:09 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/24 14:37:02 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,30 @@ void	init_camera(t_scene *p)
 	p->c.w1 = unit(sub(p->c.pos, p->c.vp_middle));
 	p->c.u = cross(p->c.w1, p->c.vup);
 	p->c.v = cross(p->c.u, p->c.w1);
+	p->c.hor = 2 * tan(p->c.fov * PI / 360.0);
+	p->c.ver = p->c.hor;
+	p->c.ll = sub(sub(p->c.vp_middle, scalar_prod(p->c.u, p->c.hor/2)), scalar_prod(p->c.v, p->c.ver/2));
+	init_film(p, p->bg);// ajout 17/04
+}
+
+void	init_camera1(t_scene *p)
+{// bidouilllage.. a verifier... surtout pour -vup... (direction)
+
+	init_vector(&p->c.vup, 0, 1, 0);
+	if (egal(norm(sub(p->c.vup, p->c.dir)), 0, EPS))// ajout le cas -vup
+	{
+		//init_vector(&p->c.vup, -1, 0, 0);
+		init_vector(&p->c.vup, 0, 0, -1);
+	}
+	if (egal(norm(sub(reverse(p->c.vup), p->c.dir)), 0, EPS))
+	{
+		//init_vector(&p->c.vup, -1, 0, 0);
+		init_vector(&p->c.vup, 0, 0, 1);
+	}
+	p->c.vp_middle = add(p->c.pos, p->c.dir);
+	p->c.w1 = unit(sub(p->c.pos, p->c.vp_middle));
+	p->c.u = unit(cross(p->c.w1, p->c.vup));
+	p->c.v = unit(cross(p->c.u, p->c.w1));
 	p->c.hor = 2 * tan(p->c.fov * PI / 360.0);
 	p->c.ver = p->c.hor;
 	p->c.ll = sub(sub(p->c.vp_middle, scalar_prod(p->c.u, p->c.hor/2)), scalar_prod(p->c.v, p->c.ver/2));

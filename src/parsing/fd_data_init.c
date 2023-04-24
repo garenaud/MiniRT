@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:42:55 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/19 13:43:58 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:42:15 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	init_cam(t_scene *p, int index)
 		p->c.fov = atoi_c(get_numb(p, index), 2, index);
 		if (!is_empty(p->line))
 			message("Too many informations on line", index);
-		init_camera(p);
+		init_camera1(p);
 		p->c.check_c = 1;
 	}
 	else

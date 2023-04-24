@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/21 15:09:56 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/24 15:36:55 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,11 @@ void	ray_tracer_1(t_scene *p)
 	int		j;
 	double	min_dist;
 	int		obj;
-	int     count;
 
 	obj = 0;
-	count = 0;
+
 	j = VIEWPORT_HEIGHT - 1;
-  //  j = 200;
+
 	while (j >= 0)
 	{
 		i = 0;
@@ -120,28 +119,29 @@ void	ray_tracer_1(t_scene *p)
 			init_closest(p->closest);// pb ici
 			while (obj < p->n_obj)
 			{
+				if (p->forme[obj].id == 3)
+				{
+					closest_cylindre(p, obj);
+				}
 				if (p->forme[obj].id == 2)
 				{
 					closest_sphere(p, obj);
 				}
 				if (p->forme[obj].id == 1)
-				{count++;
+				{
 					closest_plan(p, obj, i, j);
 				}
 				obj++;
 			}
 
 			//put_sphere(p, p->closest->index, i, j);// faux a modifier
+			put_cylindre(p, i, j);
 			put_sphere1(p, i, j);
-		//	printf(RED"index plan %d\n"ENDC, p->closest->index);
-		//	put_plan(p, p->closest->index, i, j);
 			put_plan1(p, i, j);
 			++i;
-		//	init_closest(p->closest);// pb ici
 		}
 		--j;
 	}
-  //  printf(RED"count = %d\n"ENDC, count);
 }
 
 int		main(int argc, char **argv)
@@ -163,7 +163,7 @@ int		main(int argc, char **argv)
 	parsing(p, argv);
 
 	print_parsing(p, debug);
-//	printf(RED"nb objet = %d\n"ENDC, p->n_obj);
+	printf(RED"ll - vpmiddle = %lf\n"ENDC, norm(sub(p->c.ll, p->c.vp_middle)));
 //	ray_tracer_0(p, 0);
 	ray_tracer_1(p);
 

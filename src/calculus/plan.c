@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 15:26:45 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/21 15:48:52 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:29:12 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,23 @@ void	compute_intersect_plan(t_ray ray, t_plan *P, int debug)
 	//		printf(GREEN"plan_Hit(%d): ptmin = %lf\t",P->label, P->tmin);
 	//		printv(&P->OC);
 	//		printf(RED"Pocn = %lf\t", P->OCn);
-            printf(RED); printf("obj = 1");
+            printf(RED); printf("ptmin = %lf\t", P->tmin);
+          //  printf(GREEN"OCn = %lf, ndotray = %lf\t",P->OCn , P->ndotray );
 			printv(&P->intersect0);
             printf(ENDC);
 			}
 		}
-	}// ajout 1904
-/*	else
+        else if (debug)
 	{// attn pas intersection (dir T n)
-		P->tmin = POS_INF;
-		P->index = POS_INF;
+//		P->tmin = POS_INF;
+//		P->index = POS_INF;
+        printf("check cas ptmin <0\n"PURP);
+        init_vector(&P->intersect0, POS_INF, POS_INF, POS_INF);
+        printv(&P->intersect0);
 	}
-*/	//...
+	}// ajout 1904
+
+	//...
 }
 
 double	plan_hit(t_plan *P,  double eps, int debug )
@@ -71,6 +76,12 @@ double plan_hit1(t_plan *p, t_scene *s)
 {
 	double	r_hit;
 	static int	count =0;
+/*    if (p->intersect0.vec[0] == POS_INF)
+    {
+        printf("ptmin negatif ->");
+        printv(&p->intersect0);
+        return (-1);
+    }*/
 	r_hit = norm(sub(p->intersect0, s->c.pos));// avant p->C
 	if (egal(dot(sub(p->intersect0, p->C), p->n), 0.0, EPS))
 	{

@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/21 15:45:46 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/24 15:36:23 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,7 @@ typedef struct s_scene
 	t_camera	c;
 	t_light		l;
 	t_ray		ray;
-    t_objet		*forme;
+	t_objet		*forme;
 	t_listobj	*obj;
 	t_closest	*closest;
 	t_check		check;
@@ -414,6 +414,7 @@ void		quadratic_solution2(t_discr *d);
 /* ************************************************************************** */
 // init_camera.c
 void		init_camera(t_scene *p);
+void		init_camera1(t_scene *p);
 int			rgb_to_int(t_rgb rgb);
 void		create_ray(t_scene *p, int i, int j);
 void		init_film(t_scene *p, t_color back);
@@ -444,4 +445,12 @@ void		put_sphere1(t_scene *p, int i, int j);
 // intersection.c a controller
 void		closest_sphere(t_scene *p, int obj);
 void		closest_plan(t_scene *p, int obj, int i, int j);
+void		closest_cylindre(t_scene *p, int obj);
+/* ************************************************************************** */
+// cylindre.c a controller
+void		get_coeff_cyl(t_discr *d, t_ray *ray, t_cyl *Cyl);
+void		compute_intersect_cyl(t_discr *delta, t_ray ray, t_cyl *Cyl);
+double		intersect_axe(t_cyl *Cyl, int param);
+double		cylindre_hit(t_cyl *Cyl, t_discr *delta, double eps);
+void		put_cylindre(t_scene *p, int i, int j);
 #endif

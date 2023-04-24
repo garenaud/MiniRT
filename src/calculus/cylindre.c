@@ -6,18 +6,18 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:39:21 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/12 15:00:42 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/24 15:35:55 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/miniRT.h"
 
-void	get_coeff_cyl(t_discr *d, t_ray ray, t_cyl Cyl)
+void	get_coeff_cyl(t_discr *d, t_ray *ray, t_cyl *Cyl)
 {
-	d->a = norm_2(ray.dir) - pow(dot(ray.dir, Cyl.ul), 2);
-	d->b = 2 * dot(Cyl.w1, ray.dir)
-		- 2 * dot(ray.dir, Cyl.ul) * dot(Cyl.w1, Cyl.ul);
-	d->c = norm_2(Cyl.w1) - pow(dot(Cyl.w1, Cyl.ul), 2) - Cyl.r * Cyl.r;
+	d->a = norm_2(ray->dir) - pow(dot(ray->dir, Cyl->ul), 2);
+	d->b = 2 * dot(Cyl->w1, ray->dir)
+		- 2 * dot(ray->dir, Cyl->ul) * dot(Cyl->w1, Cyl->ul);
+	d->c = norm_2(Cyl->w1) - pow(dot(Cyl->w1, Cyl->ul), 2) - Cyl->r * Cyl->r;
 	d->discr = discr(d->a, d->b, d->c);
 }
 
@@ -75,4 +75,12 @@ double	cylindre_hit(t_cyl *Cyl, t_discr *delta, double eps)
 	}
 	Cyl->inside = 2;
 	return (-1);
+}
+
+void	put_cylindre(t_scene *p, int i, int j)
+{
+	if (p->closest->type == 3 && p->closest->tmin != 1)
+	{
+		p->c.film[i][j] = ((t_cyl *)(p->forme[p->closest->index].ptr))->color;
+	}
 }
