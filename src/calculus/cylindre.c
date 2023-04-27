@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:39:21 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/24 15:35:55 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/26 11:23:52 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,14 @@ double	cylindre_hit(t_cyl *Cyl, t_discr *delta, double eps)
 
 void	put_cylindre(t_scene *p, int i, int j)
 {
+	t_vector	*amb;
+
 	if (p->closest->type == 3 && p->closest->tmin != 1)
 	{
-		p->c.film[i][j] = ((t_cyl *)(p->forme[p->closest->index].ptr))->color;
+		amb = ambiant1(p);
+		//p->c.film[i][j] = ((t_cyl *)(p->forme[p->closest->index].ptr))->color;
+		p->c.film[i][j].rgb[0] = amb->vec[0]*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
+		p->c.film[i][j].rgb[1] = amb->vec[1]*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
+		p->c.film[i][j].rgb[2] = amb->vec[2]*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
 	}
 }

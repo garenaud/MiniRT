@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/24 15:36:55 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:45:44 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ void	ray_tracer_0(t_scene *p, int obj)
 // put_sphere logique error
 // modif 1804 (sphere_hit)
 
-void	ray_tracer_1(t_scene *p)
+//void	ray_tracer_1(t_scene *p)
+void	ray_tracer_2(t_scene *p, t_scene *l)
 {
 	int		i;
 	int		j;
@@ -136,7 +137,8 @@ void	ray_tracer_1(t_scene *p)
 
 			//put_sphere(p, p->closest->index, i, j);// faux a modifier
 			put_cylindre(p, i, j);
-			put_sphere1(p, i, j);
+			//put_sphere1(p, i, j);
+			put_sphere2(p,l,i,j);
 			put_plan1(p, i, j);
 			++i;
 		}
@@ -147,12 +149,17 @@ void	ray_tracer_1(t_scene *p)
 int		main(int argc, char **argv)
 {
 	t_scene	*p;
+	t_scene	*l;
 	(void) argc;
 	p = wrmalloc(sizeof(t_scene));
 	p = &(t_scene){0};
 	p->delta = create_discriminant();
 	p->closest = create_closest();
-//	init_closest(p->closest);
+	l = wrmalloc(sizeof(t_scene));
+	l = &(t_scene){0};
+	l->delta = create_discriminant();
+	l->closest = create_closest();
+
 
 	int			debug = 0;
 
@@ -161,11 +168,14 @@ int		main(int argc, char **argv)
 
 	init_check(p, argv);
 	parsing(p, argv);
+	parsing(l, argv);//
+	init_spot(l, p);// faut tout recalculer
 
 	print_parsing(p, debug);
 	printf(RED"ll - vpmiddle = %lf\n"ENDC, norm(sub(p->c.ll, p->c.vp_middle)));
 //	ray_tracer_0(p, 0);
-	ray_tracer_1(p);
+	//ray_tracer_1(p);
+	ray_tracer_2(p,l);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/24 15:36:23 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:38:07 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -441,6 +441,7 @@ void		compute_intersect_sph(t_discr *delta, t_ray ray, t_sphere *Sph);
 double		sphere_hit(t_sphere *Sph, t_discr *delta, double eps);
 void		put_sphere(t_scene *p, int obj, int i, int j);
 void		put_sphere1(t_scene *p, int i, int j);
+void		put_sphere2(t_scene *p, t_scene *l, int i, int j);
 /* ************************************************************************** */
 // intersection.c a controller
 void		closest_sphere(t_scene *p, int obj);
@@ -453,4 +454,16 @@ void		compute_intersect_cyl(t_discr *delta, t_ray ray, t_cyl *Cyl);
 double		intersect_axe(t_cyl *Cyl, int param);
 double		cylindre_hit(t_cyl *Cyl, t_discr *delta, double eps);
 void		put_cylindre(t_scene *p, int i, int j);
+/* ************************************************************************** */
+// light.c a controller
+void		ambiant(t_scene *p);
+t_vector	*ambiant1(t_scene *p);
+t_vector	ambiant2(t_scene *p);
+int	        free_path(t_scene *p, t_scene *l);
+
+/* ************************************************************************** */
+// spot.c a controller
+void	init_spot(t_scene *l, t_scene *p);
+void	ray_tracer_2(t_scene *p, t_scene *l);
+
 #endif

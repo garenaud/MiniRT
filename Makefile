@@ -6,7 +6,7 @@
 #    By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 19:21:45 by grenaud-          #+#    #+#              #
-#    Updated: 2023/04/21 09:49:39 by jsollett         ###   ########.fr        #
+#    Updated: 2023/04/26 13:34:41 by jsollett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,9 @@ SRCS			=	parsing/init_camera.c \
 					calculus/cylindre.c \
 					calculus/sphere.c \
 					calculus/plan.c \
+					calculus/light.c \
 					parsing/ft_atod.c \
+					parsing/spot.c \
 					parsing/get_next_line.c \
 					parsing/parsing_fd.c \
 					parsing/listobj_util.c \

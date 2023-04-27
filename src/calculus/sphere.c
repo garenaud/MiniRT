@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 15:26:06 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/20 11:57:51 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:15:53 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,37 @@ void	put_sphere(t_scene *p, int obj, int i, int j)
 //printf(GREEN"avant put sphere %d\n"ENDC, p->closest->index);
 void	put_sphere1(t_scene *p, int i, int j)
 {
+	t_vector	*amb;
+
 	if (p->closest->tmin != -1 && p->closest->type == 2)
 	{
-		p->c.film[i][j] = ((t_sphere *)(p->forme[p->closest->index].ptr))->color;
+		amb = ambiant1(p);
+		//p->c.film[i][j] = ((t_sphere *)(p->forme[p->closest->index].ptr))->color;
+		p->c.film[i][j].rgb[0] = amb->vec[0]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
+		p->c.film[i][j].rgb[1] = amb->vec[1]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
+		p->c.film[i][j].rgb[2] = amb->vec[2]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
+	}
+}
+
+void	put_sphere2(t_scene *p, t_scene *l, int i, int j)
+{
+	t_vector	*amb;
+
+	if (p->closest->tmin != -1 && p->closest->type == 2)
+	{
+		amb = ambiant1(p);
+		if (free_path(p,l) == -1)
+		{
+			*amb = scalar_prod(*amb, 0.5);
+			printf("F\n");
+		}
+		else
+		{
+			printf("B\n");
+		}
+		//p->c.film[i][j] = ((t_sphere *)(p->forme[p->closest->index].ptr))->color;
+		p->c.film[i][j].rgb[0] = amb->vec[0]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
+		p->c.film[i][j].rgb[1] = amb->vec[1]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
+		p->c.film[i][j].rgb[2] = amb->vec[2]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
 	}
 }
