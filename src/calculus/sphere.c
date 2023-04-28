@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 15:26:06 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/28 10:51:55 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:42:49 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,33 +76,16 @@ void	put_sphere2(t_scene *p, int i, int j)
 {
 	t_vector	*amb;
 	int			obj;
-   // int         res;
 
 	obj = 0;
-
 	if (p->closest->tmin != -1 && p->closest->type == 2)
 	{
 		amb = ambiant1(p);
-		/*while (obj < p->n_obj)
-		{
-			res = free_path(p);
-			printf(RED"freepath = %d,\t delta = %lf\n"ENDC,res,p->l.cl->delta);
-			}
-			obj++;
-		}*/
-			if ((free_path(p) == -1 || free_path(p) == p->closest->index) && (egal(p->l.cl->delta,0, EPS)))
-			//if (p->forme[obj].id == 2 && shadow_sphere(p,((t_sphere *)(p->forme[obj].ptr)),obj) == 1)
-			{
-				*amb = scalar_prod(*amb, 2);
-				p->c.film[i][j].rgb[0] = amb->vec[0]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
-				p->c.film[i][j].rgb[1] = amb->vec[1]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
-				p->c.film[i][j].rgb[2] = amb->vec[2]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
-				printf("delta = %lf !\n", p->l.cl->delta);
-			}
+		if ((free_path(p) == -1 || free_path(p) == p->closest->index) && (egal(p->l.cl->delta,0, EPS)))
+			*amb = scalar_prod(*amb, 2);
 		p->c.film[i][j].rgb[0] = amb->vec[0]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
 		p->c.film[i][j].rgb[1] = amb->vec[1]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
 		p->c.film[i][j].rgb[2] = amb->vec[2]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
-	  	free(amb);
-		
+		free(amb);
 	}
 }
