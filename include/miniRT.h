@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/26 16:38:07 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:17:26 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ typedef struct	s_closest
 	int			type;
 	double		tmin;
 	double		dmin;
+	double		delta;
 
 }			t_closest;
 
@@ -222,9 +223,13 @@ typedef struct s_camera
 typedef struct s_light
 {
 	int			check_l;
+	t_vector	dir;
 	t_vector	pos;
+	t_vector	li;// light impact
 	double		lum;
 	t_rgb		color;
+	t_closest	*cl;
+	t_discr		*discr;
 }		t_light;
 
 typedef struct s_check
@@ -441,7 +446,7 @@ void		compute_intersect_sph(t_discr *delta, t_ray ray, t_sphere *Sph);
 double		sphere_hit(t_sphere *Sph, t_discr *delta, double eps);
 void		put_sphere(t_scene *p, int obj, int i, int j);
 void		put_sphere1(t_scene *p, int i, int j);
-void		put_sphere2(t_scene *p, t_scene *l, int i, int j);
+void		put_sphere2(t_scene *p, int i, int j);
 /* ************************************************************************** */
 // intersection.c a controller
 void		closest_sphere(t_scene *p, int obj);
@@ -459,11 +464,18 @@ void		put_cylindre(t_scene *p, int i, int j);
 void		ambiant(t_scene *p);
 t_vector	*ambiant1(t_scene *p);
 t_vector	ambiant2(t_scene *p);
-int	        free_path(t_scene *p, t_scene *l);
+int	        free_path(t_scene *p);
 
 /* ************************************************************************** */
 // spot.c a controller
 void	init_spot(t_scene *l, t_scene *p);
 void	ray_tracer_2(t_scene *p, t_scene *l);
 
+/* ************************************************************************** */
+// spot.c a controller
+int		shadow_sphere(t_scene *p, t_sphere *Sph, int obj);
+int		shadow_plan(t_scene *p, t_plan *Pl);
+void	light_intersect_sph(t_scene *p);
+double	light_sphere_hit(t_scene *p,t_sphere *Sph);
+void	closest_sphere1(t_scene *p, t_vector *intersect, int obj);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/26 16:45:44 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:06:35 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	ray_tracer_0(t_scene *p, int obj)
 //void	ray_tracer_1(t_scene *p)
 void	ray_tracer_2(t_scene *p, t_scene *l)
 {
+    (void)    l;
 	int		i;
 	int		j;
 	double	min_dist;
@@ -138,7 +139,7 @@ void	ray_tracer_2(t_scene *p, t_scene *l)
 			//put_sphere(p, p->closest->index, i, j);// faux a modifier
 			put_cylindre(p, i, j);
 			//put_sphere1(p, i, j);
-			put_sphere2(p,l,i,j);
+			put_sphere2(p,i,j);
 			put_plan1(p, i, j);
 			++i;
 		}
@@ -154,7 +155,10 @@ int		main(int argc, char **argv)
 	p = wrmalloc(sizeof(t_scene));
 	p = &(t_scene){0};
 	p->delta = create_discriminant();
+    p->l.discr = create_discriminant();
+
 	p->closest = create_closest();
+    p->l.cl = create_closest();
 	l = wrmalloc(sizeof(t_scene));
 	l = &(t_scene){0};
 	l->delta = create_discriminant();

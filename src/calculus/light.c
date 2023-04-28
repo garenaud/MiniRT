@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 10:15:19 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/26 15:34:36 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:18:49 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,45 +64,43 @@ void	ambiant(t_scene *p)
 }
 
 // doit detecter si le faisceau de lumiere peut atteindre l'intersection
-int	free_path(t_scene *p, t_scene *l)
+int	free_path(t_scene *p)
 {
 	double	min_dist;
 	int		obj;
 
 	t_vector	intersect;
 	//t_vector	l_dir;
-	if (p->closest->type == 1)
+/*	if (p->closest->type == 1)
 	{
 		intersect = (((t_plan *)(p->forme[p->closest->index].ptr))->intersect0);
-	}
+	}*/
 	if (p->closest->type == 2)
 	{
 		intersect = (((t_sphere *)(p->forme[p->closest->index].ptr))->intersect0);
 	}
-	if (p->closest->type == 3)
+	/*if (p->closest->type == 3)
 	{// a verifier
 		intersect = (((t_cyl *)(p->forme[p->closest->index].ptr))->intersect0);
-	}
+	}*/
 	//printf(RED"type = %d\n"ENDC, p->closest->type);
 
-	l->ray.dir = unit(sub(intersect, l->c.pos));
-	l->ray.orig = p->l.pos;
-	printv(&l->ray.orig);
-	printv(&l->ray.dir);
-	printv(&intersect);
+	/*l->ray.dir = unit(sub(intersect, l->c.pos));
+	l->ray.orig = p->l.pos;*/
 	min_dist = 0;
 	obj = 0;
 	//create_ray(p, i, j);
-	init_closest(l->closest);
-	while (obj < p->n_obj && obj != p->closest->index)
+	init_closest(p->l.cl);
+	while (obj < p->n_obj && obj != p->l.cl->index)
 	{
-		if (l->forme[obj].id == 3)
-			closest_cylindre(l, obj);
-		if (l->forme[obj].id == 2)
-			closest_sphere(l, obj);
-		if (l->forme[obj].id == 1)
-			closest_plan(l, obj, 10, 10);
+	/*	if (l->forme[obj].id == 3)
+			closest_cylindre(l, obj);*/
+		if (p->forme[obj].id == 2)
+			closest_sphere1(p, &intersect, obj);
+		/*if (l->forme[obj].id == 1)
+			closest_plan(l, obj, 10, 10);*/
 		obj++;
 	}
-	return (l->closest->type);
+	return (p->l.cl->index);
 }
+

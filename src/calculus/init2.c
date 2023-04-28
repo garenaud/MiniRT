@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:03:05 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/18 11:51:27 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:10:33 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	init_closest(t_closest *close)
 	close->type = -1;
 	close->tmin = POS_INF;
 	close->dmin = POS_INF;
+	close->delta = POS_INF;
 }
 
 void	background(t_rgb **rgb, t_color color, int i, int j)
