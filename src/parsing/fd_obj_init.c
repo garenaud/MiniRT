@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 18:32:48 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/14 12:01:59 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/02 16:42:05 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	push_sp(t_scene *p, int index)
 	tmp->pos.vec[0] = ascii_to_double(get_numb(p, index), 0, index);
 	tmp->pos.vec[1] = ascii_to_double(get_numb(p, index), 0, index);
 	tmp->pos.vec[2] = ascii_to_double(get_numb(p, index), 0, index);
-	tmp->r = ascii_to_double(get_numb(p, index), 0, index);
+	tmp->r = ascii_to_double(get_numb(p, index), 0, index) / 2;
 	tmp->color.rgb[0] = atoi_c(get_numb(p, index), 1, index);
 	tmp->color.rgb[1] = atoi_c(get_numb(p, index), 1, index);
 	tmp->color.rgb[2] = atoi_c(get_numb(p, index), 1, index);

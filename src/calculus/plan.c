@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 15:26:45 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/25 15:23:09 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/02 16:01:43 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	compute_intersect_plan(t_ray ray, t_plan *P, int debug)
 	//		printf(GREEN"plan_Hit(%d): ptmin = %lf\t",P->label, P->tmin);
 	//		printv(&P->OC);
 	//		printf(RED"Pocn = %lf\t", P->OCn);
-			printf(RED); printf("ptmin = %lf\t", P->tmin);
+	//		printf(RED); printf("ptmin = %lf\t", P->tmin);
 		  //  printf(GREEN"OCn = %lf, ndotray = %lf\t",P->OCn , P->ndotray );
 			printv(&P->intersect0);
 			printf(ENDC);
@@ -48,9 +48,9 @@ void	compute_intersect_plan(t_ray ray, t_plan *P, int debug)
 	{// attn pas intersection (dir T n)
 //		P->tmin = POS_INF;
 //		P->index = POS_INF;
-		printf("check cas ptmin <0\n"PURP);
+//		printf("check cas ptmin <0\n"PURP);
 		init_vector(&P->intersect0, POS_INF, POS_INF, POS_INF);
-		printv(&P->intersect0);
+//		printv(&P->intersect0);
 	}
 	}// ajout 1904
 
@@ -116,6 +116,7 @@ void	put_plan1(t_scene *p, int i, int j)
 	t_vector	normal;
     t_vector    *amb;
 
+
 if (p->closest->type == 1)
 {
 	p_tmin = ((t_plan *)(p->forme[p->closest->index].ptr))->tmin;
@@ -123,18 +124,21 @@ if (p->closest->type == 1)
 	intersection = ((t_plan *)((p->forme[p->closest->index].ptr)))->intersect0;
 	arg1 = ((t_plan *)(p->forme[p->closest->index].ptr))->C;// doute dessus
 	normal = ((t_plan *)(p->forme[p->closest->index].ptr))->n;
-}
-/*	if (p->closest->tmin != -1 && p->closest->type == 1 && dot(p->c.dir,sub(((t_plan *)
-		(p->forme[p->closest->index].ptr))->intersect0, ((t_plan *)(p->forme[p->closest->index].ptr))->C)) > 0
-		&& ((t_plan *)(p->forme[p->closest->index].ptr))->tmin >0)*/
+
 	if (p->closest->tmin != -1 && p->closest->type == 1 && egal(dot(normal, sub(intersection, arg1)), 0, EPS) == 1 && p_tmin > 0)
 	{
-
-		//ambiant(p);
         amb = ambiant1(p);
+		if ((free_path(p, i,j) != -1 && free_path(p,i,j) != p->closest->index) && (not_egal(p->l.cl->delta,0, EPS)))
+        {
+            if (light_side(&p->c.pos, &p->l.pos, &intersection, &normal) == 1)
+                *amb = scalar_prod(*amb, 0.5);
+/*            if (p->l.cl->type == 1)
+                printf(GREEN" plan avant \n"ENDC);*/
+		}
 		p->c.film[i][j].rgb[0] = amb->vec[0]*(((t_plan *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
         p->c.film[i][j].rgb[1] = amb->vec[1]*(((t_plan *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
         p->c.film[i][j].rgb[2] = amb->vec[2]*(((t_plan *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
-	free (amb);
+		free (amb);
+    }
     }
 }

@@ -6,7 +6,7 @@
 #    By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 19:21:45 by grenaud-          #+#    #+#              #
-#    Updated: 2023/04/27 10:31:31 by jsollett         ###   ########.fr        #
+#    Updated: 2023/04/28 13:57:23 by jsollett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRCS			=	parsing/init_camera.c \
 					MLX_files/windows.c \
 					calculus/sphere_light.c \
 					MLX_files/draw.c \
+					calculus/plan_light.c \
 
 MAIN			= miniRT.c
 

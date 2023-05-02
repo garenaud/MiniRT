@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 10:15:19 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/28 10:18:49 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/02 15:39:08 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,18 @@ void	ambiant(t_scene *p)
 }
 
 // doit detecter si le faisceau de lumiere peut atteindre l'intersection
-int	free_path(t_scene *p)
+int	free_path(t_scene *p, int i, int j)
 {
 	double	min_dist;
 	int		obj;
+	t_vector	tmp, tmp1;
 
 	t_vector	intersect;
 	//t_vector	l_dir;
-/*	if (p->closest->type == 1)
+	if (p->closest->type == 1)
 	{
 		intersect = (((t_plan *)(p->forme[p->closest->index].ptr))->intersect0);
-	}*/
+	}
 	if (p->closest->type == 2)
 	{
 		intersect = (((t_sphere *)(p->forme[p->closest->index].ptr))->intersect0);
@@ -97,10 +98,28 @@ int	free_path(t_scene *p)
 			closest_cylindre(l, obj);*/
 		if (p->forme[obj].id == 2)
 			closest_sphere1(p, &intersect, obj);
-		/*if (l->forme[obj].id == 1)
-			closest_plan(l, obj, 10, 10);*/
+		if (p->forme[obj].id == 1)
+		{
+
+			closest_plan1(p, &intersect, obj);
+		}
 		obj++;
 	}
+	if (i == 550 && j == 850)
+	{
+	//printf("j = %d, l.dir =  %lf,%lf,%lf\n", j,p->l.dir.vec[0], p->l.dir.vec[1],p->l.dir.vec[2]);
+	tmp1 = sub(p->l.pos, p->l.li);
+	//printf("j = %d, ratio l.dir/sub( , lposl.li) =  %lf,%lf,%lf\n", j,p->l.dir.vec[0]/tmp1.vec[0], p->l.dir.vec[1]/tmp1.vec[1],p->l.dir.vec[2]/tmp1.vec[2]);
+	//printf("index (%d) = %d\t impact = %lf,%lf,%lf", j,p->l.cl->index ,p->l.li.vec[0], p->l.li.vec[1],p->l.li.vec[2]);
+	tmp =cross(sub(p->l.li, p->l.pos), p->l.dir);
+/*	if (egal(norm(tmp), 0, EPS))
+		printf(GREEN"freepath OK\n"ENDC);
+	else
+		printf(RED"freepath KO\n"ENDC);*/
+//	printf("index freepath = %d\n",p->l.cl->index );
+//	printf("index type = %d\n",p->l.cl->type );
+	}
+	//printv(&tmp);
 	return (p->l.cl->index);
 }
 

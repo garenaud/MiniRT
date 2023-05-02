@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 15:26:06 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/28 11:42:49 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/01 15:00:11 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	put_sphere2(t_scene *p, int i, int j)
 	if (p->closest->tmin != -1 && p->closest->type == 2)
 	{
 		amb = ambiant1(p);
-		if ((free_path(p) == -1 || free_path(p) == p->closest->index) && (egal(p->l.cl->delta,0, EPS)))
+		if ((free_path(p,i,j) == -1 || free_path(p,i,j) == p->closest->index) && (egal(p->l.cl->delta,0, EPS)))
 			*amb = scalar_prod(*amb, 2);
 		p->c.film[i][j].rgb[0] = amb->vec[0]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
 		p->c.film[i][j].rgb[1] = amb->vec[1]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[1]);

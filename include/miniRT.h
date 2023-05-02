@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/28 10:17:26 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/02 14:34:54 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 # define BLUE		"\033[1;34m"
 
 # define ESC		53
-# define VIEWPORT_HEIGHT	400
-# define VIEWPORT_WIDTH		400
+# define VIEWPORT_HEIGHT	1000
+# define VIEWPORT_WIDTH		1000
 # define MCC		255
 # define POS_INF	1.0/0
 # define PI			3.141592
-# define EPS		0.00000001
+# define EPS		0.001//0.00000001
 # define DEBUG		0
 
 # include <stdio.h>
@@ -230,6 +230,12 @@ typedef struct s_light
 	t_rgb		color;
 	t_closest	*cl;
 	t_discr		*discr;
+	// plan
+	double  	ndotray_pl;
+	double		OCn;
+    t_vector    n;
+    t_vector    OC;
+    double      tmin;
 }		t_light;
 
 typedef struct s_check
@@ -464,18 +470,24 @@ void		put_cylindre(t_scene *p, int i, int j);
 void		ambiant(t_scene *p);
 t_vector	*ambiant1(t_scene *p);
 t_vector	ambiant2(t_scene *p);
-int	        free_path(t_scene *p);
+int	        free_path(t_scene *p, int i, int j);
 
 /* ************************************************************************** */
 // spot.c a controller
 void	init_spot(t_scene *l, t_scene *p);
-void	ray_tracer_2(t_scene *p, t_scene *l);
+void	ray_tracer_2(t_scene *p);
 
 /* ************************************************************************** */
 // spot.c a controller
 int		shadow_sphere(t_scene *p, t_sphere *Sph, int obj);
-int		shadow_plan(t_scene *p, t_plan *Pl);
+void	shadow_plan(t_scene *p, t_plan *Pl);
 void	light_intersect_sph(t_scene *p);
 double	light_sphere_hit(t_scene *p,t_sphere *Sph);
 void	closest_sphere1(t_scene *p, t_vector *intersect, int obj);
+void	light_intersect_pl(t_scene *p);
+void	closest_plan1(t_scene *p,t_vector *intersect, int obj);
+double	light_plan_hit(t_scene *p);
+int		light_side(t_vector *cam, t_vector *light, t_vector *intersect, t_vector *norm);
+
+
 #endif

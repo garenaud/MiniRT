@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:10:29 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/24 15:19:40 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/02 11:37:05 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,11 @@ void	closest_plan(t_scene *p, int obj, int i, int j)
 {
 	double	min_dist;
 	int debug;
+	t_vector	tmp;
 
 	min_dist = 0;
 	debug = 0;
-/*	if (j % 240 == 0 && i % 40 == 0)
-		debug = 1;
-	else
-		debug = 0;*/
+
 	compute_intersect_plan(p->ray, (t_plan *)p->forme[obj].ptr, debug);
 	if (plan_hit1((t_plan *)p->forme[obj].ptr, p) != -1)
 	{
@@ -76,6 +74,11 @@ void	closest_plan(t_scene *p, int obj, int i, int j)
 		if (debug)
 		printf("\tcalcul min\t");
 		min_dist = norm(sub(p->c.pos, ((t_plan *)p->forme[obj].ptr)->intersect0));
+		tmp = cross(sub(p->c.pos,((t_plan *)p->forme[obj].ptr)->intersect0 ), p->ray.dir);
+		/*if (egal(norm(tmp), 0, EPS))
+		printf(GREEN"closest plan OK\n"ENDC);
+		else
+		printf(RED"closest plan KO\n"ENDC);*/
 		if (((t_plan *)p->forme[obj].ptr)->tmin >=1 && min_dist > 0 && min_dist < p->closest->dmin)
 		{
 			p->closest->index = obj;
@@ -83,11 +86,11 @@ void	closest_plan(t_scene *p, int obj, int i, int j)
 			p->closest->dmin = min_dist;
 			p->closest->type = p->forme[obj].id;
 		}
-		if ((j % 240) == 0 && (i % 40) == 0)
+	if ((j % 240) == 0 && (i % 40) == 0)
 		{
-			printf("(i,j) = (%d,%d)\t",i,j);
-			printf(RED"obj = %d, mdist = %10.10lf, p->closest->dmin = %10.10lf \t"ENDC, obj, min_dist, p->closest->dmin);
-			printv(&((t_plan *)p->forme[obj].ptr)->intersect0);
+		//	printf("(i,j) = (%d,%d)\t",i,j);
+		//	printf(RED"obj = %d, mdist = %10.10lf, p->closest->dmin = %10.10lf \t"ENDC, obj, min_dist, p->closest->dmin);
+		//	printv(&((t_plan *)p->forme[obj].ptr)->intersect0);
 		 // printv(&p->ray.dir);
 		}
 	}
