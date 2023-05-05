@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:39:21 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/26 11:23:52 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/05 15:11:03 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	compute_intersect_cyl(t_discr *delta, t_ray ray, t_cyl *Cyl)
 }
 
 double	intersect_axe(t_cyl *Cyl, int param)
-{
+{//a tester
 	t_vector	v_tmp;
 	double		tmp;
 
@@ -78,15 +78,39 @@ double	cylindre_hit(t_cyl *Cyl, t_discr *delta, double eps)
 }
 
 void	put_cylindre(t_scene *p, int i, int j)
-{
+{// ajout if
 	t_vector	*amb;
 
 	if (p->closest->type == 3 && p->closest->tmin != 1)
 	{
 		amb = ambiant1(p);
+		if ((free_path(p,i,j) == -1 || free_path(p,i,j) == p->closest->index) && (egal(p->l.cl->delta,0, EPS)))
+			*amb = scalar_prod(*amb, 2);
 		//p->c.film[i][j] = ((t_cyl *)(p->forme[p->closest->index].ptr))->color;
 		p->c.film[i][j].rgb[0] = amb->vec[0]*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
 		p->c.film[i][j].rgb[1] = amb->vec[1]*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
 		p->c.film[i][j].rgb[2] = amb->vec[2]*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
+		free(amb);
+	}
+}
+
+void	put_cylindre1(t_scene *p, int i, int j)
+{// ajout if
+	t_vector	*amb;
+	int			inside;
+
+	if (p->closest->type == 3 && p->closest->tmin != 1)
+	{
+		inside = ((t_cyl *)(p->forme[p->closest->index].ptr))->inside;
+		if (i == 840)
+			printf(RED"i = %d, j = %d, inside = %d\n", i, j, inside);
+		amb = ambiant1(p);
+		if ( (free_path(p,i,j) == -1 || free_path(p,i,j) == p->closest->index) && (egal(p->l.cl->delta,0, EPS)))
+			*amb = scalar_prod(*amb, 2);
+		//p->c.film[i][j] = ((t_cyl *)(p->forme[p->closest->index].ptr))->color;
+		p->c.film[i][j].rgb[0] = amb->vec[0]*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
+		p->c.film[i][j].rgb[1] = amb->vec[1]*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
+		p->c.film[i][j].rgb[2] = amb->vec[2]*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
+		free(amb);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/02 15:59:58 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/05 14:57:44 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,11 +144,11 @@ void	ray_tracer_2(t_scene *p)
 			}
 
 			//put_sphere(p, p->closest->index, i, j);// faux a modifier
-/*			if (i == 550 && j == 950)
+			if (i == 200 && j == 650)
 			{
 				printf("label\n");
-			}*/
-			put_cylindre(p, i, j);
+			}
+			put_cylindre1(p, i, j);
 			//put_sphere1(p, i, j);
 			put_sphere2(p,i,j);
 			put_plan1(p, i, j);
@@ -169,7 +169,8 @@ int		main(int argc, char **argv)
 	p = &(t_scene){0};
 	p->delta = create_discriminant();
 	p->l.discr = create_discriminant();
-
+	p->l.cyl = create_cy();
+	p->l.cyl->discr = create_discriminant();
 	p->closest = create_closest();
 	p->l.cl = create_closest();
 
@@ -195,15 +196,17 @@ int		main(int argc, char **argv)
 	init_mlx(p, argv);
 	//mlx_key(&p);
  	mlx_key_hook(p->mlx_init.window, deal_key, p);
-/*	for (int i = 0; i < VIEWPORT_WIDTH; i++)
+	for (int i = 0; i < VIEWPORT_WIDTH; i++)
 	{
 //	axe(p, i, 460);
-	axe(p,i, 999);
-	axe(p,i, 662);
-	axe(p,i, 457);
-	axe(p, 550, i);
-	axe(p, i, 950);
-	}*/
+//	axe(p,450, i);
+//	axe(p,i, 480);
+  //  axe(p,200, i);
+//	axe(p,i, 650);
+//	axe(p,i, 423);
+//	axe(p, 840, i);
+//	axe(p, i, 950);
+	}
 	render(p);
 	mlx_hook(p->mlx_init.window, 17, 1L << 0, destroy_window, p);
 	mlx_hook(p->mlx_init.window, 17, 1L << 17, destroy_window, p);

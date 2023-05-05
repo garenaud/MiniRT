@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 09:50:19 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/18 14:04:42 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/03 10:58:49 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,17 +115,12 @@ void	create_array(t_scene *s)
 			s->forme[i].id = 3;
 			init_vector(&((t_cyl *)(s->forme[i].ptr))->C0, s->obj->pos.vec[0], s->obj->pos.vec[1], s->obj->pos.vec[2]);
 			init_vector(&((t_cyl *)(s->forme[i].ptr))->dir, s->obj->dir.vec[0], s->obj->dir.vec[1], s->obj->dir.vec[2]);
-			printv(&((t_cyl *)(s->forme[i].ptr))->C0);
-			printv(&((t_cyl *)(s->forme[i].ptr))->dir);
+
 			init_cylindre(((t_cyl *)(s->forme[i].ptr)), ((t_cyl *)(s->forme[i].ptr))->C0,
 				((t_cyl *)(s->forme[i].ptr))->dir, sub(((t_cyl *)(s->forme[i].ptr))->C0, s->c.pos));
-			printv(&((t_cyl *)(s->forme[i].ptr))->C0);
-			printv(&((t_cyl *)(s->forme[i].ptr))->dir);// faux ligne suivante_
+
 			init2_cylindre(((t_cyl *)(s->forme[i].ptr)),s->c.pos, s->obj->r, s->obj->h);//r h
-				printf(GREEN);
-			printv(&((t_cyl *)(s->forme[i].ptr))->C0);
-			printv(&((t_cyl *)(s->forme[i].ptr))->dir);
-			printf(ENDC);
+
 			((t_cyl *)(s->forme[i].ptr))->color.rgb[0] = s->obj->color.rgb[0];
 			((t_cyl *)(s->forme[i].ptr))->color.rgb[1] = s->obj->color.rgb[1];
 			((t_cyl *)(s->forme[i].ptr))->color.rgb[2] = s->obj->color.rgb[2];

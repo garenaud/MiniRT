@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/02 14:34:54 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/04 10:59:45 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,18 @@ typedef struct	s_cam
 	t_vector	lookat;
 }			t_cam;
 
+typedef struct	s_discr
+{
+	double		t1;
+	double		t2;
+	double		tmin;
+	double		tmax;
+	double		discr;
+	double		a;
+	double		b;
+	double		c;
+}			t_discr;
+
 typedef struct	s_sphere
 {
 	int			index;
@@ -146,6 +158,7 @@ typedef struct	s_cyl
 {
 	t_rgb		color;
 	int			index;
+	t_discr		*discr;
 	t_vector	C0;
 	t_vector	C1;
 	t_vector	dir;
@@ -160,24 +173,13 @@ typedef struct	s_cyl
 	t_vector	w;
 	t_vector	v11;
 	t_vector	w11;
-	double		tmp;
 	int			inside; // bool...
 	//
 	double		r;
 	double		h;
 }			t_cyl;
 // new
-typedef struct	s_discr
-{
-	double		t1;
-	double		t2;
-	double		tmin;
-	double		tmax;
-	double		discr;
-	double		a;
-	double		b;
-	double		c;
-}			t_discr;
+
 
 typedef struct	s_objet
 {
@@ -227,15 +229,19 @@ typedef struct s_light
 	t_vector	pos;
 	t_vector	li;// light impact
 	double		lum;
+	t_ray		light; //0405
 	t_rgb		color;
 	t_closest	*cl;
 	t_discr		*discr;
 	// plan
+
 	double  	ndotray_pl;
 	double		OCn;
-    t_vector    n;
-    t_vector    OC;
-    double      tmin;
+	t_vector    n;
+	t_vector    OC;
+	double      tmin;
+	// cylindre
+	t_cyl		*cyl;
 }		t_light;
 
 typedef struct s_check
@@ -479,7 +485,7 @@ void	ray_tracer_2(t_scene *p);
 
 /* ************************************************************************** */
 // spot.c a controller
-int		shadow_sphere(t_scene *p, t_sphere *Sph, int obj);
+int		shadow_sphere(t_scene *p, t_sphere *Sph);
 void	shadow_plan(t_scene *p, t_plan *Pl);
 void	light_intersect_sph(t_scene *p);
 double	light_sphere_hit(t_scene *p,t_sphere *Sph);
@@ -488,6 +494,8 @@ void	light_intersect_pl(t_scene *p);
 void	closest_plan1(t_scene *p,t_vector *intersect, int obj);
 double	light_plan_hit(t_scene *p);
 int		light_side(t_vector *cam, t_vector *light, t_vector *intersect, t_vector *norm);
-
+void	shadow_cyl(t_scene *p, t_cyl *Cyl);
+void	closest_cylindre1(t_scene *p, t_vector *intersect, int obj);
+void	put_cylindre1(t_scene *p, int i, int j);
 
 #endif

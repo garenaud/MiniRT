@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 10:15:19 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/02 15:39:08 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/03 15:57:50 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,18 @@ int	free_path(t_scene *p, int i, int j)
 	{
 		intersect = (((t_sphere *)(p->forme[p->closest->index].ptr))->intersect0);
 	}
-	/*if (p->closest->type == 3)
+	if (p->closest->type == 3 && ((t_cyl *)(p->forme[p->closest->index].ptr))->inside == 0)
 	{// a verifier
 		intersect = (((t_cyl *)(p->forme[p->closest->index].ptr))->intersect0);
-	}*/
+	}
+	if (p->closest->type == 3 && ((t_cyl *)(p->forme[p->closest->index].ptr))->inside == 1)
+	{// a verifier
+		intersect = (((t_cyl *)(p->forme[p->closest->index].ptr))->intersect1);
+	}
+	if (p->closest->type == 3 && ((t_cyl *)(p->forme[p->closest->index].ptr))->inside == 2)
+	{// a verifier
+		printf("Cyl !\n");
+	}
 	//printf(RED"type = %d\n"ENDC, p->closest->type);
 
 	/*l->ray.dir = unit(sub(intersect, l->c.pos));
@@ -94,8 +102,8 @@ int	free_path(t_scene *p, int i, int j)
 	init_closest(p->l.cl);
 	while (obj < p->n_obj && obj != p->l.cl->index)
 	{
-	/*	if (l->forme[obj].id == 3)
-			closest_cylindre(l, obj);*/
+		if (p->forme[obj].id == 3)
+			closest_cylindre1(p, &intersect, obj);
 		if (p->forme[obj].id == 2)
 			closest_sphere1(p, &intersect, obj);
 		if (p->forme[obj].id == 1)

@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 11:10:12 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/13 16:57:48 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/05 14:16:39 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	init_plan(t_plan *plan, t_vector OC, t_vector n)
 
 void	init_cylindre(t_cyl *cyl, t_vector C, t_vector dir, t_vector OC)
 {
-	printf(RED"init cyl");
+
     init_vector(&cyl->C0, C.vec[0], C.vec[1], C.vec[2]);
     printv(&cyl->C0);
 
 	init_vector(&cyl->dir, dir.vec[0], dir.vec[1], dir.vec[2]);
     printv(&cyl->dir);
 	init_vector(&cyl->OC, OC.vec[0], OC.vec[1], OC.vec[2]);
-    printf("end"ENDC);
+
 }

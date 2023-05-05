@@ -6,14 +6,14 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:10:29 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/02 11:37:05 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/03 11:27:37 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/miniRT.h"
 
 void	closest_cylindre(t_scene *p, int obj)
-{
+{// ajouter le calcul de la distance minimum...
 	double	min_dist;
 
 	min_dist = 0;
