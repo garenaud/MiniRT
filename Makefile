@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 19:21:45 by grenaud-          #+#    #+#              #
-#    Updated: 2023/05/03 23:03:35 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/05/09 10:53:04 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 
 NAME		= miniRT
 CC 			= gcc
-CFLAGS		= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
 LFLAGS		= -L libft -lft
 DFLAGS		= -MMD -MF $(@:.o=.d)
 METAL_MLX	= -framework OpenGL -framework AppKit -L./mlx -lmlx -g #-fsanitize=address
@@ -41,7 +41,8 @@ SRCS_PATH		= ./src
 
 INCLUDE_PATH	= ./include
 
-SRCS			= 	calculus/init.c \
+SRCS			=	parsing/init_camera.c \
+					calculus/init.c \
 					calculus/init2.c \
 					calculus/Array_2d.c \
 					calculus/print.c \
@@ -50,8 +51,15 @@ SRCS			= 	calculus/init.c \
 					calculus/vecteur_op2.c \
 					calculus/vecteur_op3.c \
 					calculus/quadratic_solver2.c \
+					calculus/intersection.c \
 					calculus/cylindre.c \
+					calculus/sphere.c \
+					calculus/plan.c \
+					calculus/light.c \
+					calculus/shadow.c \
+					calculus/cylindre_light.c \
 					parsing/ft_atod.c \
+					parsing/spot.c \
 					parsing/get_next_line.c \
 					parsing/parsing_fd.c \
 					parsing/listobj_util.c \
@@ -61,6 +69,9 @@ SRCS			= 	calculus/init.c \
 					parsing/fd_obj_init.c \
 					parsing/utils.c \
 					MLX_files/windows.c \
+					calculus/sphere_light.c \
+					MLX_files/draw.c \
+					calculus/plan_light.c \
 
 MAIN			= miniRT.c
 
