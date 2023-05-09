@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:03:44 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/12 11:11:54 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/04/24 15:36:05 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,14 @@ void	init_mlx(t_scene *p, char **argv)
 	p->mlx_init.mlx = mlx_init();
 	p->mlx_init.window = mlx_new_window(p->mlx_init.mlx, VIEWPORT_WIDTH,
 			VIEWPORT_HEIGHT, p->mlx_init.title);
- 	/* mlx_key_hook(p->mlx_init.window, deal_key, &p);
-	mlx_hook(p->mlx_init.window, 17, 1L << 0, destroy_window, &p);
-	mlx_hook(p->mlx_init.window, 17, 1L << 17, destroy_window, &p);
-	mlx_loop(p->mlx_init.mlx); */
+	mlx_key(p);
 }
 
 void	free_and_exit(t_scene *p)
 {
-	mlx_clear_window(p->mlx_init.mlx, p->mlx_init.window);
-	mlx_destroy_window(p->mlx_init.mlx, p->mlx_init.window);
+	(void)	p;
+	//mlx_clear_window(p->mlx_init.mlx, p->mlx_init.window);
+	//mlx_destroy_window(p->mlx_init.mlx, p->mlx_init.window);
 	wrdestroy();
 	exit(0);
 }

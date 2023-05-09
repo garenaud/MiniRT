@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/24 15:56:12 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/03/16 12:23:32 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,28 @@
 
 # define RED		"\033[1m\033[31m"
 # define GREEN		"\033[1m\033[32m"
-# define ORANGE		"\033[1m\033[33m"
 # define YEL		"\033[0;33m"
 # define PURP		"\033[0;35m"
 # define ENDC		"\033[0m"
 # define BOLDRED	"\033[31m"
-# define ITALIC		"\033[3m"
-# define DIM		"\033[2m"
-# define WBGROUND	"\033[7m"
-# define WRONG		"\033[9m"
 # define BLUE		"\033[1;34m"
 
-# define ESC		53
-# define CANVAS_X	512
-# define CANVAS_Y	512
-# define VIEWPORT_HEIGHT	256
-# define VIEWPORT_WIDTH		256
+# define CANVAS_X	1024
+# define CANVAS_Y	1024
+# define VIEWPORT_HEIGHT	128
+# define VIEWPORT_WIDTH		128
 # define MCC		255
 # define POS_INF	1.0/0
+
 
 # include <stdio.h>
 # include <string.h>
 # include <unistd.h>
 # include <math.h>
 # include <stdlib.h>
-# include <stddef.h>
-# include <stdbool.h>
 
-# include "../libft/libft.h"
-# include "../mlx/mlx.h"
-# include "../src/parsing/get_next_line.h"
+# include "libft/libft.h"
+//# include "mlx/mlx.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
@@ -54,22 +46,12 @@
 /* STRUCTS																	  */
 /* ************************************************************************** */
 
-typedef struct s_vector
+typedef struct s_dico
 {
-	double	vec[3];
-	double	norm;
-}			t_vector;
-
-typedef struct	s_vecteur
-{
-	double	arr[3];
-	double	norm;
-}			t_vecteur;
-
-typedef struct s_rgb
-{
-	int		rgb[3];
-}			t_rgb;
+	int				key;
+	void			*value;
+	struct s_dico	*next;
+}	t_dico;
 
 typedef struct s_color
 {
@@ -79,35 +61,42 @@ typedef struct s_color
 	double	tr;
 }			t_color;
 
-typedef struct s_listobj
+typedef struct	s_rgb
 {
+	int		rgb[3];
+}			t_rgb;
+
+typedef struct	s_vector
+{
+	double	vec[3];
+}			t_vector;
+
+typedef struct	s_vecteur
+{
+	double	arr[3];
+	double	norm;
+}			t_vecteur;
+
+typedef struct s_listobj
+{// modification
 	int					index;
 	int					id;
 	t_vector			pos;
 	t_vector			dir;
-	double				r;
+	double				r;// plutot rayon
 	double				h;
 	t_rgb				color;
-	struct s_listobj	*next;
+//	struct s_listobj	*next;
 }			t_listobj;
 
-typedef struct s_list
-{
-	char			*data;
-	struct s_list	*next;
-}		t_list;
-
-typedef struct s_list_i
-{
-	int				data;
-	struct s_list_i	*next;
-}		t_list_i;
-
+// new
 typedef struct	s_ray
 {
 	t_vector	orig;
 	t_vector	dir;
 }			t_ray;
+
+
 
 typedef struct	s_cam
 {
@@ -187,130 +176,24 @@ typedef struct	s_closest
 	
 }			t_closest;
 
-typedef struct s_ambiant
-{
-	int			check_a;
-	double		lum;
-	t_rgb		color;
-}		t_ambiant;
-
-typedef struct s_camera
-{
-	int			check_c;
-	t_vector	pos;
-	t_vector	dir;
-	double		fov;
-}		t_camera;
-
-typedef struct s_light
-{
-	int			check_l;
-	t_vector	pos;
-	double		lum;
-	t_rgb		color;
-}		t_light;
-
-typedef struct s_check
-{
-	int		comm;
-	int		fd_lines;
-}		t_check;
-
-typedef struct s_mlx
-{
-	void	*mlx;
-	void	*window;
-	char	*title;
-}		t_mlx;
-
-typedef struct s_scene
-{
-	char		*line;
-	t_ambiant	a;
-	t_camera	c;
-	t_light		l;
-	t_listobj	*obj;
-	t_check		check;
-	t_mlx		mlx_init;
-}			t_scene;
 /* ************************************************************************** */
 /* FUNCTION PROTOTYPES														  */
-/* ************************************************************************** */
-//miniRT.c
-void		mlx_key(t_scene *p);
-void		init_check(t_scene *p, char **argv);
-
 /* ************************************************************************** */
 //ft_atod.c
 int			sign_atod(char c);
 double		int_part(char c, double result);
 double		frac_part(char *str);
 int			frac_len(char *str);
-double		ascii_to_double(char *str, int check, int index);
+double		ascii_to_double(char *str);
 
 /* ************************************************************************** */
 //get_next_line.c
-char		*ft_get_start(char *raw_line);
-char		*ft_get_line(char *raw_line);
-char		*ft_get_raw_line(int fd, char *raw_line);
 char		*get_next_line(int fd);
-
-/* ************************************************************************** */
-//parsing_fd.c
-void		init_obj(t_scene *p, char *line, int index);
-void		parsing(t_scene *p, char **argv);
-void		read_fd(t_scene *p, int fd, int i);
-char		*get_numb(t_scene *p, int index);
-void		*trim_numb(char *line, int i);
-
-/* ************************************************************************** */
-//fd_data_init.c
-void		init_ambiant(t_scene *p, int index);
-void		init_cam(t_scene *p, int index);
-void		init_light(t_scene *p, int index);
-
-/* ************************************************************************** */
-//fd_obj_init.c
-void		push_cy(t_scene *p, int index);
-void		push_sp(t_scene *p, int index);
-void		push_pl(t_scene *p, int index);
-
-/* ************************************************************************** */
-//listobj_util.c
-t_listobj	*init_listobj(t_scene *p);
-t_listobj	*getobj(t_listobj *top, int index);
-void		add_to_list(t_listobj **head, t_listobj *new_element);
-int			size_stack_obj(t_listobj *top);
-void		printll_obj(t_listobj *obj);
-void		delete_obj(t_listobj **top);
-
-/* ************************************************************************** */
-//check_line.c
-char		*trim_line(char *line);
-int			is_empty(char *line);
-int			strlen_comm(t_scene *p, char *line);
-char		*clean_comm(t_scene *p, char *line);
-int			ft_count_lines(int fd);
-
-/* ************************************************************************** */
-//msg_error.c
-void		message(char *msg, int index);
-void		check_fd(int fd, char **argv);
-void		check_struct(t_scene *p);
-void		check_double(double value, int check, int index);
-void		check_int(int value, int check, int index);
-
-/* ************************************************************************** */
-//utils.c
-int			atoi_c(const char *str, int check, int index);
-
-/* ************************************************************************** */
-//windows.c
-int			destroy_window(t_scene *p);
-int			deal_key(int key_code, t_scene *p);
-int			escape(int key_code, t_scene *p);
-void		init_mlx(t_scene *p, char **argv);
-void		free_and_exit(t_scene *p);
+int			gnl_read(char **buff_s, char **line, int fd, int bli);
+void		ft_strdel(char **str);
+char		*ft_strdupcat(char **s1, char *s2);
+int			ft_strichr(const char *s, int c);
+size_t		ft_strlen(char const *s);
 
 /* ************************************************************************** */
 //Array_2d.c
@@ -370,5 +253,10 @@ double		discr(double a, double b, double c);
 void		test_quad_sol(t_discr *d);
 void		quadratic_solution(t_discr *d, double a, double b, double c);
 void		quadratic_solution2(t_discr *d);
-
+/* ************************************************************************** */
+// cylindre.c
+void		get_coeff_cyl(t_discr *d, t_ray ray, t_cyl Cyl);
+void		compute_intersect_cyl(t_discr *delta, t_ray ray, t_cyl *Cyl);
+double		intersect_axe(t_cyl *Cyl, int param);
+double		cylindre_hit(t_cyl *Cyl, t_discr *delta, double eps);
 #endif

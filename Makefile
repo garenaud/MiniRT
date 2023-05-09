@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 19:21:45 by grenaud-          #+#    #+#              #
-#    Updated: 2023/04/14 15:42:00 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/05/03 23:03:35 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CC 			= gcc
 CFLAGS		= -Wall -Wextra -Werror -g
 LFLAGS		= -L libft -lft
 DFLAGS		= -MMD -MF $(@:.o=.d)
-METAL_MLX	= -framework OpenGL -framework AppKit -L./mlx -lmlx -g -fsanitize=address
+METAL_MLX	= -framework OpenGL -framework AppKit -L./mlx -lmlx -g #-fsanitize=address
 DANGER		= -fsanitize=address
 
 LIBFT 		= libft
@@ -41,8 +41,7 @@ SRCS_PATH		= ./src
 
 INCLUDE_PATH	= ./include
 
-SRCS			= 	
-					calculus/init.c \
+SRCS			= 	calculus/init.c \
 					calculus/init2.c \
 					calculus/Array_2d.c \
 					calculus/print.c \
@@ -277,8 +276,8 @@ endif
 
 
 $(NAME):	${OBJS} ${OBJ_MAIN}
-			@make -s -C $(MLX)
 			@make -s -C $(LIBFT)
+			@make -s -C $(MLX)
 			@$(call display_progress_bar)
 			@$(call run_and_test,$(CC) $(CFLAGS) $(DFLAGS) $(LFLAGS) $(METAL_MLX) -I$(INCLUDE_PATH) -o $@ ${OBJS} ${OBJ_MAIN})
 
