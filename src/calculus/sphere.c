@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 15:26:06 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/05 12:52:47 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/08 14:41:26 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,42 @@ void	put_sphere1(t_scene *p, int i, int j)
 void	put_sphere2(t_scene *p, int i, int j)
 {
 	t_vector	*amb;
+	t_vector	intersection;
+	t_vector	normal;
 	int			obj;
+	double		diffusion;
 
 	obj = 0;
+	diffusion = 0;
 	if (p->closest->tmin != -1 && p->closest->type == 2)
 	{
+		intersection = ((t_sphere *)(p->forme[p->closest->index].ptr))->intersect0;
+		normal = sub(intersection, ((t_sphere *)(p->forme[p->closest->index].ptr))->C);
 		amb = ambiant1(p);
+		//diffusion = p->l.lum * dot(normal, reverse(p->l.dir))/(norm_2(normal)*norm_2(p->l.dir));
+
 		if ((free_path(p,i,j) == -1 || free_path(p,i,j) == p->closest->index) && (egal(p->l.cl->delta,0, EPS)))
-			*amb = scalar_prod(*amb, 2);
-		p->c.film[i][j].rgb[0] = amb->vec[0]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
-		p->c.film[i][j].rgb[1] = amb->vec[1]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
-		p->c.film[i][j].rgb[2] = amb->vec[2]*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
+		{
+			if (light_side(&p->c.pos, &p->l.pos, &intersection, &normal) == 1)
+			{
+				diffusion = p->l.lum * dot(normal, reverse(p->l.dir))/(norm(normal)*norm(p->l.dir));
+				if (j == 500 && i == 500)
+				{
+					printf(RED"diffusion at centre = %lf\n", diffusion);
+					printv(&p->l.dir);
+					printv(&normal);
+				}//*amb = scalar_prod(*amb, (1/*+p->l.lum*/));// 2<--> diffusion
+			}
+		}
+		p->c.film[i][j].rgb[0] = (amb->vec[0]+ diffusion)*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
+		p->c.film[i][j].rgb[1] = (amb->vec[1]+ diffusion)*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
+		p->c.film[i][j].rgb[2] = (amb->vec[2]+ diffusion)*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
+		if (p->c.film[i][j].rgb[0] > 255)
+			p->c.film[i][j].rgb[0] = 255;
+		if (p->c.film[i][j].rgb[1] > 255)
+			p->c.film[i][j].rgb[1] = 255;
+		if (p->c.film[i][j].rgb[2] > 255)
+			p->c.film[i][j].rgb[2] = 255;
 		free(amb);
 	}
 }

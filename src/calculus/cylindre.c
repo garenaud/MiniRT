@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:39:21 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/05 15:11:03 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/09 10:21:58 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,19 +98,46 @@ void	put_cylindre1(t_scene *p, int i, int j)
 {// ajout if
 	t_vector	*amb;
 	int			inside;
+	// ajout 0805
+	t_vector	intersection;
+	t_vector	normal;
+	double		diffusion;
 
+	diffusion = 0;
 	if (p->closest->type == 3 && p->closest->tmin != 1)
 	{
 		inside = ((t_cyl *)(p->forme[p->closest->index].ptr))->inside;
-		if (i == 840)
-			printf(RED"i = %d, j = %d, inside = %d\n", i, j, inside);
+		// ajout 0805
+		if (inside == 0)
+		{// peut etre normal ?
+			intersection = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect0;
+			normal = projection(p->l.cyl->w, p->l.cyl->ul);
+		}
+		else if (inside ==1)
+		{
+			intersection = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect1;
+			normal = projection(p->l.cyl->w11, p->l.cyl->ul);
+		}
+
 		amb = ambiant1(p);
 		if ( (free_path(p,i,j) == -1 || free_path(p,i,j) == p->closest->index) && (egal(p->l.cl->delta,0, EPS)))
-			*amb = scalar_prod(*amb, 2);
+			{// foire
+				//if (light_side(&p->c.pos, &p->l.pos, &intersection, &normal) == 1)
+				{
+					diffusion = (p->l.lum * dot(normal, (p->l.dir))/(norm(normal)*norm(p->l.dir)));
+					*amb = scalar_prod(*amb, 2);
+				}
+			}
 		//p->c.film[i][j] = ((t_cyl *)(p->forme[p->closest->index].ptr))->color;
-		p->c.film[i][j].rgb[0] = amb->vec[0]*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
-		p->c.film[i][j].rgb[1] = amb->vec[1]*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
-		p->c.film[i][j].rgb[2] = amb->vec[2]*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
+		p->c.film[i][j].rgb[0] = (amb->vec[0] + diffusion)*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
+		p->c.film[i][j].rgb[1] = (amb->vec[1] + diffusion)*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
+		p->c.film[i][j].rgb[2] = (amb->vec[2] + diffusion)*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
+		if (p->c.film[i][j].rgb[0] > 255)
+			p->c.film[i][j].rgb[0] = 255;
+		if (p->c.film[i][j].rgb[1] > 255)
+			p->c.film[i][j].rgb[1] = 255;
+		if (p->c.film[i][j].rgb[2] > 255)
+			p->c.film[i][j].rgb[2] = 255;
 		free(amb);
 	}
 }
