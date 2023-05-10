@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/05 14:57:44 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:52:33 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void	ray_tracer_2(t_scene *p)
 			}
 
 			//put_sphere(p, p->closest->index, i, j);// faux a modifier
-			if (i == 200 && j == 650)
+			if (i == 500 && j == 430)
 			{
 				printf("label\n");
 			}
@@ -199,10 +199,10 @@ int		main(int argc, char **argv)
 	for (int i = 0; i < VIEWPORT_WIDTH; i++)
 	{
 //	axe(p, i, 460);
-//	axe(p,450, i);
+	axe(p,500, i);
 //	axe(p,i, 480);
   //  axe(p,200, i);
-//	axe(p,i, 650);
+	axe(p,i, 430);
 //	axe(p,i, 423);
 //	axe(p, 840, i);
 //	axe(p, i, 950);

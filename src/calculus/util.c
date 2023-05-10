@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 15:46:05 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/12 15:01:14 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:17:49 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,14 @@ int	not_egal(double lhs, double rhs, double tolerance)
 		return (0);
 	else
 		return (1);
+}
+
+int	egal_v(t_vector lhs, t_vector rhs, double tolerance)
+{
+	if (egal(lhs.vec[0], rhs.vec[0], tolerance) == 1 &&
+		egal(lhs.vec[1], rhs.vec[1], tolerance) == 1 &&
+		egal(lhs.vec[2], rhs.vec[2], tolerance) == 1)
+		return (1);
+	else
+		return (0);
 }

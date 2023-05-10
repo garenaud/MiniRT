@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:39:21 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/09 10:21:58 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:58:02 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,18 @@ double	intersect_axe(t_cyl *Cyl, int param)
 
 double	cylindre_hit(t_cyl *Cyl, t_discr *delta, double eps)
 {
+	//printf(PURP"inside (cylindre_hit) = %d\n", Cyl->inside);
+/*	if (Cyl->inside == 2)
+		return (-1);*/
 	if ((dot(Cyl->w, Cyl->vl) * dot(Cyl->v, Cyl->vl) <= 0))
 	{
 		if (egal(intersect_axe((Cyl), 0), Cyl->r, eps))
 		{
-			Cyl->inside = 0;
+			Cyl->inside = 0;// deconnexion
+			//if (Cyl->inside == 0)//ajout
 			return (delta->tmin);
+			//else if (Cyl->inside == 1)// ajout
+			//return (delta->tmax);//ajout
 		}
 	}
 	else
@@ -111,21 +117,55 @@ void	put_cylindre1(t_scene *p, int i, int j)
 		if (inside == 0)
 		{// peut etre normal ?
 			intersection = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect0;
-			normal = projection(p->l.cyl->w, p->l.cyl->ul);
+			normal = perpendicular(p->l.cyl->w, p->l.cyl->ul);
 		}
 		else if (inside ==1)
 		{
 			intersection = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect1;
-			normal = projection(p->l.cyl->w11, p->l.cyl->ul);
+			normal = perpendicular(p->l.cyl->w11, p->l.cyl->ul);
 		}
-
+		/*if (i == 700 && j == 700)
+		printf(RED"inside = %d\n", inside);*/
 		amb = ambiant1(p);
 		if ( (free_path(p,i,j) == -1 || free_path(p,i,j) == p->closest->index) && (egal(p->l.cl->delta,0, EPS)))
 			{// foire
-				//if (light_side(&p->c.pos, &p->l.pos, &intersection, &normal) == 1)
+				if (i == 700 && j == 700)
+					{
+						printf(RED"inside = %d\n", inside);
+						printf(RED"intersect= \t"); printv(&intersection);
+						printf(RED" p->l.cyl->ul= \t"); printv(&p->l.cyl->ul);
+						printf(RED" p->l.cyl->w= \t"); printv(&p->l.cyl->w);
+						printf(RED" p->l.cyl->w11= \t"); printv(&p->l.cyl->w11);
+						printf(RED"cam pos= \t"); printv(&p->c.pos);
+						printf(RED"light pos= \t"); printv(&p->l.pos);
+						printf(RED"normal = \t"); printv(&normal);
+						printf(GREEN"light side = %d\n", light_side(&p->c.pos, &p->l.pos, &intersection, &normal));
+						printf(GREEN"dot normal l->dir= %lf\n", dot(normal, reverse(p->l.dir)));
+					}
+				normal =  scalar_prod(normal, pow((-1), inside));//  test ici
+				if (light_side(&p->c.pos, &p->l.pos, &intersection, &normal) == 1)
 				{
-					diffusion = (p->l.lum * dot(normal, (p->l.dir))/(norm(normal)*norm(p->l.dir)));
-					*amb = scalar_prod(*amb, 2);
+					if (i == 700 && j == 700)
+					{
+						printf(RED"inside = %d\n", inside);
+						printf(RED"intersect= \t"); printv(&intersection);
+						printf(RED" p->l.cyl->ul= \t"); printv(&p->l.cyl->ul);
+						printf(RED" p->l.cyl->w= \t"); printv(&p->l.cyl->w);
+						printf(RED" p->l.cyl->w11= \t"); printv(&p->l.cyl->w11);
+						printf(RED"cam pos= \t"); printv(&p->c.pos);
+						printf(RED"light pos= \t"); printv(&p->l.pos);
+						printf(RED"normal = \t"); printv(&normal);
+						printf(GREEN"light side = %d\n", light_side(&p->c.pos, &p->l.pos, &intersection, &normal));
+						printf(GREEN"dot normal l->dir= %lf\n", dot(normal, reverse(p->l.dir)));
+					}
+					// test sur normal
+					//normal =  scalar_prod(normal, pow((-1), inside));
+					diffusion = (p->l.lum * dot(normal, reverse(p->l.dir))/(norm(normal)*norm(p->l.dir)));
+					printf(RED"(i,j)=(%d,%d)\t indide = %d\t diffusion = %lf\n",i,j, inside, diffusion);
+					//*amb = scalar_prod(*amb, 2);
+					// test on enleve diffusion negative
+					if (diffusion <0 )
+						diffusion *= -1;
 				}
 			}
 		//p->c.film[i][j] = ((t_cyl *)(p->forme[p->closest->index].ptr))->color;
@@ -138,6 +178,12 @@ void	put_cylindre1(t_scene *p, int i, int j)
 			p->c.film[i][j].rgb[1] = 255;
 		if (p->c.film[i][j].rgb[2] > 255)
 			p->c.film[i][j].rgb[2] = 255;
+		if (diffusion < 0)
+		{
+			p->c.film[i][j].rgb[0] = 255;
+			p->c.film[i][j].rgb[1] = 0;
+			p->c.film[i][j].rgb[2] = 0;
+		}
 		free(amb);
 	}
 }

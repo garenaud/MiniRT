@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:59:30 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/05 11:28:43 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:50:59 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ void	closest_cylindre1(t_scene *p, t_vector *intersect, int obj)
 {
 	double	tmp;
 	double	min_dist;
+	int		inside;
 
 	min_dist = 0;
-	shadow_cyl(p, (t_cyl *)p->forme[obj].ptr);
+	inside = ((t_cyl *)(p->forme[obj].ptr))->inside;
+	/*tmp = */shadow_cyl(p, (t_cyl *)p->forme[obj].ptr);// ajout fin0905
 //	get_coeff_cyl(p->l.cyl->discr, &p->l.light, (t_cyl *)p->forme[obj].ptr);//0405 foire
 /*	printf(RED"closest cylindre1 light:orig \t dir \n");
 		 printv(&p->l.light.orig);
@@ -30,6 +32,7 @@ void	closest_cylindre1(t_scene *p, t_vector *intersect, int obj)
 		quadratic_solution2(p->l.cyl->discr);
 	//	compute_intersect_cyl(p->l.cyl->discr, p->l.light, (t_cyl *)p->forme[obj].ptr);// 0405
 		tmp = cylindre_hit(p->l.cyl, p->l.cyl->discr, EPS);
+
 		//tmp = cylindre_hit((t_cyl *)p->forme[obj].ptr, p->l.cyl->discr, EPS);
 		if (tmp >= 0 && p->l.cyl->inside != 2)// ajout 0405
 		{

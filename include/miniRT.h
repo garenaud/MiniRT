@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/04 10:59:45 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:53:02 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,6 +420,7 @@ double		distance(t_vector point, t_vector segment1, t_vector segment2);
 //util.c
 int			egal(double lhs, double rhs, double tolerance);
 int			not_egal(double lhs, double rhs, double tolerance);
+int			egal_v(t_vector lhs, t_vector rhs, double tolerance);
 
 /* ************************************************************************** */
 // quadratic_solver.c
@@ -495,6 +496,7 @@ void	closest_plan1(t_scene *p,t_vector *intersect, int obj);
 double	light_plan_hit(t_scene *p);
 int		light_side(t_vector *cam, t_vector *light, t_vector *intersect, t_vector *norm);
 void	shadow_cyl(t_scene *p, t_cyl *Cyl);
+//double	shadow_cyl(t_scene *p, t_cyl *Cyl);
 void	closest_cylindre1(t_scene *p, t_vector *intersect, int obj);
 void	put_cylindre1(t_scene *p, int i, int j);
 

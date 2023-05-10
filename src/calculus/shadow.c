@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 10:10:25 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/05 14:53:43 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/10 09:59:03 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,22 @@ int	shadow_sphere(t_scene *p, t_sphere *Sph)
 		return (0);
 }
 
-void	shadow_cyl(t_scene *p, t_cyl *Cyl)
+void	shadow_cyl(t_scene *p, t_cyl *Cyl)// modif signature plus inside ,avant void
 {
 	t_vector	intersect;
-
-
+	//int			inside;
+	//printf(PURP"inside (shadow cyl) = %d\n",Cyl->inside);
+	//inside = ((t_cyl *)(p->forme[p->closest->index].ptr))->inside;
 	if (p->forme[p->closest->index].id == 1)
 		intersect = ((t_plan *)(p->forme[p->closest->index].ptr))->intersect0;
 	if (p->forme[p->closest->index].id == 2)
 		intersect = ((t_sphere *)(p->forme[p->closest->index].ptr))->intersect0;
-	if (p->forme[p->closest->index].id == 3)
+	// ajout test inside 0905, faut il le faire ailleur ???
+	if (p->forme[p->closest->index].id == 3 && Cyl->inside == 0)
 		intersect = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect0;
-
+	if (p->forme[p->closest->index].id == 3 && Cyl->inside == 1)
+		intersect = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect1;
+	// fin ajout 0905
 	p->l.dir = unit(sub(intersect, p->l.pos));
 	p->l.light.orig = p->l.pos;//0405
 	p->l.light.dir = p->l.dir;//0405
@@ -98,7 +102,16 @@ void	shadow_cyl(t_scene *p, t_cyl *Cyl)
 		p->l.cyl->v = sub(p->l.cyl->intersect0, Cyl->C1);
 		p->l.cyl->w11 = sub(p->l.cyl->intersect1, Cyl->C0);
 		p->l.cyl->v11 = sub(p->l.cyl->intersect1, Cyl->C1);
+		if (egal_v(p->l.cyl->intersect0, intersect, EPS))
+		{
+			//printf(PURP"impact lumiere = intersect 0 (vue cam)\n");
+			//return (p->l.cyl->discr->tmin);// ajout fin 0905
+		}
+		if (egal_v(p->l.cyl->intersect1, intersect, EPS))
+		{
+			//printf(PURP"impact lumiere = intersect 1 (vue cam)\n");
+			//return (p->l.cyl->discr->tmax);// ajout fin 0905
+		}
 	}
-
-
+	/*return (-1);*/
 }
