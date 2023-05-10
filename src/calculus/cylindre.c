@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:39:21 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/10 13:58:02 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:30:37 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,14 @@ void	put_cylindre1(t_scene *p, int i, int j)
 		if (inside == 0)
 		{// peut etre normal ?
 			intersection = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect0;
-			normal = perpendicular(p->l.cyl->w, p->l.cyl->ul);
+			//normal = perpendicular(p->l.cyl->w, p->l.cyl->ul);
+            normal = perpendicular(((t_cyl *)(p->forme[p->closest->index].ptr))->w,((t_cyl *)(p->forme[p->closest->index].ptr))->ul);
 		}
 		else if (inside ==1)
 		{
 			intersection = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect1;
-			normal = perpendicular(p->l.cyl->w11, p->l.cyl->ul);
+			//normal = perpendicular(p->l.cyl->w11, p->l.cyl->ul);
+            normal = perpendicular(((t_cyl *)(p->forme[p->closest->index].ptr))->w11,((t_cyl *)(p->forme[p->closest->index].ptr))->ul);
 		}
 		/*if (i == 700 && j == 700)
 		printf(RED"inside = %d\n", inside);*/
