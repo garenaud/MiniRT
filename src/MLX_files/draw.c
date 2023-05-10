@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:46:07 by jsollett          #+#    #+#             */
-/*   Updated: 2023/04/21 10:24:04 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:35:28 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	render(t_scene *p)
             i++;
 		}
 		j++;
+		//screen_info_processing(p);
 		//j--;
 	}
 	mlx_put_image_to_window(p->mlx_init.mlx, p->mlx_init.window, p->mlx_init.img.mlx_img,

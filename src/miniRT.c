@@ -6,11 +6,18 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/09 10:53:38 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:02:40 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/miniRT.h"
+
+int	key_hook(int keycode, t_scene *vars)
+{
+	(void) vars;
+	printf("Hello from key_hook! keycode is %d\n", keycode);
+	return (0);
+}
 
 void	init_check(t_scene *p, char **argv)
 {
@@ -115,7 +122,7 @@ void	ray_tracer_2(t_scene *p)
 	obj = 0;
 
 	j = VIEWPORT_HEIGHT - 1;
-
+	get_duration();
 	while (j >= 0)
 	{
 		i = 0;
@@ -146,7 +153,7 @@ void	ray_tracer_2(t_scene *p)
 			//put_sphere(p, p->closest->index, i, j);// faux a modifier
 			if (i == 200 && j == 650)
 			{
-				printf("label\n");
+				//printf("label\n");
 			}
 			put_cylindre1(p, i, j);
 			//put_sphere1(p, i, j);
@@ -155,7 +162,9 @@ void	ray_tracer_2(t_scene *p)
 			++i;
 		}
 		--j;
+		screen_info_processing(p);
 	}
+	printf(BLUE"\nDuration   :   %.2fs\n"ENDC, get_duration());
 }
 
 
@@ -176,7 +185,7 @@ int		main(int argc, char **argv)
 
 
 
-	int			debug = 0;
+	//int			debug = 0;
 
 
 
@@ -184,7 +193,7 @@ int		main(int argc, char **argv)
 	init_check(p, argv);
 	parsing(p, argv);
 
-	print_parsing(p, debug);
+	//print_parsing(p, debug);
 //	printf(RED"ll - vpmiddle = %lf\n"ENDC, norm(sub(p->c.ll, p->c.vp_middle)));
 //	ray_tracer_0(p, 0);
 	//ray_tracer_1(p);
@@ -208,10 +217,8 @@ int		main(int argc, char **argv)
 //	axe(p, i, 950);
 	}
 	render(p);
-	mlx_hook(p->mlx_init.window, 17, 1L << 0, destroy_window, p);
-	mlx_hook(p->mlx_init.window, 17, 1L << 17, destroy_window, p);
-	mlx_loop(p->mlx_init.mlx);
-
+	mlx_key(p);
+	//mlx_key_hook(p->mlx_init.window, key_hook, &p);
 	wrdestroy();
 	return (0);
 }

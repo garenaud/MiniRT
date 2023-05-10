@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:03:44 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/09 10:53:59 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:51:39 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	destroy_window(t_scene *p)
 {
-	printf(BOLDRED"You closed the window and ended miniRT\n"ENDC);
+	printf(RED"You closed the window and ended miniRT\n"ENDC);
 	free_and_exit(p);
 	exit (0);
 }

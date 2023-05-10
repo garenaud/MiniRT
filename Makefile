@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 19:21:45 by grenaud-          #+#    #+#              #
-#    Updated: 2023/05/09 10:53:04 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/05/09 12:02:15 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 
 NAME		= miniRT
 CC 			= gcc
-CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g #-fsanitize=address
 LFLAGS		= -L libft -lft
 DFLAGS		= -MMD -MF $(@:.o=.d)
 METAL_MLX	= -framework OpenGL -framework AppKit -L./mlx -lmlx -g #-fsanitize=address
@@ -69,6 +69,7 @@ SRCS			=	parsing/init_camera.c \
 					parsing/fd_obj_init.c \
 					parsing/utils.c \
 					MLX_files/windows.c \
+					MLX_files/progressbar.c \
 					calculus/sphere_light.c \
 					MLX_files/draw.c \
 					calculus/plan_light.c \
