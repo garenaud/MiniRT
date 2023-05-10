@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   windows.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:03:44 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/17 11:40:23 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:51:39 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	destroy_window(t_scene *p)
 {
-	printf(BOLDRED"You closed the window and ended miniRT\n"ENDC);
+	printf(RED"You closed the window and ended miniRT\n"ENDC);
 	free_and_exit(p);
 	exit (0);
 }
@@ -64,8 +64,9 @@ void	init_mlx(t_scene *p, char **argv)
 
 void	free_and_exit(t_scene *p)
 {
-	mlx_clear_window(p->mlx_init.mlx, p->mlx_init.window);
-	mlx_destroy_window(p->mlx_init.mlx, p->mlx_init.window);
+	(void)	p;
+	//mlx_clear_window(p->mlx_init.mlx, p->mlx_init.window);
+	//mlx_destroy_window(p->mlx_init.mlx, p->mlx_init.window);
 	wrdestroy();
 	exit(0);
 }

@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/01 15:33:28 by grenaud-          #+#    #+#              #
-#    Updated: 2023/04/06 17:35:07 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/05/03 23:36:30 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,12 @@ OK_COLOR    = \033[0;32m
 ERROR_COLOR = \033[0;31m
 WARN_COLOR  = \033[0;33m
 NO_COLOR    = \033[m
+_BLUE		= \e[34m
+_PURPLE		= \e[35m
+_CYAN		= \e[36m
+_END		= \e[0m
+OBJ_COLOR   = \033[0;36m
+COM_COLOR   = \033[0;34m
 
 NOVISU 		= 0 # 1 = no progress bar usefull when tty is not available
 
@@ -231,12 +237,16 @@ endef
 all:            ${NAME}
 
 .c.o:
+				@printf "$(COM_COLOR)Libft object : $(OBJ_COLOR) %-33.33s\r$(_END)" $@
 				@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
-				@printf "$(G) $(REVR)" $(X)
+#				@printf "$(G) $(REVR)" $(X)
 
 ${NAME}:        ${OBJS}
-				@echo $(BOLD)[libft compiled][✓]$(BOLD)
+				@printf "$(COM_COLOR)compiling Libft				      $(G)[✓]$(_END)\n"
+#				@echo $(BOLD)[libft compiled][✓]$(BOLD)
 				@${AR_RCS} ${NAME} ${OBJS}
+				@ranlib $(NAME)
+#				@printf "$(COM_COLOR)Libft					      $(G)[✓]$(_END)\n"
 
 bonus:			${BONUS_OBJS}
 				@${AR_RCS} ${NAME} ${BONUS_OBJS}

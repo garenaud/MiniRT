@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 15:26:06 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/08 14:41:26 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:20:43 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,12 @@ void	put_sphere2(t_scene *p, int i, int j)
 			if (light_side(&p->c.pos, &p->l.pos, &intersection, &normal) == 1)
 			{
 				diffusion = p->l.lum * dot(normal, reverse(p->l.dir))/(norm(normal)*norm(p->l.dir));
-				if (j == 500 && i == 500)
+/* 				if (j == 500 && i == 500)
 				{
 					printf(RED"diffusion at centre = %lf\n", diffusion);
 					printv(&p->l.dir);
 					printv(&normal);
-				}//*amb = scalar_prod(*amb, (1/*+p->l.lum*/));// 2<--> diffusion
+				} *///*amb = scalar_prod(*amb, (1/*+p->l.lum*/));// 2<--> diffusion
 			}
 		}
 		p->c.film[i][j].rgb[0] = (amb->vec[0]+ diffusion)*(((t_sphere *)(p->forme[p->closest->index].ptr))->color.rgb[0]);

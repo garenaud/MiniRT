@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/09 16:53:02 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:12:45 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # define PURP		"\033[0;35m"
 # define ENDC		"\033[0m"
 # define BOLDRED	"\033[31m"
+# define ITALIC		"\033[3m"
+# define DIM		"\033[2m"
+# define WBGROUND	"\033[7m"
+# define WRONG		"\033[9m"
 # define BLUE		"\033[1;34m"
 
 # define ESC		53
@@ -38,6 +42,7 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <stdbool.h>
+# include <sys/time.h>
 
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
@@ -272,6 +277,7 @@ typedef struct s_scene
 {
 	char		*line;// parsing
 	int			n_obj;// ou est il ?
+	int			process;
 	t_color		bg;
 	t_ambiant	a;
 	t_camera	c;
@@ -499,5 +505,15 @@ void	shadow_cyl(t_scene *p, t_cyl *Cyl);
 //double	shadow_cyl(t_scene *p, t_cyl *Cyl);
 void	closest_cylindre1(t_scene *p, t_vector *intersect, int obj);
 void	put_cylindre1(t_scene *p, int i, int j);
+
+/* ************************************************************************** */
+// progressbar.c
+void	console_info_processing(double perc);
+void	screen_info_processing(t_scene *p);
+void	reset_processing(t_scene *p);
+double	get_duration(void);
+
+
+int		key_hook(int keycode, t_scene *vars);
 
 #endif
