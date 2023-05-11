@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/10 16:13:14 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:02:57 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,10 @@ void	ray_tracer_2(t_scene *p)
 
 			while (obj < p->n_obj)
 			{
+				if (i == 280 && j == 490)
+				{
+					printf("label: obj = %d\n", obj);
+				}
 				if (p->forme[obj].id == 3)
 				{
 					closest_cylindre(p, obj);
@@ -150,13 +154,7 @@ void	ray_tracer_2(t_scene *p)
 				obj++;
 			}
 
-			//put_sphere(p, p->closest->index, i, j);// faux a modifier
-			if (i == 500 && j == 430)
-			{
-				//printf("label\n");
-			}
 			put_cylindre1(p, i, j);
-			//put_sphere1(p, i, j);
 			put_sphere2(p,i,j);
 			put_plan1(p, i, j);
 			++i;
@@ -208,10 +206,10 @@ int		main(int argc, char **argv)
 	for (int i = 0; i < VIEWPORT_WIDTH; i++)
 	{
 //	axe(p, i, 460);
-	axe(p,500, i);
+	axe(p,280, i);
 //	axe(p,i, 480);
   //  axe(p,200, i);
-	axe(p,i, 430);
+	axe(p,i, 490);
 //	axe(p,i, 423);
 //	axe(p, 840, i);
 //	axe(p, i, 950);

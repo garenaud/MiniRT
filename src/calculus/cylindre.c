@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:39:21 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/10 16:30:37 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/11 12:21:17 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ double	intersect_axe(t_cyl *Cyl, int param)
 //	intersect1 lie a  tmax
 
 double	cylindre_hit(t_cyl *Cyl, t_discr *delta, double eps)
-{
+{// ici return error !!!
 	//printf(PURP"inside (cylindre_hit) = %d\n", Cyl->inside);
 /*	if (Cyl->inside == 2)
 		return (-1);*/
@@ -118,13 +118,13 @@ void	put_cylindre1(t_scene *p, int i, int j)
 		{// peut etre normal ?
 			intersection = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect0;
 			//normal = perpendicular(p->l.cyl->w, p->l.cyl->ul);
-            normal = perpendicular(((t_cyl *)(p->forme[p->closest->index].ptr))->w,((t_cyl *)(p->forme[p->closest->index].ptr))->ul);
+			normal = perpendicular(((t_cyl *)(p->forme[p->closest->index].ptr))->w,((t_cyl *)(p->forme[p->closest->index].ptr))->ul);
 		}
 		else if (inside ==1)
 		{
 			intersection = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect1;
 			//normal = perpendicular(p->l.cyl->w11, p->l.cyl->ul);
-            normal = perpendicular(((t_cyl *)(p->forme[p->closest->index].ptr))->w11,((t_cyl *)(p->forme[p->closest->index].ptr))->ul);
+			normal = perpendicular(((t_cyl *)(p->forme[p->closest->index].ptr))->w11,((t_cyl *)(p->forme[p->closest->index].ptr))->ul);
 		}
 		/*if (i == 700 && j == 700)
 		printf(RED"inside = %d\n", inside);*/
@@ -163,7 +163,6 @@ void	put_cylindre1(t_scene *p, int i, int j)
 					// test sur normal
 					//normal =  scalar_prod(normal, pow((-1), inside));
 					diffusion = (p->l.lum * dot(normal, reverse(p->l.dir))/(norm(normal)*norm(p->l.dir)));
-					printf(RED"(i,j)=(%d,%d)\t indide = %d\t diffusion = %lf\n",i,j, inside, diffusion);
 					//*amb = scalar_prod(*amb, 2);
 					// test on enleve diffusion negative
 					if (diffusion <0 )
@@ -174,6 +173,13 @@ void	put_cylindre1(t_scene *p, int i, int j)
 		p->c.film[i][j].rgb[0] = (amb->vec[0] + diffusion)*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
 		p->c.film[i][j].rgb[1] = (amb->vec[1] + diffusion)*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
 		p->c.film[i][j].rgb[2] = (amb->vec[2] + diffusion)*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
+		if (i == 280 && j == 490)
+		{
+			printf(RED"%d\n",p->c.film[i][j].rgb[0]);
+			printf(GREEN"%d\n",p->c.film[i][j].rgb[1]);
+			printf(BLUE"%d\n",p->c.film[i][j].rgb[2]);
+			printf(RED"(i,j)=(%d,%d)\t indide = %d\t diffusion = %lf\n",i,j, inside, diffusion);
+		}
 		if (p->c.film[i][j].rgb[0] > 255)
 			p->c.film[i][j].rgb[0] = 255;
 		if (p->c.film[i][j].rgb[1] > 255)

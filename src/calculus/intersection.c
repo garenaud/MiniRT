@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:10:29 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/03 11:27:37 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:03:55 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	closest_cylindre(t_scene *p, int obj)
 {// ajouter le calcul de la distance minimum...
 	double	min_dist;
+	double	tmp;
+	t_vector	intersect;
 
 	min_dist = 0;
 	get_coeff_cyl(p->delta, &p->ray, (t_cyl *)p->forme[obj].ptr);
@@ -22,8 +24,23 @@ void	closest_cylindre(t_scene *p, int obj)
 	{
 		quadratic_solution2(p->delta);
 		compute_intersect_cyl(p->delta, p->ray, (t_cyl *)p->forme[obj].ptr);
-		min_dist = cylindre_hit((t_cyl *)p->forme[obj].ptr, p->delta, EPS);
-		if (min_dist >= 0 && min_dist < p->closest->tmin)
+		/* min_dist */tmp = cylindre_hit((t_cyl *)p->forme[obj].ptr, p->delta, EPS);// la,voir si inside connu...
+		// modif 11/05 a verifier
+		//if (((t_cyl *)p->forme[obj].ptr)->inside == 0)
+		if (tmp >= 0)
+		{
+			intersect = add(p->ray.orig, scalar_prod(p->ray.dir,tmp));
+			min_dist = norm(sub(p->c.pos, intersect));
+		}
+		else
+			return ;
+		/*if (((t_cyl *)p->forme[obj].ptr)->inside == 1)
+		{
+			min_dist = norm(sub(p->c.pos,
+						((t_cyl *)p->forme[obj].ptr)->intersect1));
+		}*/
+		// fin modif 1105
+		if (min_dist >= 0 && min_dist < p->closest->dmin)
 		{// a verifier
 			p->closest->index = obj;
 			p->closest->tmin = p->delta->tmin;
