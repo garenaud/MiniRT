@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 15:26:06 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/08 15:31:05 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:09:32 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ double	light_sphere_hit(t_scene *p,t_sphere *Sph)
 void	light_intersect_sph(t_scene *p)
 {// pb
 	p->l.li = add(p->l.pos, scalar_prod(p->l.dir, p->l.discr->tmin));
-//	printv(&Sph->intersect0);
 }
 
 void	closest_sphere1(t_scene *p, t_vector *intersect, int obj)

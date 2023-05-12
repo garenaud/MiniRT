@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 10:10:25 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/10 09:59:03 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:08:57 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void	shadow_plan(t_scene *p, t_plan *Pl)
 		intersect = ((t_plan *)(p->forme[p->closest->index].ptr))->intersect0;
 	if (p->forme[p->closest->index].id == 2)
 		intersect = ((t_sphere *)(p->forme[p->closest->index].ptr))->intersect0;
-	if (p->forme[p->closest->index].id == 3)
+	if (p->forme[p->closest->index].id == 3 && ((t_cyl *)(p->forme[p->closest->index].ptr))->inside == 0)
 		intersect = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect0;
+	if (p->forme[p->closest->index].id == 3 && ((t_cyl *)(p->forme[p->closest->index].ptr))->inside == 1)
+		intersect = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect1;
 	p->l.OCn = dot(sub(Pl->C, p->l.pos), Pl->n);
 	p->l.dir = unit(sub(intersect, p->l.pos));
 	p->l.ndotray_pl = dot(Pl->n, p->l.dir);
@@ -30,8 +32,7 @@ void	shadow_plan(t_scene *p, t_plan *Pl)
 }
 
 int	shadow_sphere(t_scene *p, t_sphere *Sph)
-{// a tester -> modification light
-
+{
 	t_vector	OC;
 	t_vector	intersect;
 
@@ -39,11 +40,12 @@ int	shadow_sphere(t_scene *p, t_sphere *Sph)
 		intersect = ((t_sphere *)(p->forme[p->closest->index].ptr))->intersect0;
 	if (p->forme[p->closest->index].id == 1)
 		intersect = ((t_plan *)(p->forme[p->closest->index].ptr))->intersect0;
-	if (p->forme[p->closest->index].id == 3)
+	if (p->forme[p->closest->index].id == 3 && ((t_cyl *)(p->forme[p->closest->index].ptr))->inside == 0)
 		intersect = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect0;
+	if (p->forme[p->closest->index].id == 3 && ((t_cyl *)(p->forme[p->closest->index].ptr))->inside == 1)
+		intersect = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect1;
 	OC = sub(p->l.pos, Sph->C);
 	p->l.dir = unit(sub(intersect, p->l.pos));
-
 	p->l.discr->a = dot(p->l.dir, p->l.dir);//
 	p->l.discr->b = 2 * dot(p->l.dir, OC);
 	p->l.discr->c = norm_2(OC) - Sph->r2;
@@ -113,5 +115,4 @@ void	shadow_cyl(t_scene *p, t_cyl *Cyl)// modif signature plus inside ,avant voi
 			//return (p->l.cyl->discr->tmax);// ajout fin 0905
 		}
 	}
-	/*return (-1);*/
 }

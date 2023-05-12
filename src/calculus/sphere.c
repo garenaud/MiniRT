@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 15:26:06 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/09 12:20:43 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:02:07 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	put_sphere2(t_scene *p, int i, int j)
 	t_vector	normal;
 	int			obj;
 	double		diffusion;
+	int			fp;
 
 	obj = 0;
 	diffusion = 0;
@@ -88,8 +89,8 @@ void	put_sphere2(t_scene *p, int i, int j)
 		normal = sub(intersection, ((t_sphere *)(p->forme[p->closest->index].ptr))->C);
 		amb = ambiant1(p);
 		//diffusion = p->l.lum * dot(normal, reverse(p->l.dir))/(norm_2(normal)*norm_2(p->l.dir));
-
-		if ((free_path(p,i,j) == -1 || free_path(p,i,j) == p->closest->index) && (egal(p->l.cl->delta,0, EPS)))
+		fp = free_path(p);
+		if ((/*free_path(p,i,j)*/fp == -1 || /*free_path(p,i,j)*/ fp == p->closest->index ) && (egal(p->l.cl->delta,0, EPS)))
 		{
 			if (light_side(&p->c.pos, &p->l.pos, &intersection, &normal) == 1)
 			{

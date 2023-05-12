@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 10:15:19 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/03 15:57:50 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:59:47 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,41 +64,26 @@ void	ambiant(t_scene *p)
 }
 
 // doit detecter si le faisceau de lumiere peut atteindre l'intersection
-int	free_path(t_scene *p, int i, int j)
+int	free_path(t_scene *p)
 {
 	double	min_dist;
 	int		obj;
-	t_vector	tmp, tmp1;
 
 	t_vector	intersect;
-	//t_vector	l_dir;
 	if (p->closest->type == 1)
-	{
 		intersect = (((t_plan *)(p->forme[p->closest->index].ptr))->intersect0);
-	}
 	if (p->closest->type == 2)
-	{
 		intersect = (((t_sphere *)(p->forme[p->closest->index].ptr))->intersect0);
-	}
 	if (p->closest->type == 3 && ((t_cyl *)(p->forme[p->closest->index].ptr))->inside == 0)
-	{// a verifier
 		intersect = (((t_cyl *)(p->forme[p->closest->index].ptr))->intersect0);
-	}
 	if (p->closest->type == 3 && ((t_cyl *)(p->forme[p->closest->index].ptr))->inside == 1)
-	{// a verifier
 		intersect = (((t_cyl *)(p->forme[p->closest->index].ptr))->intersect1);
-	}
 	if (p->closest->type == 3 && ((t_cyl *)(p->forme[p->closest->index].ptr))->inside == 2)
 	{// a verifier
 		printf("Cyl !\n");
 	}
-	//printf(RED"type = %d\n"ENDC, p->closest->type);
-
-	/*l->ray.dir = unit(sub(intersect, l->c.pos));
-	l->ray.orig = p->l.pos;*/
 	min_dist = 0;
 	obj = 0;
-	//create_ray(p, i, j);
 	init_closest(p->l.cl);
 	while (obj < p->n_obj && obj != p->l.cl->index)
 	{
@@ -107,27 +92,9 @@ int	free_path(t_scene *p, int i, int j)
 		if (p->forme[obj].id == 2)
 			closest_sphere1(p, &intersect, obj);
 		if (p->forme[obj].id == 1)
-		{
-
 			closest_plan1(p, &intersect, obj);
-		}
 		obj++;
 	}
-	if (i == 550 && j == 850)
-	{
-	//printf("j = %d, l.dir =  %lf,%lf,%lf\n", j,p->l.dir.vec[0], p->l.dir.vec[1],p->l.dir.vec[2]);
-	tmp1 = sub(p->l.pos, p->l.li);
-	//printf("j = %d, ratio l.dir/sub( , lposl.li) =  %lf,%lf,%lf\n", j,p->l.dir.vec[0]/tmp1.vec[0], p->l.dir.vec[1]/tmp1.vec[1],p->l.dir.vec[2]/tmp1.vec[2]);
-	//printf("index (%d) = %d\t impact = %lf,%lf,%lf", j,p->l.cl->index ,p->l.li.vec[0], p->l.li.vec[1],p->l.li.vec[2]);
-	tmp =cross(sub(p->l.li, p->l.pos), p->l.dir);
-/*	if (egal(norm(tmp), 0, EPS))
-		printf(GREEN"freepath OK\n"ENDC);
-	else
-		printf(RED"freepath KO\n"ENDC);*/
-//	printf("index freepath = %d\n",p->l.cl->index );
-//	printf("index type = %d\n",p->l.cl->type );
-	}
-	//printv(&tmp);
 	return (p->l.cl->index);
 }
 

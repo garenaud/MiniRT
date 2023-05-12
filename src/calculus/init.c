@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 11:10:12 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/09 12:21:33 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:54:36 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/miniRT.h"
-// en cours
 
 void	init_vector(t_vector *v, double v0, double v1, double v2)
 {
@@ -41,12 +40,7 @@ void	init_plan(t_plan *plan, t_vector OC, t_vector n)
 
 void	init_cylindre(t_cyl *cyl, t_vector C, t_vector dir, t_vector OC)
 {
-
-    init_vector(&cyl->C0, C.vec[0], C.vec[1], C.vec[2]);
-    //printv(&cyl->C0);
-
+	init_vector(&cyl->C0, C.vec[0], C.vec[1], C.vec[2]);
 	init_vector(&cyl->dir, dir.vec[0], dir.vec[1], dir.vec[2]);
-    //printv(&cyl->dir);
 	init_vector(&cyl->OC, OC.vec[0], OC.vec[1], OC.vec[2]);
-
 }

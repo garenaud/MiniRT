@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/10 16:12:45 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:59:20 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -448,7 +448,7 @@ double		plan_hit(t_plan *P,  double eps, int debug );
 double		plan_hit1(t_plan *p, t_scene *s);
 void		put_plan(t_scene *p, int obj, int i, int j);
 //void		closest_plan(t_scene *p, int obj, double eps, int debug);
-void		compute_intersect_plan(t_ray ray, t_plan *P, int debug);
+void		compute_intersect_plan(t_ray ray, t_plan *P);
 t_plan		*create_plan(void);
 t_sphere	*create_sp(void);
 t_cyl		*create_cy(void);
@@ -469,7 +469,7 @@ void		put_sphere2(t_scene *p, int i, int j);
 /* ************************************************************************** */
 // intersection.c a controller
 void		closest_sphere(t_scene *p, int obj);
-void		closest_plan(t_scene *p, int obj, int i, int j);
+void		closest_plan(t_scene *p, int obj);
 void		closest_cylindre(t_scene *p, int obj);
 /* ************************************************************************** */
 // cylindre.c a controller
@@ -483,7 +483,7 @@ void		put_cylindre(t_scene *p, int i, int j);
 void		ambiant(t_scene *p);
 t_vector	*ambiant1(t_scene *p);
 t_vector	ambiant2(t_scene *p);
-int	        free_path(t_scene *p, int i, int j);
+int	        free_path(t_scene *p);
 
 /* ************************************************************************** */
 // spot.c a controller
