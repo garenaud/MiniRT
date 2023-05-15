@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:39:21 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/12 15:01:45 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:46:40 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void	put_cylindre1(t_scene *p, int i, int j)
 		if ( (fp == -1 || fp == p->closest->index) && (egal(p->l.cl->delta,0, EPS)))
 			{// foire
 
-				normal = unit(scalar_prod(normal, pow((-1), inside)));//  test ici
+				//normal = unit(scalar_prod(normal, pow((-1), inside)));//  test ici
 				if (light_side(&p->c.pos, &p->l.pos, &intersection, &normal) == 1)
 				{
 
@@ -159,7 +159,7 @@ void	put_cylindre1(t_scene *p, int i, int j)
 		p->c.film[i][j].rgb[0] = (amb->vec[0] + diffusion)*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
 		p->c.film[i][j].rgb[1] = (amb->vec[1] + diffusion)*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
 		p->c.film[i][j].rgb[2] = (amb->vec[2] + diffusion)*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
-		if (i == 500 /*&& j == 490*/)
+		if (/*i == 565 &&*/ j == 700)
 		{
 			//t_vector tmp2 = sub(p->l.pos,((t_cyl *)(p->forme[p->closest->index].ptr))->C0);
 			//double test=norm(perpendicular(p->l.dir,((t_cyl *)(p->forme[p->closest->index].ptr))->ul ));
@@ -167,8 +167,12 @@ void	put_cylindre1(t_scene *p, int i, int j)
 			printf(GREEN"%d\n",p->c.film[i][j].rgb[1]);
 			printf(BLUE"%d\n",p->c.film[i][j].rgb[2]);*/
 			//t_discr	*disc =((t_cyl *)(p->forme[p->closest->index].ptr))->discr;
-			//	printf("(i,j)=(%d,%d)\t indide = %d\t diffusion = %lf, |normal| = %lf |ambiant red| = %lf\n",i,j, inside, diffusion, norm(normal), amb->vec[0]);
-			//printf("(i,j)=(%d,%d)\t indide = %d\t\n",i,j, inside);
+			printf("(i,j)=(%d,%d)\t indide = %d\t diffusion = %lf, |normal| = (%lf, %lf, %lf)  |intersection | = (%lf, %lf, %lf)\n",i,j, inside, diffusion,
+            normal.vec[0], normal.vec[1], normal.vec[2],
+             intersection.vec[0], intersection.vec[1], intersection.vec[2]);
+             printf("(i,j)=(%d,%d)\t indide = %d\t diffusion = %lf, |p->l.dir| = (%lf, %lf, %lf) \n",i,j, inside, diffusion,
+            p->l.dir.vec[0], p->l.dir.vec[1], p->l.dir.vec[2]);
+			printf("(i,j)=(%d,%d)\t indide = %d\t\n",i,j, inside);
 		}
 		if (p->c.film[i][j].rgb[0] > 255)
 			p->c.film[i][j].rgb[0] = 255;

@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 10:10:25 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/12 15:08:57 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/15 14:54:35 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,15 @@ void	shadow_cyl(t_scene *p, t_cyl *Cyl)// modif signature plus inside ,avant voi
 	if (p->forme[p->closest->index].id == 3 && Cyl->inside == 1)
 		intersect = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect1;
 	// fin ajout 0905
-	p->l.dir = unit(sub(intersect, p->l.pos));
+    if (Cyl->inside == 0 || Cyl->inside == 1)
+    {
+        init_vector(&p->l.dir, 0,0,0);
+	    p->l.dir = unit(sub(intersect, p->l.pos));
+    }
 	p->l.light.orig = p->l.pos;//0405
-	p->l.light.dir = p->l.dir;//0405
-/*	printf(GREEN"closest cylindre1 light:orig \t dir \n");
-	 printv(&p->l.light.orig);
+//	p->l.light.dir = p->l.dir;//0405
+/*	printf(GREEN"closest cylindre1 light:orig \t dir \t");
+	// printv(&p->l.light.orig);
 	  printv(&p->l.light.dir);*/
 	p->l.cyl->C0 = Cyl->C0;
 	p->l.cyl->C1 = add(Cyl->C0, scalar_prod(Cyl->dir, Cyl->h / norm(Cyl->dir)));
