@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/15 14:23:55 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/15 15:21:13 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,8 @@ int		main(int argc, char **argv)
  	mlx_key_hook(p->mlx_init.window, deal_key, p);
 	for (int i = 0; i < VIEWPORT_WIDTH; i++)
 	{
-	axe(p, i,700);
-	axe(p,565, i);
+//	axe(p, i,700);
+//	axe(p,565, i);
 //	axe(p,i, 480);
   //  axe(p,200, i);
 //	axe(p,i, 490);
