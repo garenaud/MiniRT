@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 09:50:19 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/16 15:35:57 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:07:35 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	read_fd(t_scene *p, int fd, int i)
 		else if (p->line[0] == 's' && p->line[1] == 'p')
 			init_obj(p, p->line, i - 1);
 		else
-			message(RED"Unknow element on line "ENDC, i - 1);
+			message("Unknow element on line", i - 1);
 	}
 }
 
@@ -87,12 +87,14 @@ char	*get_numb(t_scene *p, int index)
 		i = 0;
 		while (ft_isdigit2(p->line[i]) == 1)
 			i++;
+		if (i > k)
+			message("Your fd doesn't have enough information on line", index);
 		if (i > 0)
 			num = ft_strdup_num(p->line, 0, i);
 		p->line = trim_numb(p->line, i);
 		return (num);
 		i++;
 	}
-	message(RED"Your fd doesn't have enough information on line"ENDC, index);
+	message("Your fd doesn't have enough information on line", index);
 	return (num);
 }

@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 16:01:00 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/16 11:29:32 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:07:00 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,17 @@ void	*trim_end(char *line)
 	i = -1;
 	while (len >= 0)
 	{
-		while (ft_isdigit2(line[len]) == 0)
+		while (ft_isdigit2(line[len]) == 0 || line[len] == 44)
 			len--;
 		break ;
 	}
 	new = wrmalloc(sizeof(char *) * ((len) + 2));
 	while (i++ <= len)
 		new[i] = line[i];
-	new[i] = '\0';
+	if (new[i - 1] == 44)
+		new[i - 1] = '\0';
+	else
+		new[i] = '\0';
 	wrfree(line);
 	return (new);
 }
