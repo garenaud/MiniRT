@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 09:50:19 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/09 14:22:54 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/15 22:59:49 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,8 +201,10 @@ void	parsing(t_scene *p, char **argv)
 void	read_fd(t_scene *p, int fd, int i)
 {
 	p->line = get_next_line(fd);
-	if (is_empty(p->line) == 0 && p->line != NULL)
+	if (is_empty(p->line) == 0 && p->line != NULL){
 		p->line = clean_comm(p, p->line);
+		p->line = trim_end(p->line);
+	}
 	if (is_empty(p->line) == 0 && p->line != NULL)
 	{
 		p->line = trim_line(p->line);
@@ -228,6 +230,8 @@ char	*get_numb(t_scene *p, int index)
 	char			*num;
 
 	i = 0;
+	if (p->line == NULL)
+		message("Your fd doesn't have enough information on line", index);
 	num = NULL;
 	k = ft_strlen(p->line);
 	while (p->line[i] != '\0')
@@ -266,6 +270,27 @@ void	*trim_numb(char *line, int i)
 	while (i <= j)
 		new[k++] = line[i++];
 	new[k] = '\0';
-	line = new;
-	return (line);
+	return (new);
+}
+
+void	*trim_end(char *line)
+{
+	int		len;
+	int		i;
+	char	*new;
+
+	len = ft_strlen(line) - 1;
+	i = -1;
+	while (len >= 0)
+	{
+		while (ft_isdigit2(line[len]) == 0)
+			len--;
+		break;
+	}
+	new = wrmalloc(sizeof(char *) * ((len) + 2));
+	while (i++ <= len)
+		new[i] = line[i];
+	new[i] = '\0';
+	//wrfree(line);
+	return (new);
 }

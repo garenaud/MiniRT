@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/15 15:21:13 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/15 23:06:12 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/miniRT.h"
-
-int	key_hook(int keycode, t_scene *vars)
-{
-	(void) vars;
-	printf("Hello from key_hook! keycode is %d\n", keycode);
-	return (0);
-}
 
 void	init_check(t_scene *p, char **argv)
 {
@@ -51,7 +44,7 @@ void	axe(t_scene *p, int i, int j)
 void	mlx_key(t_scene *p)
 {
 	mlx_key_hook(p->mlx_init.window, deal_key, &p);
-	mlx_hook(p->mlx_init.window, 02, 1L << 0, destroy_window, &p);
+	mlx_hook(p->mlx_init.window, 17, 1L << 0, destroy_window, &p);
 	mlx_hook(p->mlx_init.window, 17, 1L << 17, destroy_window, &p);
 	mlx_loop(p->mlx_init.mlx);
 }
