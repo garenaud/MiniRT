@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 16:01:00 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/12 11:22:59 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/16 11:29:32 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,45 @@ int	atoi_c(const char *str, int check, int index)
 	}
 	check_int((num * neg), check, index);
 	return (num * neg);
+}
+
+void	*trim_numb(char *line, int i)
+{
+	int		j;
+	int		k;
+	char	*new;
+
+	k = 0;
+	j = ft_strlen(line) - 1;
+	if (j <= 0)
+		return (NULL);
+	new = wrmalloc(sizeof(char *) * ((j - i) + 2));
+	if (!new)
+		return (NULL);
+	while (i <= j)
+		new[k++] = line[i++];
+	new[k] = '\0';
+	return (new);
+}
+
+void	*trim_end(char *line)
+{
+	int		len;
+	int		i;
+	char	*new;
+
+	len = ft_strlen(line) - 1;
+	i = -1;
+	while (len >= 0)
+	{
+		while (ft_isdigit2(line[len]) == 0)
+			len--;
+		break ;
+	}
+	new = wrmalloc(sizeof(char *) * ((len) + 2));
+	while (i++ <= len)
+		new[i] = line[i];
+	new[i] = '\0';
+	wrfree(line);
+	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/15 23:06:12 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:21:04 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,22 @@ void	init_check(t_scene *p, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	check_fd(fd, argv);
 	p->check.fd_lines = ft_count_lines(fd);
-/*	p->check.comm = 0;
-	p->a.check_a = 0;
-	p->l.check_l = 0;
-	p->c.check_c = 0;*/
-	//p->pl.index = 0;
 	p->l.color.rgb[0] = 255;
 	p->l.color.rgb[1] = 255;
 	p->l.color.rgb[2] = 255;
-	// setting background color
 	p->bg.r = 0;
 	p->bg.g = 0;
 	p->bg.b = 0;
 	p->obj = NULL;
+	p->delta = create_discriminant();
+	p->l.discr = create_discriminant();
+	p->l.cyl = create_cy();
+	p->l.cyl->discr = create_discriminant();
+	p->closest = create_closest();
+	p->l.cl = create_closest();
 	close(fd);
 }
+
 void	axe(t_scene *p, int i, int j)
 {
 		p->c.film[i][j].rgb[0] = 255;
@@ -93,8 +94,6 @@ void	ray_tracer_2(t_scene *p)
 	printf(BLUE"\nDuration   :   %.2fs\n"ENDC, get_duration());
 }
 
-
-
 int		main(int argc, char **argv)
 {
 	t_scene	*p;
@@ -102,37 +101,13 @@ int		main(int argc, char **argv)
 	(void) argc;
 	p = wrmalloc(sizeof(t_scene));
 	p = &(t_scene){0};
-	p->delta = create_discriminant();
-	p->l.discr = create_discriminant();
-	p->l.cyl = create_cy();
-	p->l.cyl->discr = create_discriminant();
-	p->closest = create_closest();
-	p->l.cl = create_closest();
-
 	init_check(p, argv);
 	parsing(p, argv);
-
-
-//	printf(RED"ll - vpmiddle = %lf\n"ENDC, norm(sub(p->c.ll, p->c.vp_middle)));
-
 	ray_tracer_2(p);
 	init_mlx(p, argv);
-	//mlx_key(&p);
  	mlx_key_hook(p->mlx_init.window, deal_key, p);
-	for (int i = 0; i < VIEWPORT_WIDTH; i++)
-	{
-//	axe(p, i,700);
-//	axe(p,565, i);
-//	axe(p,i, 480);
-  //  axe(p,200, i);
-//	axe(p,i, 490);
-//	axe(p,i, 423);
-//	axe(p, 840, i);
-//	axe(p, i, 950);
-	}
 	render(p);
 	mlx_key(p);
-	//mlx_key_hook(p->mlx_init.window, key_hook, &p);
 	wrdestroy();
 	return (0);
 }

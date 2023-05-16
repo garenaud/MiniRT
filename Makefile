@@ -6,7 +6,7 @@
 #    By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 19:21:45 by grenaud-          #+#    #+#              #
-#    Updated: 2023/05/15 17:40:26 by grenaud-         ###   ########.fr        #
+#    Updated: 2023/05/16 14:36:51 by grenaud-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 
 NAME		= miniRT
 CC 			= gcc
-CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g #-o3 -fsanitize=address
 LFLAGS		= -L libft -lft
 DFLAGS		= -MMD -MF $(@:.o=.d)
 METAL_MLX	= -framework OpenGL -framework AppKit -L./mlx -lmlx -g #-fsanitize=address
@@ -29,7 +29,7 @@ MLX 		= mlx
 AUTHOR		= grenaud-
 DATE		= 05/04/2023
 
-NOVISU 		= 0 # 1 = no progress bar usefull when tty is not available
+NOVISU 		= 1 # 1 = no progress bar usefull when tty is not available
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -59,7 +59,6 @@ SRCS			=	parsing/init_camera.c \
 					calculus/shadow.c \
 					calculus/cylindre_light.c \
 					parsing/ft_atod.c \
-					parsing/spot.c \
 					parsing/get_next_line.c \
 					parsing/parsing_fd.c \
 					parsing/listobj_util.c \
@@ -73,6 +72,8 @@ SRCS			=	parsing/init_camera.c \
 					calculus/sphere_light.c \
 					MLX_files/draw.c \
 					calculus/plan_light.c \
+					parsing/create_obj.c \
+					parsing/create_array.c \
 
 MAIN			= miniRT.c
 

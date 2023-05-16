@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/15 18:11:20 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/16 12:12:58 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,7 +487,6 @@ int	        free_path(t_scene *p);
 
 /* ************************************************************************** */
 // spot.c a controller
-void	init_spot(t_scene *l, t_scene *p);
 void	ray_tracer_2(t_scene *p);
 
 /* ************************************************************************** */
@@ -516,4 +515,9 @@ double	get_duration(void);
 
 int		key_hook(int keycode, t_scene *vars);
 void	*trim_end(char *line);
+
+void	plan_array(t_scene *s, int i);
+void	sphere_array(t_scene *s, int i);
+void	cyl_array(t_scene *s, int i);
+
 #endif
