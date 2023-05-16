@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/16 11:07:32 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:51:25 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ void	init_check(t_scene *p, char **argv)
 	p->bg.g = 0;
 	p->bg.b = 0;
 	p->obj = NULL;
+	p->delta = create_discriminant();
+	p->l.discr = create_discriminant();
+	p->l.cyl = create_cy();
+	p->l.cyl->discr = create_discriminant();
+	p->closest = create_closest();
+	p->l.cl = create_closest();
 	close(fd);
 }
 
@@ -84,8 +90,6 @@ void	ray_tracer(t_scene *p)
 	printf(BLUE"\nDuration   :   %.2fs\n"ENDC, get_duration());
 }
 
-
-
 int		main(int argc, char **argv)
 {
 	t_scene	*p;
@@ -93,17 +97,13 @@ int		main(int argc, char **argv)
 	(void) argc;
 	p = wrmalloc(sizeof(t_scene));
 	p = &(t_scene){0};
-	p->delta = create_discriminant();
-	p->l.discr = create_discriminant();
-	p->l.cyl = create_cy();
-	p->l.cyl->discr = create_discriminant();
-	p->closest = create_closest();
-	p->l.cl = create_closest();
+
 	init_check(p, argv);
 	parsing(p, argv);
 	ray_tracer(p);
 	init_mlx(p, argv);
 	mlx_key_hook(p->mlx_init.window, deal_key, p);
+
 	render(p);
 	mlx_key(p);
 	wrdestroy();

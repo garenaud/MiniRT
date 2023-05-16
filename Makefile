@@ -6,7 +6,7 @@
 #    By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 19:21:45 by grenaud-          #+#    #+#              #
-#    Updated: 2023/05/16 14:44:06 by jsollett         ###   ########.fr        #
+#    Updated: 2023/05/16 16:48:17 by jsollett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ MLX 		= mlx
 AUTHOR		= grenaud-
 DATE		= 05/04/2023
 
-NOVISU 		= 0 # 1 = no progress bar usefull when tty is not available
+NOVISU 		= 1 # 1 = no progress bar usefull when tty is not available
 
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
@@ -59,7 +59,6 @@ SRCS			=	parsing/init_camera.c \
 					calculus/shadow.c \
 					calculus/cylindre_light.c \
 					parsing/ft_atod.c \
-					parsing/spot.c \
 					parsing/get_next_line.c \
 					parsing/parsing_fd.c \
 					parsing/listobj_util.c \
@@ -73,6 +72,8 @@ SRCS			=	parsing/init_camera.c \
 					calculus/sphere_light.c \
 					MLX_files/draw.c \
 					calculus/plan_light.c \
+					parsing/create_obj.c \
+					parsing/create_array.c \
 
 MAIN			= miniRT.c
 

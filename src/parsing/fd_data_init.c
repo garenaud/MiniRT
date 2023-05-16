@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_data_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:42:55 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/04/25 13:14:01 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/16 12:03:32 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	init_ambiant(t_scene *p, int index)
 {
-	//printf("le check init_ambiant: %d\n", p->a.check_a);
 	if (p->a.check_a == 0)
 	{
 		p->a.lum = ascii_to_double(get_numb(p, index), 1, index);

@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/16 16:23:51 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:49:12 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -523,4 +523,9 @@ double	get_duration(void);
 
 int		key_hook(int keycode, t_scene *vars);
 void	*trim_end(char *line);
+
+void	plan_array(t_scene *s, int i);
+void	sphere_array(t_scene *s, int i);
+void	cyl_array(t_scene *s, int i);
+
 #endif

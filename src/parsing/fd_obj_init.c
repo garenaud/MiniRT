@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_obj_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 18:32:48 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/03 10:55:07 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/16 12:03:51 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	push_cy(t_scene *p, int index)
 	tmp->dir.vec[0] = ascii_to_double(get_numb(p, index), 2, index);
 	tmp->dir.vec[1] = ascii_to_double(get_numb(p, index), 2, index);
 	tmp->dir.vec[2] = ascii_to_double(get_numb(p, index), 2, index);
-	tmp->r = ascii_to_double(get_numb(p, index), 0, index) / 2;//
+	tmp->r = ascii_to_double(get_numb(p, index), 0, index) / 2;
 	tmp->h = ascii_to_double(get_numb(p, index), 0, index);
 	tmp->color.rgb[0] = atoi_c(get_numb(p, index), 1, index);
 	tmp->color.rgb[1] = atoi_c(get_numb(p, index), 1, index);
