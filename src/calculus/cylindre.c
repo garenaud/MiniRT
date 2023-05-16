@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:39:21 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/15 13:46:40 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:04:03 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ void	compute_intersect_cyl(t_discr *delta, t_ray ray, t_cyl *Cyl)
 	Cyl->v11 = sub(Cyl->intersect1, Cyl->C1);
 }
 
+//	intersect0 lie a  tmin
+//	intersect1 lie a  tmax
 double	intersect_axe(t_cyl *Cyl, int param)
-{//a tester
+{
 	t_vector	v_tmp;
 	double		tmp;
 
@@ -49,23 +51,16 @@ double	intersect_axe(t_cyl *Cyl, int param)
 	}
 	return (tmp);
 }
-//	intersect0 lie a  tmin
-//	intersect1 lie a  tmax
+
 
 double	cylindre_hit(t_cyl *Cyl, t_discr *delta, double eps)
-{// ici return error !!!
-	//printf(PURP"inside (cylindre_hit) = %d\n", Cyl->inside);
-/*	if (Cyl->inside == 2)
-		return (-1);*/
+{
 	if ((dot(Cyl->w, Cyl->vl) * dot(Cyl->v, Cyl->vl) <= 0))
 	{
 		if (egal(intersect_axe((Cyl), 0), Cyl->r, eps))
 		{
-			Cyl->inside = 0;// deconnexion
-			//if (Cyl->inside == 0)//ajout
+			Cyl->inside = 0;
 			return (delta->tmin);
-			//else if (Cyl->inside == 1)// ajout
-			//return (delta->tmax);//ajout
 		}
 	}
 	else
@@ -84,102 +79,44 @@ double	cylindre_hit(t_cyl *Cyl, t_discr *delta, double eps)
 }
 
 void	put_cylindre(t_scene *p, int i, int j)
-{// ajout if
-	t_vector	*amb;
-	int			fp;
-
+{// PROBLEME
+	p->data.diffusion = 0;
 	if (p->closest->type == 3 && p->closest->tmin != 1)
 	{
-		amb = ambiant1(p);
-		fp = free_path(p);
-		if ((fp == -1 || fp == p->closest->index) && (egal(p->l.cl->delta,0, EPS)))
-			*amb = scalar_prod(*amb, 2);
-		//p->c.film[i][j] = ((t_cyl *)(p->forme[p->closest->index].ptr))->color;
-		p->c.film[i][j].rgb[0] = amb->vec[0]*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
-		p->c.film[i][j].rgb[1] = amb->vec[1]*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
-		p->c.film[i][j].rgb[2] = amb->vec[2]*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
-		free(amb);
+		select_side_cyl(p);
+		p->data.amb = *ambiant1(p);
+		p->data.fp = free_path(p);
+		if ((p->data.fp == -1 || p->data.fp == p->closest->index) && (egal(p->l.cl->delta,0, EPS))
+			&& light_side(&p->c.pos, &p->l.pos, &p->data.intersection, &p->data.normal) == 1)
+					p->data.diffusion = fabs((p->l.lum * dot(p->data.normal, reverse(p->l.dir))/(norm(p->data.normal)*norm(p->l.dir))));// fabs
+		print_cyl_film(p, i, j);
+		saturation_pixel(p, i,j);
 	}
 }
 
-void	put_cylindre1(t_scene *p, int i, int j)
-{// PROBLEME
-	t_vector	*amb;
-	int			inside;
-	// ajout 0805
-	t_vector	intersection;
-	t_vector	normal;
-	double		diffusion;
-	int			fp;
+void	select_side_cyl(t_scene *p)
+{
+	int	inside;
 
-	diffusion = 0;
-	if (p->closest->type == 3 && p->closest->tmin != 1)
+	inside = ((t_cyl *)(p->forme[p->closest->index].ptr))->inside;
+	if (inside == 0)
 	{
-		inside = ((t_cyl *)(p->forme[p->closest->index].ptr))->inside;
-		// ajout 0805
-		if (inside == 0)
-		{
-			intersection = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect0;
-			normal = perpendicular(((t_cyl *)(p->forme[p->closest->index].ptr))->w,((t_cyl *)(p->forme[p->closest->index].ptr))->ul);
-		}
-		else if (inside ==1)
-		{
-			intersection = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect1;
-			normal = perpendicular(((t_cyl *)(p->forme[p->closest->index].ptr))->w11,((t_cyl *)(p->forme[p->closest->index].ptr))->ul);
-		/*if (norm(normal) > norm(perpendicular(tmp2,((t_cyl *)(p->forme[p->closest->index].ptr))->ul )))
-			{// dans ce cas la il faut modifier la diffusion
-				printf(BLUE"inside light inside\n"ENDC);
-				reverse(normal);
-			}*/
-/*		else
-			printf(RED"inside light outside\n"ENDC);*/
-		}
-		/*if (i == 700 && j == 700)
-		printf(RED"inside = %d\n", inside);*/
-		amb = ambiant1(p);
-		//printf(BLUE"amb_red = %lf\n", amb->vec[0]);
-		fp = free_path(p);
-		//if ( (free_path(p,i,j) == -1 || free_path(p,i,j) == p->closest->index) && (egal(p->l.cl->delta,0, EPS)))
-		if ( (fp == -1 || fp == p->closest->index) && (egal(p->l.cl->delta,0, EPS)))
-			{// foire
-
-				//normal = unit(scalar_prod(normal, pow((-1), inside)));//  test ici
-				if (light_side(&p->c.pos, &p->l.pos, &intersection, &normal) == 1)
-				{
-
-					// test sur normal
-					//normal =  scalar_prod(normal, pow((-1), inside));
-					diffusion = (p->l.lum * dot(normal, reverse(p->l.dir))/(norm(normal)*norm(p->l.dir)));
-					// test on enleve diffusion negative
-					if (diffusion <0 )
-						diffusion *= -1; //IL faut tenir compte si lumiere interieure
-				}
-			}
-		//p->c.film[i][j] = ((t_cyl *)(p->forme[p->closest->index].ptr))->color;
-		p->c.film[i][j].rgb[0] = (amb->vec[0] + diffusion)*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
-		p->c.film[i][j].rgb[1] = (amb->vec[1] + diffusion)*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
-		p->c.film[i][j].rgb[2] = (amb->vec[2] + diffusion)*(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
-		if (/*i == 565 &&*/ j == 700)
-		{
-			//t_vector tmp2 = sub(p->l.pos,((t_cyl *)(p->forme[p->closest->index].ptr))->C0);
-			//double test=norm(perpendicular(p->l.dir,((t_cyl *)(p->forme[p->closest->index].ptr))->ul ));
-			/*printf(RED"%d\n",p->c.film[i][j].rgb[0]);
-			printf(GREEN"%d\n",p->c.film[i][j].rgb[1]);
-			printf(BLUE"%d\n",p->c.film[i][j].rgb[2]);*/
-			//t_discr	*disc =((t_cyl *)(p->forme[p->closest->index].ptr))->discr;
-			printf("(i,j)=(%d,%d)\t indide = %d\t diffusion = %lf, |normal| = (%lf, %lf, %lf)  |intersection | = (%lf, %lf, %lf)\n",i,j, inside, diffusion,
-            normal.vec[0], normal.vec[1], normal.vec[2],
-             intersection.vec[0], intersection.vec[1], intersection.vec[2]);
-             printf("(i,j)=(%d,%d)\t indide = %d\t diffusion = %lf, |p->l.dir| = (%lf, %lf, %lf) \n",i,j, inside, diffusion,
-            p->l.dir.vec[0], p->l.dir.vec[1], p->l.dir.vec[2]);
-			printf("(i,j)=(%d,%d)\t indide = %d\t\n",i,j, inside);
-		}
-		if (p->c.film[i][j].rgb[0] > 255)
-			p->c.film[i][j].rgb[0] = 255;
-		if (p->c.film[i][j].rgb[1] > 255)
-			p->c.film[i][j].rgb[1] = 255;
-		if (p->c.film[i][j].rgb[2] > 255)
-			p->c.film[i][j].rgb[2] = 255;
-		free(amb);
+		p->data.intersection = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect0;
+		p->data.normal = perpendicular(((t_cyl *)(p->forme[p->closest->index].ptr))->w,((t_cyl *)(p->forme[p->closest->index].ptr))->ul);
 	}
+	else if (inside == 1)
+	{
+		p->data.intersection = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect1;
+		p->data.normal = perpendicular(((t_cyl *)(p->forme[p->closest->index].ptr))->w11,((t_cyl *)(p->forme[p->closest->index].ptr))->ul);
+	}
+}
+
+void	print_cyl_film(t_scene *p, int i, int j)
+{
+	p->c.film[i][j].rgb[0] = (p->data.amb.vec[0] + p->data.diffusion)*
+		(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
+	p->c.film[i][j].rgb[1] = (p->data.amb.vec[1] + p->data.diffusion)*
+		(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
+	p->c.film[i][j].rgb[2] = (p->data.amb.vec[2] + p->data.diffusion)*
+		(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
 }

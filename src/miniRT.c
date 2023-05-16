@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/15 23:06:12 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/16 11:07:32 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,16 @@ void	init_check(t_scene *p, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	check_fd(fd, argv);
 	p->check.fd_lines = ft_count_lines(fd);
-/*	p->check.comm = 0;
-	p->a.check_a = 0;
-	p->l.check_l = 0;
-	p->c.check_c = 0;*/
-	//p->pl.index = 0;
 	p->l.color.rgb[0] = 255;
 	p->l.color.rgb[1] = 255;
 	p->l.color.rgb[2] = 255;
-	// setting background color
 	p->bg.r = 0;
 	p->bg.g = 0;
 	p->bg.b = 0;
 	p->obj = NULL;
 	close(fd);
 }
+
 void	axe(t_scene *p, int i, int j)
 {
 		p->c.film[i][j].rgb[0] = 255;
@@ -49,7 +44,7 @@ void	mlx_key(t_scene *p)
 	mlx_loop(p->mlx_init.mlx);
 }
 
-void	ray_tracer_2(t_scene *p)
+void	ray_tracer(t_scene *p)
 {
 	int		i;
 	int		j;
@@ -67,7 +62,7 @@ void	ray_tracer_2(t_scene *p)
 			min_dist = 0;
 			obj = 0;
 			create_ray(p, i, j);
-			init_closest(p->closest);// pb ici
+			init_closest(p->closest);
 			while (obj < p->n_obj)
 			{
 				if (p->forme[obj].id == 3)
@@ -78,13 +73,9 @@ void	ray_tracer_2(t_scene *p)
 					closest_plan(p, obj);
 				obj++;
 			}
-				if (i == 565 && j == 700)
-				{
-					printf("label: obj = %d\n", obj);
-				}
-			put_cylindre1(p, i, j);
-			put_sphere2(p,i,j);
-			put_plan1(p, i, j);
+			put_cylindre(p, i, j);
+			put_sphere(p, i, j);
+			put_plan(p, i, j);
 			++i;
 		}
 		--j;
@@ -108,31 +99,13 @@ int		main(int argc, char **argv)
 	p->l.cyl->discr = create_discriminant();
 	p->closest = create_closest();
 	p->l.cl = create_closest();
-
 	init_check(p, argv);
 	parsing(p, argv);
-
-
-//	printf(RED"ll - vpmiddle = %lf\n"ENDC, norm(sub(p->c.ll, p->c.vp_middle)));
-
-	ray_tracer_2(p);
+	ray_tracer(p);
 	init_mlx(p, argv);
-	//mlx_key(&p);
- 	mlx_key_hook(p->mlx_init.window, deal_key, p);
-	for (int i = 0; i < VIEWPORT_WIDTH; i++)
-	{
-//	axe(p, i,700);
-//	axe(p,565, i);
-//	axe(p,i, 480);
-  //  axe(p,200, i);
-//	axe(p,i, 490);
-//	axe(p,i, 423);
-//	axe(p, 840, i);
-//	axe(p, i, 950);
-	}
+	mlx_key_hook(p->mlx_init.window, deal_key, p);
 	render(p);
 	mlx_key(p);
-	//mlx_key_hook(p->mlx_init.window, key_hook, &p);
 	wrdestroy();
 	return (0);
 }

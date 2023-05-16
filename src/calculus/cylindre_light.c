@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:59:30 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/15 14:52:01 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:33:14 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,20 @@ void	closest_cylindre1(t_scene *p, t_vector *intersect, int obj)
 
 	min_dist = 0;
 	inside = ((t_cyl *)(p->forme[obj].ptr))->inside;
-	//if (inside == 1 || inside == 0)
 	{
-		shadow_cyl(p, (t_cyl *)p->forme[obj].ptr);// ajout fin0905
+		shadow_cyl(p, (t_cyl *)p->forme[obj].ptr);
 		if (p->l.cyl->discr->discr >= 0)
 		{
 			quadratic_solution2(p->l.cyl->discr);
 			tmp = cylindre_hit(p->l.cyl, p->l.cyl->discr, EPS);
-			if (tmp >= 0 && p->l.cyl->inside != 2)// ajout 0405
+			if (tmp >= 0 && p->l.cyl->inside != 2)
 			{
 				p->l.li = add(p->l.pos, scalar_prod(p->l.dir, tmp));
 				min_dist = norm(sub(p->l.pos, p->l.li));
-				if ( min_dist > 0 && min_dist < p->l.cl->dmin)
+				if (min_dist > 0 && min_dist < p->l.cl->dmin)
 				{
-					p->l.cl->index = obj;
+					//update_light_closest_cyl(p, intersect, obj, min_dist);// ou cyl
+                    p->l.cl->index = obj;
 					p->l.cl->tmin = p->delta->tmin;
 					p->l.cl->dmin = min_dist;
 					p->l.cl->type = p->forme[obj].id;
@@ -44,4 +44,13 @@ void	closest_cylindre1(t_scene *p, t_vector *intersect, int obj)
 			}
 		}
 	}
+}
+
+void	update_light_closest_cyl(t_scene *p,t_vector *intersect, int obj, int min_dist)
+{
+	p->l.cl->index = obj;
+	//p->l.cl->tmin = p->delta->tmin;
+	p->l.cl->dmin = min_dist;
+	p->l.cl->type = p->forme[obj].id;
+	p->l.cl->delta = norm(sub(p->l.li, *intersect));
 }

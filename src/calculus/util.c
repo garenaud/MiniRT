@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 15:46:05 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/09 16:17:49 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/16 10:58:04 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,9 @@
 int	egal(double lhs, double rhs, double tolerance)
 {
 	if ((lhs > rhs - tolerance) && (lhs < rhs + tolerance))
-	{
 		return (1);
-	}
 	else
-	{
 		return (0);
-	}
 }
 
 int	not_egal(double lhs, double rhs, double tolerance)
