@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 09:50:19 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/16 12:01:16 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:35:57 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	read_fd(t_scene *p, int fd, int i)
 			init_obj(p, p->line, i - 1);
 		else if (p->line[0] == 's' && p->line[1] == 'p')
 			init_obj(p, p->line, i - 1);
+		else
+			message(RED"Unknow element on line "ENDC, i - 1);
 	}
 }
 
