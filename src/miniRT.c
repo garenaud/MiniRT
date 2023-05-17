@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/16 16:51:25 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/17 10:52:42 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,7 @@ void	ray_tracer(t_scene *p)
 {
 	int		i;
 	int		j;
-	double	min_dist;
-	int		obj;
 
-	obj = 0;
 	j = VIEWPORT_HEIGHT - 1;
 	get_duration();
 	while (j >= 0)
@@ -65,29 +62,32 @@ void	ray_tracer(t_scene *p)
 		i = 0;
 		while (i < VIEWPORT_WIDTH)
 		{
-			min_dist = 0;
-			obj = 0;
-			create_ray(p, i, j);
-			init_closest(p->closest);
-			while (obj < p->n_obj)
-			{
-				if (p->forme[obj].id == 3)
-					closest_cylindre(p, obj);
-				if (p->forme[obj].id == 2)
-					closest_sphere(p, obj);
-				if (p->forme[obj].id == 1)
-					closest_plan(p, obj);
-				obj++;
-			}
-			put_cylindre(p, i, j);
-			put_sphere(p, i, j);
-			put_plan(p, i, j);
+			fire_ray(p, i, j);
 			++i;
 		}
 		--j;
 		screen_info_processing(p);
 	}
 	printf(BLUE"\nDuration   :   %.2fs\n"ENDC, get_duration());
+}
+
+void	fire_ray(t_scene *p, int i, int j)
+{
+	init_closest(p->closest);
+	create_ray(p, i, j);
+	while (p->closest->obj < p->n_obj)
+	{
+		if (p->forme[p->closest->obj].id == 3)
+			closest_cylindre(p, p->closest->obj);
+		if (p->forme[p->closest->obj].id == 2)
+			closest_sphere(p, p->closest->obj);
+		if (p->forme[p->closest->obj].id == 1)
+			closest_plan(p, p->closest->obj);
+		p->closest->obj++;
+	}
+	put_cylindre(p, i, j);
+	put_sphere(p, i, j);
+	put_plan(p, i, j);
 }
 
 int		main(int argc, char **argv)

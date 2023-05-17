@@ -6,7 +6,7 @@
 #    By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 19:21:45 by grenaud-          #+#    #+#              #
-#    Updated: 2023/05/16 16:48:17 by jsollett         ###   ########.fr        #
+#    Updated: 2023/05/17 14:10:04 by jsollett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 
 NAME		= miniRT
 CC 			= gcc
-CFLAGS		= -Wall -Wextra -Werror -g  -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g # -fsanitize=address
 LFLAGS		= -L libft -lft
 DFLAGS		= -MMD -MF $(@:.o=.d)
 METAL_MLX	= -framework OpenGL -framework AppKit -L./mlx -lmlx -g #-fsanitize=address
@@ -53,10 +53,12 @@ SRCS			=	parsing/init_camera.c \
 					calculus/quadratic_solver2.c \
 					calculus/intersection.c \
 					calculus/cylindre.c \
+					calculus/cylindre_helper.c \
 					calculus/sphere.c \
 					calculus/plan.c \
 					calculus/light.c \
 					calculus/shadow.c \
+					calculus/shadow_helper.c \
 					calculus/cylindre_light.c \
 					parsing/ft_atod.c \
 					parsing/get_next_line.c \

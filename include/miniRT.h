@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/16 16:49:12 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/17 16:54:05 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,8 @@ typedef struct	s_closest
 	double		tmin;
 	double		dmin;
 	double		delta;
+	double		min_dist;//1705
+	int			obj;//1705
 
 }			t_closest;
 
@@ -448,7 +450,7 @@ void		create_ray(t_scene *p, int i, int j);
 void		init_film(t_scene *p, t_color back);
 
 void		put_plan(t_scene *p, int i, int j);
-double		plan_hit(t_plan *P,  double eps, int debug );
+
 double		plan_hit1(t_plan *p, t_scene *s);
 void		compute_intersect_plan(t_ray ray, t_plan *P);
 t_plan		*create_plan(void);
@@ -481,13 +483,13 @@ void		put_cylindre(t_scene *p, int i, int j);
 
 /* ************************************************************************** */
 // light.c a controller
-t_vector	*ambiant1(t_scene *p);
-int	        free_path(t_scene *p);
+
+int			free_path(t_scene *p);
 
 /* ************************************************************************** */
 // spot.c a controller
-void	init_spot(t_scene *l, t_scene *p);
-void	ray_tracer(t_scene *p);
+void		init_spot(t_scene *l, t_scene *p);
+void		ray_tracer(t_scene *p);
 
 /* ************************************************************************** */
 // spot.c a controller
@@ -501,9 +503,9 @@ void	closest_plan1(t_scene *p,t_vector *intersect, int obj);
 double	light_plan_hit(t_scene *p);
 int		light_side(t_vector *cam, t_vector *light, t_vector *intersect, t_vector *norm);
 void	shadow_cyl(t_scene *p, t_cyl *Cyl);
-void	update_light_closest_sph(t_scene *p,t_vector *intersect, int obj, int min_dist);
-void	update_light_closest_plan(t_scene *p,t_vector *intersect, int obj, int min_dist);
-void	update_light_closest_cyl(t_scene *p,t_vector *intersect, int obj, int min_dist);
+void	update_light_closest_sph(t_scene *p,t_vector *intersect, int obj);
+void	update_light_closest_plan(t_scene *p,t_vector *intersect, int obj);
+void	update_light_closest_cyl(t_scene *p,t_vector *intersect, int obj);
 void	init_shadow_cyl(t_scene *p, t_cyl *Cyl);
 void	closest_cylindre1(t_scene *p, t_vector *intersect, int obj);
 void	saturation(t_scene *p);
@@ -512,7 +514,10 @@ void	print_cyl_film(t_scene *p, int i, int j);
 void	select_side_cyl(t_scene *p);
 void	print_sph_film(t_scene *p, int i, int j);
 void	print_plan_film(t_scene *p, int i, int j);
-
+void	fire_ray(t_scene *p, int i, int j);
+t_vector	*get_intersect(t_scene *p);
+void	update_closest_cyl(t_scene *p,t_vector *intersect, int obj);
+void	test_diffusion(t_scene *p);
 /* ************************************************************************** */
 // progressbar.c
 void	console_info_processing(double perc);

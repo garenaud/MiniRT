@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 10:10:29 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/16 09:55:13 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/17 16:35:06 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	closest_cylindre(t_scene *p, int obj)
 {
-	double	min_dist;
-	double	tmp;
+	double		tmp;
 	t_vector	intersect;
 
-	min_dist = 0;
+	p->closest->min_dist = 0;
 	get_coeff_cyl(p->delta, &p->ray, (t_cyl *)p->forme[obj].ptr);
 	if (p->delta->discr >= 0)
 	{
@@ -27,18 +26,14 @@ void	closest_cylindre(t_scene *p, int obj)
 		tmp = cylindre_hit((t_cyl *)p->forme[obj].ptr, p->delta, EPS);
 		if (tmp >= 0)
 		{
-			intersect = add(p->ray.orig, scalar_prod(p->ray.dir,tmp));
-			min_dist = norm(sub(p->c.pos, intersect));
+			intersect = add(p->ray.orig, scalar_prod(p->ray.dir, tmp));
+			p->closest->min_dist = norm(sub(p->c.pos, intersect));
 		}
 		else
 			return ;
-		if (min_dist >= 0 && min_dist < p->closest->dmin)
-		{
-			p->closest->index = obj;
-			p->closest->tmin = p->delta->tmin;
-			p->closest->dmin = min_dist;
-			p->closest->type = p->forme[obj].id;
-		}
+		if (p->closest->min_dist >= 0
+			&& p->closest->min_dist < p->closest->dmin)
+			update_closest_cyl(p, &intersect, obj);
 	}
 }
 
@@ -75,8 +70,10 @@ void	closest_plan(t_scene *p, int obj)
 	compute_intersect_plan(p->ray, (t_plan *)p->forme[obj].ptr);
 	if (plan_hit1((t_plan *)p->forme[obj].ptr, p) != -1)
 	{
-		min_dist = norm(sub(p->c.pos, ((t_plan *)p->forme[obj].ptr)->intersect0));
-		if (((t_plan *)p->forme[obj].ptr)->tmin >=1 && min_dist > 0 && min_dist < p->closest->dmin)
+		min_dist = norm(sub(p->c.pos, ((t_plan *)
+						p->forme[obj].ptr)->intersect0));
+		if (((t_plan *)p->forme[obj].ptr)->tmin >= 1
+			&& min_dist > 0 && min_dist < p->closest->dmin)
 		{
 			p->closest->index = obj;
 			p->closest->tmin = (((t_plan *)p->forme[obj].ptr)->tmin);
@@ -84,4 +81,13 @@ void	closest_plan(t_scene *p, int obj)
 			p->closest->type = p->forme[obj].id;
 		}
 	}
+}
+
+void	update_closest_cyl(t_scene *p, t_vector *intersect, int obj)
+{
+	p->closest->index = obj;
+	p->closest->tmin = p->delta->tmin;
+	p->closest->dmin = p->closest->min_dist;
+	p->closest->type = p->forme[obj].id;
+	p->closest->delta = norm(sub(p->l.li, *intersect));
 }

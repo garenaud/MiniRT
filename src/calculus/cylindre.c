@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:39:21 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/16 14:04:03 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/17 14:17:49 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,6 @@ void	get_coeff_cyl(t_discr *d, t_ray *ray, t_cyl *Cyl)
 	d->discr = discr(d->a, d->b, d->c);
 }
 
-void	compute_intersect_cyl(t_discr *delta, t_ray ray, t_cyl *Cyl)
-{
-	Cyl->intersect0 = add(ray.orig, scalar_prod(ray.dir, delta->tmin));
-	Cyl->intersect1 = add(ray.orig, scalar_prod(ray.dir, delta->tmax));
-	Cyl->w = sub(Cyl->intersect0, Cyl->C0);
-	Cyl->v = sub(Cyl->intersect0, Cyl->C1);
-	Cyl->w11 = sub(Cyl->intersect1, Cyl->C0);
-	Cyl->v11 = sub(Cyl->intersect1, Cyl->C1);
-}
-
-//	intersect0 lie a  tmin
-//	intersect1 lie a  tmax
 double	intersect_axe(t_cyl *Cyl, int param)
 {
 	t_vector	v_tmp;
@@ -51,7 +39,6 @@ double	intersect_axe(t_cyl *Cyl, int param)
 	}
 	return (tmp);
 }
-
 
 double	cylindre_hit(t_cyl *Cyl, t_discr *delta, double eps)
 {
@@ -79,44 +66,33 @@ double	cylindre_hit(t_cyl *Cyl, t_discr *delta, double eps)
 }
 
 void	put_cylindre(t_scene *p, int i, int j)
-{// PROBLEME
+{
 	p->data.diffusion = 0;
 	if (p->closest->type == 3 && p->closest->tmin != 1)
 	{
 		select_side_cyl(p);
-		p->data.amb = *ambiant1(p);
+		init_vector(&p->data.amb, p->a.color.rgb[0],
+			p->a.color.rgb[1], p->a.color.rgb[2]);
+		p->data.amb = scalar_prod(p->data.amb, p->a.lum / 255);
 		p->data.fp = free_path(p);
-		if ((p->data.fp == -1 || p->data.fp == p->closest->index) && (egal(p->l.cl->delta,0, EPS))
-			&& light_side(&p->c.pos, &p->l.pos, &p->data.intersection, &p->data.normal) == 1)
-					p->data.diffusion = fabs((p->l.lum * dot(p->data.normal, reverse(p->l.dir))/(norm(p->data.normal)*norm(p->l.dir))));// fabs
+		if ((p->data.fp == -1 || p->data.fp == p->closest->index)
+			&& (egal(p->l.cl->delta, 0, EPS))
+			&& light_side(&p->c.pos, &p->l.pos, &p->data.intersection,
+				&p->data.normal) == 1)
+					p->data.diffusion = fabs((p->l.lum * dot(p->data.normal,
+							reverse(p->l.dir))
+						/ (norm(p->data.normal) * norm(p->l.dir))));
 		print_cyl_film(p, i, j);
-		saturation_pixel(p, i,j);
-	}
-}
-
-void	select_side_cyl(t_scene *p)
-{
-	int	inside;
-
-	inside = ((t_cyl *)(p->forme[p->closest->index].ptr))->inside;
-	if (inside == 0)
-	{
-		p->data.intersection = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect0;
-		p->data.normal = perpendicular(((t_cyl *)(p->forme[p->closest->index].ptr))->w,((t_cyl *)(p->forme[p->closest->index].ptr))->ul);
-	}
-	else if (inside == 1)
-	{
-		p->data.intersection = ((t_cyl *)(p->forme[p->closest->index].ptr))->intersect1;
-		p->data.normal = perpendicular(((t_cyl *)(p->forme[p->closest->index].ptr))->w11,((t_cyl *)(p->forme[p->closest->index].ptr))->ul);
+		saturation_pixel(p, i, j);
 	}
 }
 
 void	print_cyl_film(t_scene *p, int i, int j)
 {
-	p->c.film[i][j].rgb[0] = (p->data.amb.vec[0] + p->data.diffusion)*
-		(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
-	p->c.film[i][j].rgb[1] = (p->data.amb.vec[1] + p->data.diffusion)*
-		(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
-	p->c.film[i][j].rgb[2] = (p->data.amb.vec[2] + p->data.diffusion)*
-		(((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
+	p->c.film[i][j].rgb[0] = (p->data.amb.vec[0] + p->data.diffusion)
+		* (((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[0]);
+	p->c.film[i][j].rgb[1] = (p->data.amb.vec[1] + p->data.diffusion)
+		* (((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[1]);
+	p->c.film[i][j].rgb[2] = (p->data.amb.vec[2] + p->data.diffusion)
+		* (((t_cyl *)(p->forme[p->closest->index].ptr))->color.rgb[2]);
 }
