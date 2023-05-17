@@ -6,14 +6,12 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:46:07 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/09 13:35:28 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:45:01 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/miniRT.h"
-// adapte de fractol, ET de AURELEIN BRABANT...
 
-// A VERIFIER, senble ok, mod l25 ajout de viewportheight-y a la place de y
 void	img_pix_put(t_mlx *d, int x, int y, t_rgb rgb)
 {
 	char	*pixel;
@@ -33,32 +31,24 @@ void	img_pix_put(t_mlx *d, int x, int y, t_rgb rgb)
 	}
 }
 
-// A VERIFIER, semble ok compile, inversion y et j
 void	render(t_scene *p)
 {
 	int		i;
 	int		j;
-//	int		color;
 	t_rgb	pixel;
 
-	//j = VIEWPORT_HEIGHT - 1;
 	j = 0;
 	while (j <= VIEWPORT_HEIGHT - 1)
-	//while (j >= 0)
 	{
 		i = 0;
 		while (i < VIEWPORT_WIDTH)
-		{// a modifier
-			//pixel = *p->c.film[j * VIEWPORT_WIDTH + i];
+		{
 			pixel = p->c.film[i][VIEWPORT_HEIGHT - 1 - j];
-			img_pix_put(&p->mlx_init, i, j, pixel);//i++
-			//img_pix_put(d, i++, j, *(d->f.color + color));
-            i++;
+			img_pix_put(&p->mlx_init, i, j, pixel);
+			i++;
 		}
 		j++;
-		//screen_info_processing(p);
-		//j--;
 	}
-	mlx_put_image_to_window(p->mlx_init.mlx, p->mlx_init.window, p->mlx_init.img.mlx_img,
-		0, 0);
+	mlx_put_image_to_window(p->mlx_init.mlx, p->mlx_init.window,
+		p->mlx_init.img.mlx_img, 0, 0);
 }

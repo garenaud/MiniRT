@@ -6,7 +6,7 @@
 #    By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 19:21:45 by grenaud-          #+#    #+#              #
-#    Updated: 2023/05/17 14:10:04 by jsollett         ###   ########.fr        #
+#    Updated: 2023/05/17 16:59:25 by jsollett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 
 NAME		= miniRT
 CC 			= gcc
-CFLAGS		= -Wall -Wextra -Werror -g # -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g -o3 #-fsanitize=address
 LFLAGS		= -L libft -lft
 DFLAGS		= -MMD -MF $(@:.o=.d)
 METAL_MLX	= -framework OpenGL -framework AppKit -L./mlx -lmlx -g #-fsanitize=address
