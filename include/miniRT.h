@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/16 12:12:58 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:50:36 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -364,11 +364,11 @@ int			atoi_c(const char *str, int check, int index);
 
 /* ************************************************************************** */
 //windows.c
-int			destroy_window(t_scene *p);
-int			deal_key(int key_code, t_scene *p);
-int			escape(int key_code, t_scene *p);
+int			destroy_window(void);
+int			deal_key(int key_code);
+int			escape(int key_code);
 void		init_mlx(t_scene *p, char **argv);
-void		free_and_exit(t_scene *p);
+void		free_and_exit(void);
 
 /* ************************************************************************** */
 //draw.c

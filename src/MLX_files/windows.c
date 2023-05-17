@@ -6,29 +6,29 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:03:44 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/16 14:50:15 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:51:55 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/miniRT.h"
 
-int	destroy_window(t_scene *p)
+int	destroy_window(void)
 {
 	printf(RED"You closed the window and ended miniRT\n"ENDC);
-	free_and_exit(p);
+	free_and_exit();
 	exit (0);
 }
 
-int	deal_key(int key_code, t_scene *p)
+int	deal_key(int key_code)
 {
-	escape(key_code, p);
+	escape(key_code);
 	return (0);
 }
 
-int	escape(int key_code, t_scene *p)
+int	escape(int key_code)
 {
 	if (key_code == ESC)
-		destroy_window(p);
+		destroy_window();
 	return (0);
 }
 
@@ -42,19 +42,15 @@ void	init_mlx(t_scene *p, char **argv)
 			VIEWPORT_HEIGHT, p->mlx_init.title);
 	if (p->mlx_init.window == NULL)
 		exit (0);
-	p->mlx_init.img.mlx_img = mlx_new_image(p->mlx_init.mlx, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-	p->mlx_init.img.addr = mlx_get_data_addr(p->mlx_init.img.mlx_img, &p->mlx_init.img.bpp, &p->mlx_init.img.line_len, &p->mlx_init.img.endian);
-/* 	mlx_key_hook(p->mlx_init.window, deal_key, &p);
-	mlx_hook(p->mlx_init.window, 17, 1L << 0, destroy_window, &p);
-	mlx_hook(p->mlx_init.window, 17, 1L << 17, destroy_window, &p);
-	mlx_loop(p->mlx_init.mlx); */
+	p->mlx_init.img.mlx_img = mlx_new_image(p->mlx_init.mlx,
+			VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+	p->mlx_init.img.addr = mlx_get_data_addr(p->mlx_init.img.mlx_img,
+			&p->mlx_init.img.bpp, &p->mlx_init.img.line_len,
+			&p->mlx_init.img.endian);
 }
 
-void	free_and_exit(t_scene *p)
+void	free_and_exit(void)
 {
-	(void)	p;
-	//mlx_clear_window(p->mlx_init.mlx, p->mlx_init.window);
-	//mlx_destroy_window(p->mlx_init.mlx, p->mlx_init.window);
 	wrdestroy();
 	exit(0);
 }

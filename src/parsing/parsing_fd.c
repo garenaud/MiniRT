@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 09:50:19 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/16 16:07:35 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:41:37 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ char	*get_numb(t_scene *p, int index)
 		i = 0;
 		while (ft_isdigit2(p->line[i]) == 1)
 			i++;
-		if (i > k)
-			message("Your fd doesn't have enough information on line", index);
 		if (i > 0)
 			num = ft_strdup_num(p->line, 0, i);
 		p->line = trim_numb(p->line, i);
