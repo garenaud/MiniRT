@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_data_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:42:55 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/16 12:03:32 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:17:33 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	init_cam(t_scene *p, int index)
 		p->c.fov = atoi_c(get_numb(p, index), 2, index);
 		if (!is_empty(p->line))
 			message("Too many informations on line", index);
-		init_camera1(p);
+		init_camera(p);
 		p->c.check_c = 1;
 	}
 	else

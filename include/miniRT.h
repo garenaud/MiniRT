@@ -6,7 +6,7 @@
 /*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/18 10:18:11 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:38:08 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define MCC		255
 # define POS_INF	DBL_MAX
 # define PI			3.141592
-# define EPS		0.001//0.00000001
+# define EPS		0.001
 # define DEBUG		0
 
 # include <stdio.h>
@@ -61,7 +61,6 @@
 typedef struct s_vector
 {
 	double	vec[3];
-//	double	norm;
 }			t_vector;
 
 typedef struct s_rgb
@@ -105,19 +104,19 @@ typedef struct s_list_i
 	struct s_list_i	*next;
 }		t_list_i;
 
-typedef struct	s_ray
+typedef struct s_ray
 {
 	t_vector	orig;
 	t_vector	dir;
 }			t_ray;
 
-typedef struct	s_cam
+typedef struct s_cam
 {
 	t_vector	pos;
 	t_vector	lookat;
 }			t_cam;
 
-typedef struct	s_discr
+typedef struct s_discr
 {
 	double		t1;
 	double		t2;
@@ -129,75 +128,69 @@ typedef struct	s_discr
 	double		c;
 }			t_discr;
 
-typedef struct	s_sphere
+typedef struct s_sphere
 {
 	int			index;
 	t_rgb		color;
-	t_vector	C;// centre
-	t_vector	OC; // position camera vers centre C
+	t_vector	c;
+	t_vector	oc;
 	t_vector	intersect0;
 	double		discr_c;
-	double		OC_norm_2;
 	double		r;
 	double		r2;
 }			t_sphere;
 
-typedef struct	s_plan
+typedef struct s_plan
 {
 	int			index;
-	t_vector	C;
+	t_vector	c;
 	t_vector	n;
-	t_vector	OC; //ray to Po plan
+	t_vector	oc;
 	t_vector	intersect0;
-	double		OCn;//(po-lo).n
+	double		ocn;
 	double		ndotray;
-	double		tmin; //?
+	double		tmin;
 	t_rgb		color;
 }			t_plan;
 
-typedef struct	s_cyl
+typedef struct s_cyl
 {
 	t_rgb		color;
 	int			index;
 	t_discr		*discr;
-	t_vector	C0;
-	t_vector	C1;
+	t_vector	c0;
+	t_vector	c1;
 	t_vector	dir;
-	t_vector	OC;
-	t_vector	vl;//c1-c0
-	t_vector	ul;// |vl|
-	t_vector	w1;//ray orig - c0
-	// intersect et variable pour calcul inside outside
+	t_vector	oc;
+	t_vector	vl;
+	t_vector	ul;
+	t_vector	w1;
 	t_vector	intersect0;
 	t_vector	intersect1;
 	t_vector	v;
 	t_vector	w;
 	t_vector	v11;
 	t_vector	w11;
-	int			inside; // bool...
-	//
+	int			inside;
 	double		r;
 	double		h;
 }			t_cyl;
-// new
 
-
-typedef struct	s_objet
+typedef struct s_objet
 {
-//	int			type;
 	int			id;
 	void		*ptr;
 }			t_objet;
 
-typedef struct	s_closest
+typedef struct s_closest
 {
 	int			index;
 	int			type;
 	double		tmin;
 	double		dmin;
 	double		delta;
-	double		min_dist;//1705
-	int			obj;//1705
+	double		min_dist;
+	int			obj;
 
 }			t_closest;
 
@@ -219,7 +212,7 @@ typedef struct s_camera
 	t_vector	u;
 	t_vector	v;
 	t_vector	ll;
-	t_rgb		**film; // test
+	t_rgb		**film;
 	double		fov;
 	double		hor;
 	double		ver;
@@ -230,20 +223,17 @@ typedef struct s_light
 	int			check_l;
 	t_vector	dir;
 	t_vector	pos;
-	t_vector	li;// light impact
+	t_vector	li;
 	double		lum;
-	t_ray		light; //0405
+	t_ray		light;
 	t_rgb		color;
 	t_closest	*cl;
 	t_discr		*discr;
-	// plan
-
-	double  	ndotray_pl;
-	double		OCn;
-	t_vector    n;
-	t_vector    OC;
-	double      tmin;
-	// cylindre
+	double		ndotray_pl;
+	double		ocn;
+	t_vector	n;
+	t_vector	oc;
+	double		tmin;
 	t_cyl		*cyl;
 }		t_light;
 
@@ -253,7 +243,6 @@ typedef struct s_check
 	int		fd_lines;
 }		t_check;
 
-// Necessaire...// ajout 17/04
 typedef struct s_img
 {
 	void	*mlx_img;
@@ -267,7 +256,7 @@ typedef struct s_mlx
 {
 	void	*mlx;
 	void	*window;
-	t_img	img; // ajout 17/04
+	t_img	img;
 	char	*title;
 }		t_mlx;
 
@@ -285,7 +274,7 @@ typedef struct s_scene
 	char		*line;
 	int			n_obj;
 	int			process;
-	t_put		data;// modif pour norminette
+	t_put		data;
 	t_color		bg;
 	t_ambiant	a;
 	t_camera	c;
@@ -296,9 +285,9 @@ typedef struct s_scene
 	t_closest	*closest;
 	t_check		check;
 	t_mlx		mlx_init;
-	t_discr		*delta;// AJOUT 1704
-//	t_plan		pl;
+	t_discr		*delta;
 }			t_scene;
+
 /* ************************************************************************** */
 /* FUNCTION PROTOTYPES														  */
 /* ************************************************************************** */
@@ -382,6 +371,7 @@ void		free_and_exit(void);
 //draw.c
 void		img_pix_put(t_mlx *d, int x, int y, t_rgb rgb);
 void		render(t_scene *p);
+void		axe(t_scene *p, int i, int j);
 /* ************************************************************************** */
 //Array_2d.c
 t_rgb		**create_2d_rgb(int cols, int rows);
@@ -392,7 +382,7 @@ void		free_2d_vector(t_vector **vec, int cols);
 /* ************************************************************************** */
 //init.c
 void		init_vector(t_vector *v, double v0, double v1, double v2);
-void		init_ray(t_ray *ray,t_vector ori, t_vector dir);
+void		init_ray(t_ray *ray, t_vector ori, t_vector dir);
 void		init_sphere(t_sphere *sphere, t_vector center, double r);
 void		init_plan(t_plan *plan, t_vector OC, t_vector n);
 void		init_cylindre(t_cyl *cyl, t_vector C, t_vector dir, t_vector OC);
@@ -405,9 +395,9 @@ void		init_closest(t_closest *close);
 void		background(t_rgb **rgb, t_color color, int i, int j);
 /* ************************************************************************** */
 //print.c
-void		printv(t_vector *v);
+/*void		printv(t_vector *v);
 void		print(t_rgb **array, int col, int row);
-void		print_parsing(t_scene *p, int debug);
+void		print_parsing(t_scene *p, int debug);*/
 /* ************************************************************************** */
 //vecteur_op1.c
 t_vector	reverse(t_vector v);
@@ -442,27 +432,41 @@ double		discr(double a, double b, double c);
 void		test_quad_sol(t_discr *d);
 void		quadratic_solution(t_discr *d, double a, double b, double c);
 void		quadratic_solution2(t_discr *d);
-
+/* ************************************************************************** */
+// plan.c
+void		compute_intersect_plan(t_ray ray, t_plan *P);
+double		plan_hit1(t_plan *p, t_scene *s);
+void		put_plan(t_scene *p, int i, int j);
+void		test_diffusion(t_scene *p);
+void		print_plan_film(t_scene *p, int i, int j);
+/* ************************************************************************** */
+// plan_light.c
+void		light_intersect_pl(t_scene *p);
+void		closest_plan1(t_scene *p, t_vector *intersect, int obj);
+double		light_plan_hit(t_scene *p);
+void		update_light_closest_plan(t_scene *p, t_vector *intersect, int obj);
 /* ************************************************************************** */
 // init_camera.c
+
 void		init_camera(t_scene *p);
-void		init_camera1(t_scene *p);
 int			rgb_to_int(t_rgb rgb);
 void		create_ray(t_scene *p, int i, int j);
 void		init_film(t_scene *p, t_color back);
 
-void		put_plan(t_scene *p, int i, int j);
-
-double		plan_hit1(t_plan *p, t_scene *s);
-void		compute_intersect_plan(t_ray ray, t_plan *P);
+/* ************************************************************************** */
+// create_obj.c
 t_plan		*create_plan(void);
 t_sphere	*create_sp(void);
 t_cyl		*create_cy(void);
-void		create_array(t_scene *s);
-void		print_array(t_scene *p, t_objet *array);
-
 t_discr		*create_discriminant(void);
 t_closest	*create_closest(void);
+
+/* ************************************************************************** */
+// create_array.c
+void		create_array(t_scene *s);
+void		plan_array(t_scene *s, int i);
+void		sphere_array(t_scene *s, int i);
+void		cyl_array(t_scene *s, int i);
 
 /* ************************************************************************** */
 // sphere.c a controller
@@ -470,69 +474,69 @@ void		get_coeff_sph(t_discr *d, t_ray *ray, t_sphere *Sph);
 void		compute_intersect_sph(t_discr *delta, t_ray ray, t_sphere *Sph);
 double		sphere_hit(t_sphere *Sph, t_discr *delta, double eps);
 void		put_sphere(t_scene *p, int i, int j);
+void		print_sph_film(t_scene *p, int i, int j);
+/* ************************************************************************** */
+// sphere_light.c
+void		light_intersect_sph(t_scene *p);
+double		light_sphere_hit(t_scene *p, t_sphere *Sph);
+void		closest_sphere1(t_scene *p, t_vector *intersect, int obj);
+void		update_light_closest_sph(t_scene *p, t_vector *intersect, int obj);
+int			light_side(t_vector *c, t_vector *l, t_vector *in, t_vector *norm);
+
 /* ************************************************************************** */
 // intersection.c a controller
 void		closest_sphere(t_scene *p, int obj);
 void		closest_plan(t_scene *p, int obj);
 void		closest_cylindre(t_scene *p, int obj);
+void		update_closest_cyl(t_scene *p, t_vector *intersect, int obj);
 /* ************************************************************************** */
 // cylindre.c a controller
 void		get_coeff_cyl(t_discr *d, t_ray *ray, t_cyl *Cyl);
-void		compute_intersect_cyl(t_discr *delta, t_ray ray, t_cyl *Cyl);
 double		intersect_axe(t_cyl *Cyl, int param);
 double		cylindre_hit(t_cyl *Cyl, t_discr *delta, double eps);
 void		put_cylindre(t_scene *p, int i, int j);
+void		print_cyl_film(t_scene *p, int i, int j);
+/* ************************************************************************** */
+// cylindre_helper.c a controller
+void		compute_intersect_cyl(t_discr *delta, t_ray ray, t_cyl *Cyl);
+void		select_side_cyl(t_scene *p);
+
+/* ************************************************************************** */
+// cylindre_light.c
+void		closest_cylindre1(t_scene *p, t_vector *intersect, int obj);
+void		update_light_closest_cyl(t_scene *p, t_vector *intersect, int obj);
+/* ************************************************************************** */
+// shadow.c a controller
+int			shadow_sphere(t_scene *p, t_sphere *Sph);
+void		shadow_plan(t_scene *p, t_plan *Pl);
+void		shadow_cyl(t_scene *p, t_cyl *Cyl);
+void		init_shadow_cyl(t_scene *p, t_cyl *Cyl);
+void		get_cyl_disc2(t_scene *p, t_cyl *Cyl);
+/* ************************************************************************** */
+// shadow_helper.c
+t_vector	*get_intersect(t_scene *p);
 
 /* ************************************************************************** */
 // light.c a controller
 
 int			free_path(t_scene *p);
+void		saturation(t_scene *p);
+void		saturation_pixel(t_scene *p, int i, int j);
+t_vector	*get_intersect_fp(t_scene *p);
 
 /* ************************************************************************** */
-// spot.c a controller
-void		init_spot(t_scene *l, t_scene *p);
+// minirt.c a controller
 void		ray_tracer(t_scene *p);
+void		fire_ray(t_scene *p, int i, int j);
 
-/* ************************************************************************** */
-// spot.c a controller
-int		shadow_sphere(t_scene *p, t_sphere *Sph);
-void	shadow_plan(t_scene *p, t_plan *Pl);
-void	light_intersect_sph(t_scene *p);
-double	light_sphere_hit(t_scene *p,t_sphere *Sph);
-void	closest_sphere1(t_scene *p, t_vector *intersect, int obj);
-void	light_intersect_pl(t_scene *p);
-void	closest_plan1(t_scene *p,t_vector *intersect, int obj);
-double	light_plan_hit(t_scene *p);
-int		light_side(t_vector *cam, t_vector *light, t_vector *intersect, t_vector *norm);
-void	shadow_cyl(t_scene *p, t_cyl *Cyl);
-void	update_light_closest_sph(t_scene *p,t_vector *intersect, int obj);
-void	update_light_closest_plan(t_scene *p,t_vector *intersect, int obj);
-void	update_light_closest_cyl(t_scene *p,t_vector *intersect, int obj);
-void	init_shadow_cyl(t_scene *p, t_cyl *Cyl);
-void	closest_cylindre1(t_scene *p, t_vector *intersect, int obj);
-void	saturation(t_scene *p);
-void	saturation_pixel(t_scene *p, int i, int j);
-void	print_cyl_film(t_scene *p, int i, int j);
-void	select_side_cyl(t_scene *p);
-void	print_sph_film(t_scene *p, int i, int j);
-void	print_plan_film(t_scene *p, int i, int j);
-void	fire_ray(t_scene *p, int i, int j);
-t_vector	*get_intersect(t_scene *p);
-void	update_closest_cyl(t_scene *p,t_vector *intersect, int obj);
-void	test_diffusion(t_scene *p);
 /* ************************************************************************** */
 // progressbar.c
-void	console_info_processing(double perc);
-void	screen_info_processing(t_scene *p);
-void	reset_processing(t_scene *p);
-double	get_duration(void);
+void		console_info_processing(double perc);
+void		screen_info_processing(t_scene *p);
+void		reset_processing(t_scene *p);
+double		get_duration(void);
 
-
-int		key_hook(int keycode, t_scene *vars);
-void	*trim_end(char *line);
-
-void	plan_array(t_scene *s, int i);
-void	sphere_array(t_scene *s, int i);
-void	cyl_array(t_scene *s, int i);
+int			key_hook(int keycode, t_scene *vars);
+void		*trim_end(char *line);
 
 #endif

@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 11:46:07 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/17 15:45:01 by grenaud-         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:39:58 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/miniRT.h"
+
+void	axe(t_scene *p, int i, int j)
+{
+		p->c.film[i][j].rgb[0] = 255;
+		p->c.film[i][j].rgb[1] = 0;
+		p->c.film[i][j].rgb[2] = 255;
+}
 
 void	img_pix_put(t_mlx *d, int x, int y, t_rgb rgb)
 {

@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 15:26:06 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/17 10:21:58 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:26:31 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ double	light_sphere_hit(t_scene *p, t_sphere *Sph)
 {
 	double	r_hit;
 
-	r_hit = norm(sub(p->l.li, Sph->C));
+	r_hit = norm(sub(p->l.li, Sph->c));
 	if (egal(r_hit, Sph->r, EPS))
 	{
 		return (r_hit);

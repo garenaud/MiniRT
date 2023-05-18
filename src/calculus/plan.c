@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 15:26:45 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/17 16:55:29 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:54:52 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	compute_intersect_plan(t_ray ray, t_plan *P)
 	P->ndotray = dot(P->n, ray.dir);
 	if (not_egal(P->ndotray, 0.0, EPS))
 	{
-		P->tmin = P->OCn / P->ndotray;
+		P->tmin = P->ocn / P->ndotray;
 		if (P->tmin >= 0)
 			P->intersect0 = add(ray.orig, scalar_prod(ray.dir, P->tmin));
 	}
@@ -28,7 +28,7 @@ double	plan_hit1(t_plan *p, t_scene *s)
 	double		r_hit;
 
 	r_hit = norm(sub(p->intersect0, s->c.pos));
-	if (egal(dot(sub(p->intersect0, p->C), p->n), 0.0, EPS))
+	if (egal(dot(sub(p->intersect0, p->c), p->n), 0.0, EPS))
 	{
 		return (r_hit);
 	}
@@ -46,7 +46,7 @@ void	put_plan(t_scene *p, int i, int j)
 		p_tmin = ((t_plan *)(p->forme[p->closest->index].ptr))->tmin;
 		p->data.intersection = ((t_plan *)
 				((p->forme[p->closest->index].ptr)))->intersect0;
-		arg1 = ((t_plan *)(p->forme[p->closest->index].ptr))->C;
+		arg1 = ((t_plan *)(p->forme[p->closest->index].ptr))->c;
 		p->data.normal = ((t_plan *)(p->forme[p->closest->index].ptr))->n;
 		p->data.diffusion = 0;
 		if (p->closest->tmin != -1 && p->closest->type == 1

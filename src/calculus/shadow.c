@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 10:10:25 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/17 13:37:44 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:05:25 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	shadow_plan(t_scene *p, t_plan *Pl)
 	t_vector	intersect;
 
 	intersect = *get_intersect(p);
-	p->l.OCn = dot(sub(Pl->C, p->l.pos), Pl->n);
+	p->l.ocn = dot(sub(Pl->c, p->l.pos), Pl->n);
 	p->l.dir = unit(sub(intersect, p->l.pos));
 	p->l.ndotray_pl = dot(Pl->n, p->l.dir);
 	p->l.n = Pl->n;
-	p->l.OC = Pl->OC;
+	p->l.oc = Pl->oc;
 }
 
 int	shadow_sphere(t_scene *p, t_sphere *Sph)
@@ -30,7 +30,7 @@ int	shadow_sphere(t_scene *p, t_sphere *Sph)
 	t_vector	intersect;
 
 	intersect = *get_intersect(p);
-	oc = sub(p->l.pos, Sph->C);
+	oc = sub(p->l.pos, Sph->c);
 	p->l.dir = unit(sub(intersect, p->l.pos));
 	p->l.discr->a = dot(p->l.dir, p->l.dir);
 	p->l.discr->b = 2 * dot(p->l.dir, oc);
@@ -55,12 +55,12 @@ void	get_cyl_disc2(t_scene *p, t_cyl *Cyl)
 
 void	init_shadow_cyl(t_scene *p, t_cyl *Cyl)
 {
-	p->l.cyl->C0 = Cyl->C0;
-	p->l.cyl->C1 = add(Cyl->C0, scalar_prod(Cyl->dir, Cyl->h / norm(Cyl->dir)));
-	p->l.cyl->OC = Cyl->OC;
-	p->l.cyl->vl = sub(Cyl->C1, Cyl->C0);
+	p->l.cyl->c0 = Cyl->c0;
+	p->l.cyl->c1 = add(Cyl->c0, scalar_prod(Cyl->dir, Cyl->h / norm(Cyl->dir)));
+	p->l.cyl->oc = Cyl->oc;
+	p->l.cyl->vl = sub(Cyl->c1, Cyl->c0);
 	p->l.cyl->ul = unit(p->l.cyl->vl);
-	p->l.cyl->w1 = sub(p->l.pos, Cyl->C0);
+	p->l.cyl->w1 = sub(p->l.pos, Cyl->c0);
 	p->l.cyl->r = Cyl->r;
 	p->l.cyl->h = Cyl->h;
 }
@@ -84,9 +84,9 @@ void	shadow_cyl(t_scene *p, t_cyl *Cyl)
 				scalar_prod(p->l.dir, p->l.cyl->discr->tmin));
 		p->l.cyl->intersect1 = add(p->l.pos,
 				scalar_prod(p->l.dir, p->l.cyl->discr->tmax));
-		p->l.cyl->w = sub(p->l.cyl->intersect0, Cyl->C0);
-		p->l.cyl->v = sub(p->l.cyl->intersect0, Cyl->C1);
-		p->l.cyl->w11 = sub(p->l.cyl->intersect1, Cyl->C0);
-		p->l.cyl->v11 = sub(p->l.cyl->intersect1, Cyl->C1);
+		p->l.cyl->w = sub(p->l.cyl->intersect0, Cyl->c0);
+		p->l.cyl->v = sub(p->l.cyl->intersect0, Cyl->c1);
+		p->l.cyl->w11 = sub(p->l.cyl->intersect1, Cyl->c0);
+		p->l.cyl->v11 = sub(p->l.cyl->intersect1, Cyl->c1);
 	}
 }

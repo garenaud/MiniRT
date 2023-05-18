@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 11:10:12 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/12 14:54:36 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:01:22 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ void	init_ray(t_ray *ray, t_vector ori, t_vector dir)
 
 void	init_sphere(t_sphere *sphere, t_vector center, double r)
 {
-	init_vector(&sphere->C, center.vec[0], center.vec[1], center.vec[2]);
+	init_vector(&sphere->c, center.vec[0], center.vec[1], center.vec[2]);
 	sphere->r = r;
 	sphere->r2 = r * r;
 }
 
 void	init_plan(t_plan *plan, t_vector OC, t_vector n)
 {
-	init_vector(&plan->C, OC.vec[0], OC.vec[1], OC.vec[2]);
+	init_vector(&plan->c, OC.vec[0], OC.vec[1], OC.vec[2]);
 	init_vector(&plan->n, n.vec[0], n.vec[1], n.vec[2]);
 }
 
 void	init_cylindre(t_cyl *cyl, t_vector C, t_vector dir, t_vector OC)
 {
-	init_vector(&cyl->C0, C.vec[0], C.vec[1], C.vec[2]);
+	init_vector(&cyl->c0, C.vec[0], C.vec[1], C.vec[2]);
 	init_vector(&cyl->dir, dir.vec[0], dir.vec[1], dir.vec[2]);
-	init_vector(&cyl->OC, OC.vec[0], OC.vec[1], OC.vec[2]);
+	init_vector(&cyl->oc, OC.vec[0], OC.vec[1], OC.vec[2]);
 }

@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:03:05 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/17 12:16:49 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:58:07 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	init2_cylindre(t_cyl *Cyl, t_vector cam, double r, double h)
 
 	Cyl->r = r;
 	Cyl->h = h;
-	tmp = add(Cyl->C0, scalar_prod(Cyl->dir, Cyl->h / norm(Cyl->dir)));
-	init_vector(&Cyl->C1, tmp.vec[0], tmp.vec[1], tmp.vec[2]);
-	tmp = sub(Cyl->C1, Cyl->C0);
+	tmp = add(Cyl->c0, scalar_prod(Cyl->dir, Cyl->h / norm(Cyl->dir)));
+	init_vector(&Cyl->c1, tmp.vec[0], tmp.vec[1], tmp.vec[2]);
+	tmp = sub(Cyl->c1, Cyl->c0);
 	init_vector(&Cyl->vl, tmp.vec[0], tmp.vec[1], tmp.vec[2]);
 	tmp = unit(Cyl->vl);
 	init_vector(&Cyl->ul, tmp.vec[0], tmp.vec[1], tmp.vec[2]);
-	tmp = sub(cam, Cyl->C0);
+	tmp = sub(cam, Cyl->c0);
 	init_vector(&Cyl->w1, tmp.vec[0], tmp.vec[1], tmp.vec[2]);
 }
 
