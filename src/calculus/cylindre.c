@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:39:21 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/17 14:17:49 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:58:43 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ double	intersect_axe(t_cyl *Cyl, int param)
 	tmp = -1.0;
 	if (param == 0)
 	{
-		v_tmp = sub(Cyl->intersect0, Cyl->C0);
+		v_tmp = sub(Cyl->intersect0, Cyl->c0);
 		tmp = norm(perpendicular(v_tmp, Cyl->ul));
 	}
 	if (param == 1)
 	{
-		v_tmp = sub(Cyl->intersect1, Cyl->C0);
+		v_tmp = sub(Cyl->intersect1, Cyl->c0);
 		tmp = norm(perpendicular(v_tmp, Cyl->ul));
 	}
 	return (tmp);

@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 16:04:14 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/17 10:52:42 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/18 09:40:09 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@ void	init_check(t_scene *p, char **argv)
 	p->closest = create_closest();
 	p->l.cl = create_closest();
 	close(fd);
-}
-
-void	axe(t_scene *p, int i, int j)
-{
-		p->c.film[i][j].rgb[0] = 255;
-		p->c.film[i][j].rgb[1] = 0;
-		p->c.film[i][j].rgb[2] = 255;
 }
 
 void	mlx_key(t_scene *p)
@@ -90,20 +83,18 @@ void	fire_ray(t_scene *p, int i, int j)
 	put_plan(p, i, j);
 }
 
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_scene	*p;
 
 	(void) argc;
 	p = wrmalloc(sizeof(t_scene));
 	p = &(t_scene){0};
-
 	init_check(p, argv);
 	parsing(p, argv);
 	ray_tracer(p);
 	init_mlx(p, argv);
 	mlx_key_hook(p->mlx_init.window, deal_key, p);
-
 	render(p);
 	mlx_key(p);
 	wrdestroy();

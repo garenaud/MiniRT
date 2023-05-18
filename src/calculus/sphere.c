@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 15:26:06 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/17 13:34:38 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:48:31 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	get_coeff_sph(t_discr *d, t_ray *ray, t_sphere *Sph)
 {
 	d->a = dot(ray->dir, ray->dir);
-	d->b = 2 * dot(ray->dir, Sph->OC);
+	d->b = 2 * dot(ray->dir, Sph->oc);
 	d->c = Sph->discr_c;
 	d->discr = discr(d->a, d->b, d->c);
 }
@@ -30,7 +30,7 @@ double	sphere_hit(t_sphere *Sph, t_discr *delta, double eps)
 	double	r_hit;
 
 	(void) delta;
-	r_hit = norm(sub(Sph->intersect0, Sph->C));
+	r_hit = norm(sub(Sph->intersect0, Sph->c));
 	if (egal(r_hit, Sph->r, eps))
 		return (r_hit);
 	else
@@ -45,7 +45,7 @@ void	put_sphere(t_scene *p, int i, int j)
 		p->data.intersection = ((t_sphere *)
 				(p->forme[p->closest->index].ptr))->intersect0;
 		p->data.normal = sub(p->data.intersection, ((t_sphere *)
-					(p->forme[p->closest->index].ptr))->C);
+					(p->forme[p->closest->index].ptr))->c);
 		init_vector(&p->data.amb,
 			p->a.color.rgb[0], p->a.color.rgb[1], p->a.color.rgb[2]);
 		p->data.amb = scalar_prod(p->data.amb, p->a.lum / 255);

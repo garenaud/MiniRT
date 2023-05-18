@@ -6,7 +6,7 @@
 #    By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 19:21:45 by grenaud-          #+#    #+#              #
-#    Updated: 2023/05/17 16:59:25 by jsollett         ###   ########.fr        #
+#    Updated: 2023/05/18 09:46:19 by jsollett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,6 @@ SRCS			=	parsing/init_camera.c \
 					calculus/init.c \
 					calculus/init2.c \
 					calculus/Array_2d.c \
-					calculus/print.c \
 					calculus/util.c \
 					calculus/vecteur_op1.c \
 					calculus/vecteur_op2.c \

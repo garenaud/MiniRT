@@ -6,7 +6,7 @@
 /*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 11:47:51 by jsollett          #+#    #+#             */
-/*   Updated: 2023/05/17 10:18:07 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/18 11:04:49 by jsollett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	light_intersect_pl(t_scene *p)
 {
 	if (not_egal(p->l.ndotray_pl, 0.0, EPS))
 	{
-		p->l.tmin = p->l.OCn / p->l.ndotray_pl;
+		p->l.tmin = p->l.ocn / p->l.ndotray_pl;
 		if (p->l.tmin >= 0)
 			p->l.li = add(p->l.pos, scalar_prod(p->l.dir, p->l.tmin));
 	}
@@ -38,7 +38,7 @@ void	closest_plan1(t_scene *p, t_vector *intersect, int obj)
 
 double	light_plan_hit(t_scene *p)
 {
-	if (not_egal(p->l.ndotray_pl, 0.0, EPS) && not_egal(p->l.OCn, 0.0, EPS))
+	if (not_egal(p->l.ndotray_pl, 0.0, EPS) && not_egal(p->l.ocn, 0.0, EPS))
 	{
 		return (p->l.tmin);
 	}
