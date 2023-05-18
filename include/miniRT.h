@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsollett <jsollett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grenaud- <grenaud-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 17:18:06 by grenaud-          #+#    #+#             */
-/*   Updated: 2023/05/17 17:00:24 by jsollett         ###   ########.fr       */
+/*   Updated: 2023/05/18 10:18:11 by grenaud-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define VIEWPORT_HEIGHT	1000
 # define VIEWPORT_WIDTH		1000
 # define MCC		255
-# define POS_INF	1.0/0
+# define POS_INF	DBL_MAX
 # define PI			3.141592
 # define EPS		0.001//0.00000001
 # define DEBUG		0
@@ -43,6 +43,8 @@
 # include <stddef.h>
 # include <stdbool.h>
 # include <sys/time.h>
+# include <limits.h>
+# include <float.h>
 
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
