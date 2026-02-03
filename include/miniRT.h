@@ -47,7 +47,11 @@
 # include <float.h>
 
 # include "../libft/libft.h"
-# include "../mlx/mlx.h"
+# ifdef __APPLE__
+#  include "../mlx/mlx.h"
+# else
+#  include "../minilibx-linux/mlx.h"
+# endif
 # include "../src/parsing/get_next_line.h"
 
 # ifndef BUFFER_SIZE

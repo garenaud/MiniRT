@@ -101,7 +101,7 @@ void	delete_obj(t_listobj **top)
 	{
 		tmp = *top;
 		*top = (*top)->next;
-		if (top)
-			wrfree(top);
+		if (tmp)
+			wrfree(tmp);
 	}
 }

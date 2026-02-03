@@ -110,7 +110,7 @@ char	*clean_comm(t_scene *p, char *line)
 int	ft_count_lines(int fd)
 {
 	int		linecount;
-	char	buffer[0];
+	char	buffer[1];
 	int		bytes;
 
 	buffer[0] = '\0';

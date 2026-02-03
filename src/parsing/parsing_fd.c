@@ -71,14 +71,12 @@ void	read_fd(t_scene *p, int fd, int i)
 char	*get_numb(t_scene *p, int index)
 {
 	int				i;
-	int				k;
 	char			*num;
 
 	i = 0;
 	if (p->line == NULL)
 		message("Your fd doesn't have enough information on line", index);
 	num = NULL;
-	k = ft_strlen(p->line);
 	while (p->line[i] != '\0')
 	{
 		while (ft_isdigit2(p->line[i]) == 0 && p->line[i] != '\0')

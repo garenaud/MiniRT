@@ -17,14 +17,28 @@
 
 NAME		= miniRT
 CC 			= gcc
-CFLAGS		= -Wall -Wextra -Werror -g -o3 #-fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g -O3 -Wno-incompatible-pointer-types #-fsanitize=address
 LFLAGS		= -L libft -lft
 DFLAGS		= -MMD -MF $(@:.o=.d)
-METAL_MLX	= -framework OpenGL -framework AppKit -L./mlx -lmlx -g #-fsanitize=address
 DANGER		= -fsanitize=address
 
 LIBFT 		= libft
-MLX 		= mlx
+
+# Detect OS for MLX flags
+# macOS: uses mlx with OpenGL/AppKit frameworks
+# Linux: uses minilibx-linux with X11
+# Fedora deps: sudo dnf install libX11-devel libXext-devel zlib-devel libbsd-devel
+# Ubuntu deps: sudo apt-get install xorg libxext-dev zlib1g-dev libbsd-dev
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+	MLX 		= mlx
+	MLX_FLAGS	= -framework OpenGL -framework AppKit -L./mlx -lmlx -g
+	MLX_INC		= -I./mlx
+else
+	MLX 		= minilibx-linux
+	MLX_FLAGS	= -L./minilibx-linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
+	MLX_INC		= -I./minilibx-linux
+endif
 
 AUTHOR		= grenaud-
 DATE		= 05/04/2023
@@ -113,10 +127,8 @@ ifeq ($(detected_OS),Darwin)
 	RUN_CMD = script -q $@.log $1 > /dev/null; \
 				RESULT=$$?
 else ifeq ($(detected_OS),Linux)
-	RUN_CMD = script -q -e -c "$(1)" $@.log > /dev/null; \
-				RESULT=$$?; \
-				sed -i '1d' $@.log; \
-				sed -i "$$(($$(wc -l < $@.log)-1)),\$$d" $@.log
+	RUN_CMD = $(1) > $@.log 2>&1; \
+				RESULT=$$?
 else
 	RUN_CMD = $(1) 2> $@.log; \
 				RESULT=$$?
@@ -293,7 +305,7 @@ $(NAME):	${OBJS} ${OBJ_MAIN}
 			@make -s -C $(LIBFT)
 			@make -s -C $(MLX)
 			@$(call display_progress_bar)
-			@$(call run_and_test,$(CC) $(CFLAGS) $(DFLAGS) $(LFLAGS) $(METAL_MLX) -I$(INCLUDE_PATH) -o $@ ${OBJS} ${OBJ_MAIN})
+			@$(call run_and_test,$(CC) $(CFLAGS) $(DFLAGS) -I$(INCLUDE_PATH) $(MLX_INC) -o $@ ${OBJS} ${OBJ_MAIN} $(LFLAGS) $(MLX_FLAGS))
 
 setup:
 	@$(call save_files_changed)
@@ -301,7 +313,7 @@ setup:
 objs/%.o: 	$(SRCS_PATH)/%$(FILE_EXTENSION)
 			@mkdir -p $(dir $@)
 			@$(call display_progress_bar)
-			@$(call run_and_test,$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I$(INCLUDE_PATH))
+			@$(call run_and_test,$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ -I$(INCLUDE_PATH) $(MLX_INC))
 
 clean:		header
 			@rm -rf objs objs_tests

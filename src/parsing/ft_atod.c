@@ -61,6 +61,7 @@ double	ascii_to_double(char *str, int check, int index)
 	double	sign;
 	int		fraclen;
 
+	result = 0;
 	sign = sign_atod(str[0]);
 	fraclen = 0;
 	if (str[0] == '-' || str[0] == '+')
